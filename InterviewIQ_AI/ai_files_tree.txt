@@ -1,0 +1,171 @@
+Folder PATH listing for volume New Volume
+Volume serial number is 00000014 CCF6:CF54
+D:.
+¦   ai_files_tree.txt
+¦   
++---audio
+¦   +---audio_emotion_package
+¦           audio_model_fp16.pt
+¦           audio_module.py
+¦           config.json
+¦           expected_output.json
+¦           labels.json
+¦           README.md
+¦           requirements.txt
+¦           test_sample.wav
+¦           
++---fusion
++---nlp
+¦   +---interview-iq-fusion-handoff
+¦       ¦   .env.example
+¦       ¦   README.md
+¦       ¦   REPO_README.md
+¦       ¦   requirements.txt
+¦       ¦   
+¦       +---configs
+¦       ¦       asr.yaml
+¦       ¦       nli_finetune.yaml
+¦       ¦       retrieval.yaml
+¦       ¦       scoring.yaml
+¦       ¦       
+¦       +---data
+¦       ¦   +---audio_pilot
+¦       ¦   ¦       answer_correct.mp3
+¦       ¦   ¦       answer_wrong.mp3
+¦       ¦   ¦       
+¦       ¦   +---nli
+¦       ¦   ¦       gold_set_48.json
+¦       ¦   ¦       
+¦       ¦   +---refdocs
+¦       ¦           reference_docs_250_FINAL_v1.json
+¦       ¦           
+¦       +---docs
+¦       ¦       fusion_handoff_manifest.md
+¦       ¦       
+¦       +---results
+¦       ¦   ¦   o9_decomposition_exercises.md
+¦       ¦   ¦   
+¦       ¦   +---pipeline_demo
+¦       ¦           GN-040.json
+¦       ¦           GN-040_v2.json
+¦       ¦           precision_matrix_two_arms.json
+¦       ¦           SE-028.json
+¦       ¦           SE-028_v2.json
+¦       ¦           
+¦       +---src
+¦           ¦   __init__.py
+¦           ¦   
+¦           +---interview_iq
+¦               ¦   config.py
+¦               ¦   pipeline.py
+¦               ¦   __init__.py
+¦               ¦   
+¦               +---asr
+¦               ¦   ¦   engine.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           engine.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---audio
+¦               ¦   ¦   segmentation.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           segmentation.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---decomposition
+¦               ¦   ¦   types.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           types.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---decomposition_llm
+¦               ¦   ¦   client.py
+¦               ¦   ¦   system_prompt.md
+¦               ¦   ¦   transliteration.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           client.cpython-311.pyc
+¦               ¦           transliteration.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---evaluation
+¦               ¦   ¦   gold_eval.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           gold_eval.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---nli
+¦               ¦   ¦   common.py
+¦               ¦   ¦   dataset.py
+¦               ¦   ¦   engine.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           common.cpython-311.pyc
+¦               ¦           dataset.cpython-311.pyc
+¦               ¦           engine.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---refdocs
+¦               ¦   ¦   loader.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           loader.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---retrieval
+¦               ¦   ¦   chunk_cap.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           chunk_cap.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---scoring
+¦               ¦   ¦   aggregation.py
+¦               ¦   ¦   metrics.py
+¦               ¦   ¦   __init__.py
+¦               ¦   ¦   
+¦               ¦   +---__pycache__
+¦               ¦           aggregation.cpython-311.pyc
+¦               ¦           metrics.cpython-311.pyc
+¦               ¦           __init__.cpython-311.pyc
+¦               ¦           
+¦               +---__pycache__
+¦                       config.cpython-311.pyc
+¦                       pipeline.cpython-311.pyc
+¦                       __init__.cpython-311.pyc
+¦                       
++---vision
+    ¦   environment_freeze.txt
+    ¦   package_vsc_ravdess_model.py
+    ¦   requirements.txt
+    ¦   VSC_RAVDESS_LoRA_R16_Visual_Confidence.ipynb
+    ¦   
+    +---data
+    ¦       processed_ravdess.csv
+    ¦       
+    +---reports
+    ¦       checkpoint_summary.json
+    ¦       classification_report.txt
+    ¦       evaluation_results.json
+    ¦       frames_completeness_report.csv
+    ¦       frames_completeness_summary.json
+    ¦       
+    +---vsc_ravdess_test73_deployment (1)
+            config.json
+            labels.json
+            processed_ravdess.csv
+            requirements.txt
+            vsc_ravdess_lora_r16_test73_24.pt
+            

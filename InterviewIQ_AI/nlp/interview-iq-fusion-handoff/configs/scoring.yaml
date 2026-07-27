@@ -1,0 +1,40 @@
+# configs/scoring.yaml — Dual-Channel Scoring (v2 Entailment-Priority)
+# Interview IQ / NLP Module
+#
+# Architecture ✅ locked (D21).
+# Thresholds 🔶 PRE-CALIBRATION — replaced after Gate G4 (Phase 10).
+
+thresholds:
+  # PRE-CALIBRATION DEFAULT — NOT VALIDATED
+  # All four enter the human calibration experiment (Gate G4 / Phase 10).
+  tau: 0.5      # Contradiction gate  — claim scored as contradiction if max_C > tau
+  tau_e: 0.9    # Entailment-priority — claim VERIFIED if max_E >= tau_e
+  alpha: 0.0    # Neutral weight      — score contribution for neutral claims
+
+# v2 Entailment-Priority decision rule (locked ✅ D21):
+#   IF   max_E >= tau_e  → VERIFIED  (C channel ignored; justified by internal
+#                                      reference consistency — convention §[2])
+#   ELIF max_C > tau     → score = -max_C  (contradiction penalty)
+#   ELSE                 → neutral, weighted by alpha
+#
+# The double-penalty for contradiction is INTENTIONAL:
+#   correct answer > silence > wrong answer
+decision_rule: "v2_entailment_priority"
+
+channels:
+  precision:
+    # Claims are hypotheses; reference chunks are premises
+    direction: "claim_as_hypothesis"
+    aggregation: "max_entailment"     # per SummaC (TACL 2022)
+  coverage:
+    # Key points are hypotheses; claims are premises (reversed NLI direction)
+    direction: "keypoint_as_hypothesis"
+    aggregation: "max_entailment_per_keypoint"
+
+combination:
+  method: "harmonic_f_score"    # Precision channel + Coverage channel → F (0–100)
+  score_scale: 100
+
+output:
+  per_claim_log: true     # interpretable decision log (VERIFIED/CONTRADICTION/NEUTRAL)
+  score_range: [0, 100]

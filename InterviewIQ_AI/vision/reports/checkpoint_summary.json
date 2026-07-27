@@ -1,0 +1,142 @@
+{
+    "canonical": {
+        "file_name": "vsc_ravdess_lora_r16_test73_24.pt",
+        "path": "/kaggle/working/vsc_ravdess_test73_deployment/vsc_ravdess_lora_r16_test73_24.pt",
+        "size_bytes": 118788254,
+        "size_human": "113.29 MB",
+        "sha256": "9b4b336b7a465b9ecff2f32640441483abcac1b516b81cd649eab64a169c6ce8",
+        "first_key": "backbone.features.0.0.weight",
+        "tensor_count": 257,
+        "parameter_count": 29643285,
+        "metadata": {
+            "epoch": 11,
+            "val_acc": 0.7387820512820513,
+            "model_name": "VSC RAVDESS Swin-T LoRA r16 TCN Attention — Test 73.24",
+            "classes": [
+                "neutral",
+                "calm",
+                "happy",
+                "sad",
+                "angry",
+                "fearful",
+                "disgust",
+                "surprised"
+            ],
+            "label_to_id": {
+                "neutral": 0,
+                "calm": 1,
+                "happy": 2,
+                "sad": 3,
+                "angry": 4,
+                "fearful": 5,
+                "disgust": 6,
+                "surprised": 7
+            },
+            "id_to_label": {
+                "0": "neutral",
+                "1": "calm",
+                "2": "happy",
+                "3": "sad",
+                "4": "angry",
+                "5": "fearful",
+                "6": "disgust",
+                "7": "surprised"
+            },
+            "validation_accuracy": 0.7387820512820513,
+            "test_accuracy": 0.7324,
+            "test_weighted_f1": 0.7229,
+            "test_macro_f1": 0.6885,
+            "data_split": {
+                "train_actors": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    18
+                ],
+                "validation_actors": [
+                    19,
+                    20,
+                    21
+                ],
+                "test_actors": [
+                    22,
+                    23,
+                    24
+                ],
+                "train_samples": 3656,
+                "validation_samples": 624,
+                "test_samples": 624
+            },
+            "preprocessing": {
+                "num_frames": 16,
+                "frame_sampling": "uniform_full_video",
+                "face_detector": "MTCNN",
+                "face_selection": "largest_face",
+                "face_margin": 0.1,
+                "face_alignment": false,
+                "image_size": 224,
+                "frame_names": "frame_00.jpg ... frame_15.jpg",
+                "normalization_mean": [
+                    0.485,
+                    0.456,
+                    0.406
+                ],
+                "normalization_std": [
+                    0.229,
+                    0.224,
+                    0.225
+                ]
+            },
+            "architecture": {
+                "backbone": "torchvision.models.swin_t",
+                "backbone_head": "Identity",
+                "lora_rank": 16,
+                "lora_alpha": 32,
+                "lora_targets": "attn.qkv",
+                "tcn_channels": [
+                    256,
+                    256,
+                    256
+                ],
+                "tcn_dilations": [
+                    1,
+                    2,
+                    4
+                ],
+                "tcn_kernel_size": 3,
+                "tcn_dropout": 0.3,
+                "aggregator": "AttentionAggregator",
+                "num_classes": 8
+            }
+        }
+    },
+    "source": {
+        "file_name": "vsc_ravdess_lora_r16_best.pt",
+        "path": "/kaggle/working/checkpoints/vsc_ravdess_lora_r16_best.pt",
+        "size_bytes": 118788731,
+        "size_human": "113.29 MB",
+        "sha256": "812f0881f2c5d841a7be1e9ed9c8c6c2c9ecc3243025c7a45f55fff6eebff037",
+        "first_key": "backbone.features.0.0.weight",
+        "tensor_count": 257,
+        "parameter_count": 29643285,
+        "metadata": {
+            "epoch": 11,
+            "val_acc": 0.7387820512820513
+        }
+    },
+    "byte_identical": false
+}

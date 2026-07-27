@@ -1,0 +1,9 @@
+{
+  "dominant_emotion": "Low Emotion",
+  "emotion_scores": {
+    "Low Emotion": 0.4718,
+    "Neutral Emotion": 0.0594,
+    "High Emotion": 0.4688
+  },
+  "confidence_score": 0.4718
+}

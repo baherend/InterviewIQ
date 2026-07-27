@@ -1,0 +1,15 @@
+{
+    "frames_root": "/kaggle/working/ravdess_faces_16f",
+    "total_clip_folders": 4904,
+    "total_image_files": 76800,
+    "complete_16_frame_clips": 3240,
+    "incomplete_clips": 1664,
+    "frame_count_distribution": {
+        "15": 1664,
+        "16": 3240
+    },
+    "missing_frame_index_distribution": {
+        "15": 1664
+    },
+    "total_size_bytes": 1440494026
+}

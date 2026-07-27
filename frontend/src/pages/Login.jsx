@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Brain, Mail, Lock, LogIn, AlertCircle } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { getHomeRouteForRole } from '../utils/roles'
 import api from '../api/axios'
 
 export default function Login() {
-  const { login } = useAuth()
+  const { login, logout } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
@@ -19,7 +20,15 @@ export default function Login() {
     try {
       const { data } = await api.post('/auth/login', form)
       login(data.access_token, data.user)
-      navigate('/dashboard')
+      const home = getHomeRouteForRole(data.user?.role)
+      if (!home) {
+        // Fail safe: an unrecognized role must never land on a real
+        // dashboard, let alone default to an admin one.
+        logout()
+        setError('Your account role is not recognized. Please contact support.')
+        return
+      }
+      navigate(home)
     } catch (err) {
       setError(err.response?.data?.detail || 'Login failed. Please try again.')
     } finally {

@@ -1,0 +1,65 @@
+# configs/nli_finetune.yaml — LoRA Fine-tuning for mDeBERTa-v3-base-mnli-xnli
+# Interview IQ / NLP Module
+#
+# LoRA config locked ✅ (D26 / pipeline spec §[4]).
+# Fine-tuning is mandatory (empirical decision — Subject Blindness confirmed).
+# Results before Gate G1 closure are tagged RISK ACCEPTED (D33).
+
+model:
+  base: "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
+  device: "cpu"     # CPU for smoke test; set to "cuda" on Kaggle T4
+
+lora:
+  r: 16
+  lora_alpha: 32
+  target_modules:
+    - "query_proj"
+    - "value_proj"
+  lora_dropout: 0.1
+  bias: "none"
+  task_type: "SEQ_CLS"
+
+training:
+  # Locked range: 2e-4 to 3e-4 (D26)
+  learning_rate: 2.0e-4
+  num_train_epochs: 5
+  per_device_train_batch_size: 16
+  per_device_eval_batch_size: 32
+  warmup_ratio: 0.06
+  weight_decay: 0.01
+  evaluation_strategy: "epoch"
+  save_strategy: "epoch"
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_f1_macro"
+  seed: 42
+
+data:
+  refdocs_file: "data/refdocs/reference_docs_250_FINAL_v1.json"
+  questions_file: "data/questions/questions_250.json"
+  pilot_file_da001: "data/nli/pairs_pilot_150_v2/pairs_DA001_pilot_v1.json"
+  pilot_file_remaining: "data/nli/pairs_pilot_150_v2/pairs_pilot_remaining9_v2.json"
+  # DS-014 Gold Set — evaluation only, NEVER a training premise pool source (D28)
+  gold_set_file: "data/nli/gold_set_48.json"
+  # D28 — DS-014 permanently excluded from any training premise pool (Gold Set leakage)
+  excluded_question_ids:
+    - "DS-014"
+  # Splits ALWAYS at Question-ID level — never at example level (D26)
+  split_level: "question_id"
+  # Phase 4 locked split strategy: single document-level holdout for validation.
+  # GN-008 (15 pairs) held out; the remaining 9 documents (135 pairs) train.
+  # Supersedes the earlier fractional (val_fraction) placeholder.
+  val_question_ids:
+    - "GN-008"
+  # HARD_POS twins (paired_neutral) must NEVER be split across train/val (D26)
+  respect_hard_pos_twins: true
+
+labels:
+  # Three-way classification matching base model head
+  entailment: 0
+  neutral: 1
+  contradiction: 2
+
+output:
+  checkpoint_dir: "checkpoints/nli-lora-v1"
+  # Kaggle Dataset name for published checkpoint
+  kaggle_dataset: "iq-checkpoints-nli-v1"

@@ -1,0 +1,21 @@
+{
+  "sample_rate": 16000,
+  "channels": 1,
+  "backbone_name": "elgeish/wav2vec2-large-xlsr-53-arabic",
+  "architecture_type": "wav2vec2_bilstm",
+  "num_labels": 3,
+  "lstm_hidden_size": 50,
+  "feature_dim": 1024,
+  "mask_time_prob": 0.03,
+  "dropout": 0.2,
+  "max_duration_sec": 10,
+  "neutral_threshold": 0.45,
+  "model_id": "09",
+  "experiment": "Cosine_Warmup10pct",
+  "metrics": {
+    "accuracy": 0.8915,
+    "macro_f1": 0.8919,
+    "neutral_precision": 0.8636,
+    "neutral_f1": 0.8571
+  }
+}

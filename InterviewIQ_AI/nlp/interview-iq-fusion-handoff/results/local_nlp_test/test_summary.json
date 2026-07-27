@@ -1,0 +1,24 @@
+[
+  {
+    "audio": "answer_correct.wav",
+    "transcript": "دي دي دي يعني يعني انك بتكتب التست الاول قبل ما تكتب الكود نفسه اللي هيحقق التست ده وبتتابع دورة قصيرة بتتكرر اسمها يعني تكتب تست هيفشل الاول لان الكود مش موجود ده بعدين تكتب اقل كود ممكن يخلي التست ده ينجح ده وبعد كده تحسن وتنضف الكود من غير ما تغير سلوكه ده وتكرر الدورة دي تاني.",
+    "selected_question_id": "SE-028",
+    "selected_question": "ما هو TDD وما دورته؟",
+    "reason": "Transcript accurately and completely describes the TDD Red-Green-Refactor cycle (write failing test -> minimal code to pass -> refactor without changing behavior -> repeat), matching SE028-C01/C03/C04/C05 chunk content closely (top BGE-M3 similarity 0.65, four distinct SE-028 chunks in top 10).",
+    "match_reliable": true,
+    "result_file": "results\\local_nlp_test\\answer_correct_result.json",
+    "execution_status": "SUCCESS",
+    "error": null
+  },
+  {
+    "audio": "answer_wrong.wav",
+    "transcript": "البت هو أصغر وحدة معلومات في الحاسب وتاخد قيمة إما 0 أو 1 والبيت ده مجموعة من 16 بت وهو الوحدة الأساسية اللي بتقيس بيها حجم البيانات وعنوانة الزاكرة",
+    "selected_question_id": "GN-040",
+    "selected_question": "ما هو الـ Bit والـ Byte وما العلاقة بينهما؟",
+    "reason": "Transcript discusses Bit as smallest unit of information (0/1) and defines Byte as a fixed group of bits used to measure data size, matching GN040-C01/C02 (top BGE-M3 similarity 0.82/0.80). However it states a Byte is 16 bits, contradicting the reference (8 bits) -- a genuine wrong-but-on-topic answer.",
+    "match_reliable": true,
+    "result_file": "results\\local_nlp_test\\answer_wrong_result.json",
+    "execution_status": "SUCCESS",
+    "error": null
+  }
+]

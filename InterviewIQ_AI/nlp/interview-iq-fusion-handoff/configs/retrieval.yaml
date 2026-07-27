@@ -1,0 +1,24 @@
+# configs/retrieval.yaml — BGE-M3 Top-k Chunk Cap
+# Interview IQ / NLP Module
+#
+# This is a computational CEILING only — not a relevance filter gate.
+# "Generous cap" design decision: k is large enough that no correct chunk
+# is ever excluded at this stage (SummaC architecture principle).
+
+model:
+  name: "BAAI/bge-m3"
+  device: "cpu"     # CPU-First; GPU on Kaggle T4 at scale
+
+top_k:
+  # PRE-CALIBRATION DEFAULT — NOT VALIDATED
+  # k enters human calibration experiment (Gate G4 / Phase 10).
+  k: 10
+
+indexing:
+  batch_size: 32
+  normalize_embeddings: true    # cosine similarity (unit-norm vectors)
+  show_progress_bar: false
+
+runtime:
+  # For CPU smoke tests and local dev; large-scale runs happen on Kaggle
+  max_chunks_per_question: 1515   # total chunk pool size (reference_docs_250)

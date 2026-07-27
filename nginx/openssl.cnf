@@ -11,7 +11,11 @@ subjectAltName = @alt_names
 keyUsage = digitalSignature
 extendedKeyUsage = serverAuth
 
+# Local-development certificate only. Intentionally scoped to localhost /
+# 127.0.0.1 rather than a LAN IP, since LAN IPs are host-specific and change
+# between machines/networks. If LAN access over HTTPS is needed later, this
+# file should be regenerated per-host (or replaced with a dynamic/mkcert-style
+# flow) — deferred to a later phase, see README_LOCAL_SETUP.md.
 [alt_names]
-IP.1 = 10.2.11.28
-IP.2 = 127.0.0.1
+IP.1 = 127.0.0.1
 DNS.1 = localhost

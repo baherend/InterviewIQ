@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.interview import Interview
 from app.models.result import Result
+from app.models.user import User
 from app.auth.jwt_handler import get_current_user
 
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
@@ -12,11 +13,11 @@ router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 @router.get("/history")
 def get_history(
     db: Session = Depends(get_db),
-    current_user: int = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
 ):
     interviews = (
         db.query(Interview)
-        .filter(Interview.user_id == current_user)
+        .filter(Interview.user_id == current_user.id)
         .order_by(Interview.created_at.desc())
         .all()
     )
@@ -42,11 +43,11 @@ def get_history(
 @router.get("/statistics")
 def get_statistics(
     db: Session = Depends(get_db),
-    current_user: int = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
 ):
     interviews = (
         db.query(Interview)
-        .filter(Interview.user_id == current_user, Interview.final_score.isnot(None))
+        .filter(Interview.user_id == current_user.id, Interview.final_score.isnot(None))
         .order_by(Interview.created_at)
         .all()
     )

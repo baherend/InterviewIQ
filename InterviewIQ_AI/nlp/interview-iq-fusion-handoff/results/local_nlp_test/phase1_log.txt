@@ -1,0 +1,181 @@
+﻿python.exe : [Config] PRE-CALIBRATION DEFAULT — NOT VALIDATED
+At line:3 char:1
++ & ".\.venv_nlp\Scripts\python.exe" test_real_nlp_pipeline.py transcri ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([Config] PRE-CA...— NOT VALIDATED:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  τ   (contradiction gate) = 0.5
+  τ_E (entailment-priority threshold) = 0.9
+  α   (neutral weight) = 0.0
+  k   (BGE-M3 Top-k cap) = 10
+[Config] PRE-CALIBRATION DEFAULT — NOT VALIDATED
+  τ   (contradiction gate) = 0.5
+  τ_E (entailment-priority threshold) = 0.9
+  α   (neutral weight) = 0.0
+  k   (BGE-M3 Top-k cap) = 10
+[phase1] Loading BGE-M3 embedder for question-matching (real model, may download) ...
+
+Fetching 30 files:   0%|          | 0/30 [00:00<?, ?it/s]
+Fetching 30 files: 100%|██████████| 30/30 [00:00<00:00, 30016.49it/s]
+loading existing colbert_linear and sparse_linear---------
+[phase1] Embedding 1515 reference chunks across 250 documents ...
+
+Inference Embeddings:   0%|          | 0/127 [00:00<?, ?it/s]
+Inference Embeddings:   1%|          | 1/127 [00:00<01:14,  1.68it/s]
+Inference Embeddings:   2%|▏         | 2/127 [00:01<01:06,  1.88it/s]
+Inference Embeddings:   2%|▏         | 3/127 [00:01<01:03,  1.96it/s]
+Inference Embeddings:   3%|▎         | 4/127 [00:02<01:03,  1.93it/s]
+Inference Embeddings:   4%|▍         | 5/127 [00:02<01:05,  1.85it/s]
+Inference Embeddings:   5%|▍         | 6/127 [00:03<01:08,  1.78it/s]
+Inference Embeddings:   6%|▌         | 7/127 [00:03<01:05,  1.84it/s]
+Inference Embeddings:   6%|▋         | 8/127 [00:04<01:07,  1.77it/s]
+Inference Embeddings:   7%|▋         | 9/127 [00:04<01:06,  1.78it/s]
+Inference Embeddings:   8%|▊         | 10/127 [00:05<01:05,  1.78it/s]
+Inference Embeddings:   9%|▊         | 11/127 [00:06<01:05,  1.77it/s]
+Inference Embeddings:   9%|▉         | 12/127 [00:06<01:03,  1.81it/s]
+Inference Embeddings:  10%|█         | 13/127 [00:07<00:59,  1.91it/s]
+Inference Embeddings:  11%|█         | 14/127 [00:07<00:58,  1.94it/s]
+Inference Embeddings:  12%|█▏        | 15/127 [00:08<00:57,  1.94it/s]
+Inference Embeddings:  13%|█▎        | 16/127 [00:08<00:57,  1.93it/s]
+Inference Embeddings:  13%|█▎        | 17/127 [00:09<00:56,  1.94it/s]
+Inference Embeddings:  14%|█▍        | 18/127 [00:09<00:56,  1.93it/s]
+Inference Embeddings:  15%|█▍        | 19/127 [00:10<00:55,  1.94it/s]
+Inference Embeddings:  16%|█▌        | 20/127 [00:10<00:56,  1.90it/s]
+Inference Embeddings:  17%|█▋        | 21/127 [00:11<00:56,  1.89it/s]
+Inference Embeddings:  17%|█▋        | 22/127 [00:11<00:54,  1.93it/s]
+Inference Embeddings:  18%|█▊        | 23/127 [00:12<00:55,  1.86it/s]
+Inference Embeddings:  19%|█▉        | 24/127 [00:12<00:55,  1.85it/s]
+Inference Embeddings:  20%|█▉        | 25/127 [00:13<00:54,  1.87it/s]
+Inference Embeddings:  20%|██        | 26/127 [00:13<00:54,  1.85it/s]
+Inference Embeddings:  21%|██▏       | 27/127 [00:14<00:54,  1.84it/s]
+Inference Embeddings:  22%|██▏       | 28/127 [00:14<00:53,  1.86it/s]
+Inference Embeddings:  23%|██▎       | 29/127 [00:15<00:52,  1.86it/s]
+Inference Embeddings:  24%|██▎       | 30/127 [00:16<00:52,  1.86it/s]
+Inference Embeddings:  24%|██▍       | 31/127 [00:16<00:51,  1.86it/s]
+Inference Embeddings:  25%|██▌       | 32/127 [00:17<00:51,  1.83it/s]
+Inference Embeddings:  26%|██▌       | 33/127 [00:17<00:50,  1.88it/s]
+Inference Embeddings:  27%|██▋       | 34/127 [00:18<00:50,  1.85it/s]
+Inference Embeddings:  28%|██▊       | 35/127 [00:18<00:49,  1.84it/s]
+Inference Embeddings:  28%|██▊       | 36/127 [00:19<00:47,  1.92it/s]
+Inference Embeddings:  29%|██▉       | 37/127 [00:19<00:47,  1.90it/s]
+Inference Embeddings:  30%|██▉       | 38/127 [00:20<00:46,  1.90it/s]
+Inference Embeddings:  31%|███       | 39/127 [00:20<00:45,  1.94it/s]
+Inference Embeddings:  31%|███▏      | 40/127 [00:21<00:44,  1.95it/s]
+Inference Embeddings:  32%|███▏      | 41/127 [00:21<00:44,  1.94it/s]
+Inference Embeddings:  33%|███▎      | 42/127 [00:22<00:43,  1.96it/s]
+Inference Embeddings:  34%|███▍      | 43/127 [00:22<00:44,  1.89it/s]
+Inference Embeddings:  35%|███▍      | 44/127 [00:23<00:42,  1.97it/s]
+Inference Embeddings:  35%|███▌      | 45/127 [00:23<00:42,  1.93it/s]
+Inference Embeddings:  36%|███▌      | 46/127 [00:24<00:41,  1.96it/s]
+Inference Embeddings:  37%|███▋      | 47/127 [00:24<00:40,  1.96it/s]
+Inference Embeddings:  38%|███▊      | 48/127 [00:25<00:39,  2.02it/s]
+Inference Embeddings:  39%|███▊      | 49/127 [00:25<00:39,  1.99it/s]
+Inference Embeddings:  39%|███▉      | 50/127 [00:26<00:39,  1.97it/s]
+Inference Embeddings:  40%|████      | 51/127 [00:26<00:37,  2.02it/s]
+Inference Embeddings:  41%|████      | 52/127 [00:27<00:36,  2.08it/s]
+Inference Embeddings:  42%|████▏     | 53/127 [00:27<00:37,  1.96it/s]
+Inference Embeddings:  43%|████▎     | 54/127 [00:28<00:37,  1.93it/s]
+Inference Embeddings:  43%|████▎     | 55/127 [00:28<00:36,  1.98it/s]
+Inference Embeddings:  44%|████▍     | 56/127 [00:29<00:35,  1.98it/s]
+Inference Embeddings:  45%|████▍     | 57/127 [00:29<00:35,  1.98it/s]
+Inference Embeddings:  46%|████▌     | 58/127 [00:30<00:36,  1.87it/s]
+Inference Embeddings:  46%|████▋     | 59/127 [00:31<00:36,  1.87it/s]
+Inference Embeddings:  47%|████▋     | 60/127 [00:31<00:34,  1.91it/s]
+Inference Embeddings:  48%|████▊     | 61/127 [00:32<00:33,  1.99it/s]
+Inference Embeddings:  49%|████▉     | 62/127 [00:32<00:32,  2.02it/s]
+Inference Embeddings:  50%|████▉     | 63/127 [00:32<00:31,  2.03it/s]
+Inference Embeddings:  50%|█████     | 64/127 [00:33<00:31,  1.98it/s]
+Inference Embeddings:  51%|█████     | 65/127 [00:34<00:31,  1.99it/s]
+Inference Embeddings:  52%|█████▏    | 66/127 [00:34<00:30,  2.03it/s]
+Inference Embeddings:  53%|█████▎    | 67/127 [00:35<00:30,  1.99it/s]
+Inference Embeddings:  54%|█████▎    | 68/127 [00:35<00:28,  2.04it/s]
+Inference Embeddings:  54%|█████▍    | 69/127 [00:35<00:28,  2.05it/s]
+Inference Embeddings:  55%|█████▌    | 70/127 [00:36<00:28,  2.03it/s]
+Inference Embeddings:  56%|█████▌    | 71/127 [00:36<00:27,  2.03it/s]
+Inference Embeddings:  57%|█████▋    | 72/127 [00:37<00:26,  2.11it/s]
+Inference Embeddings:  57%|█████▋    | 73/127 [00:37<00:24,  2.16it/s]
+Inference Embeddings:  58%|█████▊    | 74/127 [00:38<00:24,  2.16it/s]
+Inference Embeddings:  59%|█████▉    | 75/127 [00:38<00:24,  2.12it/s]
+Inference Embeddings:  60%|█████▉    | 76/127 [00:39<00:24,  2.10it/s]
+Inference Embeddings:  61%|██████    | 77/127 [00:39<00:24,  2.06it/s]
+Inference Embeddings:  61%|██████▏   | 78/127 [00:40<00:24,  2.04it/s]
+Inference Embeddings:  62%|██████▏   | 79/127 [00:40<00:23,  2.05it/s]
+Inference Embeddings:  63%|██████▎   | 80/127 [00:41<00:23,  2.04it/s]
+Inference Embeddings:  64%|██████▍   | 81/127 [00:41<00:22,  2.06it/s]
+Inference Embeddings:  65%|██████▍   | 82/127 [00:42<00:22,  2.04it/s]
+Inference Embeddings:  65%|██████▌   | 83/127 [00:42<00:21,  2.07it/s]
+Inference Embeddings:  66%|██████▌   | 84/127 [00:43<00:21,  1.97it/s]
+Inference Embeddings:  67%|██████▋   | 85/127 [00:43<00:20,  2.02it/s]
+Inference Embeddings:  68%|██████▊   | 86/127 [00:44<00:19,  2.07it/s]
+Inference Embeddings:  69%|██████▊   | 87/127 [00:44<00:19,  2.09it/s]
+Inference Embeddings:  69%|██████▉   | 88/127 [00:45<00:18,  2.08it/s]
+Inference Embeddings:  70%|███████   | 89/127 [00:45<00:17,  2.13it/s]
+Inference Embeddings:  71%|███████   | 90/127 [00:46<00:17,  2.08it/s]
+Inference Embeddings:  72%|███████▏  | 91/127 [00:46<00:17,  2.11it/s]
+Inference Embeddings:  72%|███████▏  | 92/127 [00:47<00:16,  2.08it/s]
+Inference Embeddings:  73%|███████▎  | 93/127 [00:47<00:16,  2.08it/s]
+Inference Embeddings:  74%|███████▍  | 94/127 [00:47<00:15,  2.08it/s]
+Inference Embeddings:  75%|███████▍  | 95/127 [00:48<00:15,  2.02it/s]
+Inference Embeddings:  76%|███████▌  | 96/127 [00:49<00:15,  2.03it/s]
+Inference Embeddings:  76%|███████▋  | 97/127 [00:49<00:14,  2.05it/s]
+Inference Embeddings:  77%|███████▋  | 98/127 [00:49<00:14,  2.04it/s]
+Inference Embeddings:  78%|███████▊  | 99/127 [00:50<00:13,  2.06it/s]
+Inference Embeddings:  79%|███████▊  | 100/127 [00:50<00:12,  2.09it/s]
+Inference Embeddings:  80%|███████▉  | 101/127 [00:51<00:12,  2.03it/s]
+Inference Embeddings:  80%|████████  | 102/127 [00:51<00:12,  2.00it/s]
+Inference Embeddings:  81%|████████  | 103/127 [00:52<00:11,  2.05it/s]
+Inference Embeddings:  82%|████████▏ | 104/127 [00:52<00:11,  1.96it/s]
+Inference Embeddings:  83%|████████▎ | 105/127 [00:53<00:11,  1.99it/s]
+Inference Embeddings:  83%|████████▎ | 106/127 [00:53<00:10,  2.06it/s]
+Inference Embeddings:  84%|████████▍ | 107/127 [00:54<00:09,  2.11it/s]
+Inference Embeddings:  85%|████████▌ | 108/127 [00:54<00:09,  2.11it/s]
+Inference Embeddings:  86%|████████▌ | 109/127 [00:55<00:08,  2.10it/s]
+Inference Embeddings:  87%|████████▋ | 110/127 [00:55<00:08,  2.08it/s]
+Inference Embeddings:  87%|████████▋ | 111/127 [00:56<00:07,  2.04it/s]
+Inference Embeddings:  88%|████████▊ | 112/127 [00:56<00:07,  2.06it/s]
+Inference Embeddings:  89%|████████▉ | 113/127 [00:57<00:06,  2.09it/s]
+Inference Embeddings:  90%|████████▉ | 114/127 [00:57<00:06,  2.07it/s]
+Inference Embeddings:  91%|█████████ | 115/127 [00:58<00:05,  2.11it/s]
+Inference Embeddings:  91%|█████████▏| 116/127 [00:58<00:05,  2.10it/s]
+Inference Embeddings:  92%|█████████▏| 117/127 [00:59<00:04,  2.09it/s]
+Inference Embeddings:  93%|█████████▎| 118/127 [00:59<00:04,  2.10it/s]
+Inference Embeddings:  94%|█████████▎| 119/127 [01:00<00:03,  2.09it/s]
+Inference Embeddings:  94%|█████████▍| 120/127 [01:00<00:03,  2.08it/s]
+Inference Embeddings:  95%|█████████▌| 121/127 [01:01<00:02,  2.08it/s]
+Inference Embeddings:  96%|█████████▌| 122/127 [01:01<00:02,  2.03it/s]
+Inference Embeddings:  97%|█████████▋| 123/127 [01:02<00:01,  2.11it/s]
+Inference Embeddings:  98%|█████████▊| 124/127 [01:02<00:01,  1.99it/s]
+Inference Embeddings:  98%|█████████▊| 125/127 [01:03<00:01,  1.98it/s]
+Inference Embeddings:  99%|█████████▉| 126/127 [01:03<00:00,  2.06it/s]
+Inference Embeddings: 100%|██████████| 127/127 [01:03<00:00,  2.51it/s]
+Inference Embeddings: 100%|██████████| 127/127 [01:03<00:00,  1.99it/s]
+Using cache found in C:\Users\student/.cache\torch\hub\snakers4_silero-vad_master
+Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP 
+download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install 
+hf_xet`
+D:\InterviewIQ-final\InterviewIQ_AI\nlp\interview-iq-fusion-handoff\.venv_nlp\Lib\site-packages\huggingface_hub\file_do
+wnload.py:143: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated 
+files but your machine does not support them in 
+C:\Users\student\.cache\huggingface\hub\models--Systran--faster-whisper-large-v3. Caching files will still work but in 
+a degraded version that might require more space on your disk. This warning can be disabled by setting the 
+`HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see 
+https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In 
+order to activate developer mode, see this article: 
+https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Using cache found in C:\Users\student/.cache\torch\hub\snakers4_silero-vad_master
+[phase1] Chunk embedding complete.
+
+[phase1] === Transcribing answer_correct.wav (real faster-whisper) ===
+[audio.segmentation] Loading Silero VAD via torch.hub ...
+[asr.engine] Loading faster-whisper large-v3 (device=cpu, compute_type=int8) ...
+[phase1] ASR FAILED for answer_correct.wav: ASRError: faster-whisper transcription failed for D:\InterviewIQ-final\InterviewIQ_AI\nlp\interview-iq-fusion-handoff\results\local_nlp_test\audio_converted\answer_correct.wav: OSError: [WinError 1314] A required privilege is not held by the client: '..\\..\\blobs\\931c77a740890c46365c7ae0c9d350ba3cca908f' -> 'C:\\Users\\student\\.cache\\huggingface\\hub\\models--Systran--faster-whisper-large-v3\\snapshots\\edaa852ec7e145841d8ffdb056a99866b5f0a478\\preprocessor_config.json'
+
+[phase1] === Transcribing answer_wrong.wav (real faster-whisper) ===
+[audio.segmentation] Loading Silero VAD via torch.hub ...
+[asr.engine] Loading faster-whisper large-v3 (device=cpu, compute_type=int8) ...
+[phase1] ASR status: ok
+[phase1] Transcript length: 148 chars
+[phase1] Wrote candidates to D:\InterviewIQ-final\InterviewIQ_AI\nlp\interview-iq-fusion-handoff\results\local_nlp_test\match_candidates_answer_wrong.json

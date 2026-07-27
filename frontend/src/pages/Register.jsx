@@ -3,10 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Brain, User, Mail, Lock, UserPlus, AlertCircle, CheckCircle } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import api from '../api/axios'
 
 export default function Register() {
-  const { login } = useAuth()
+  const { register } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' })
   const [error, setError] = useState('')
@@ -25,13 +24,10 @@ export default function Register() {
     }
     setLoading(true)
     try {
-      const { data } = await api.post('/auth/register', {
-        name: form.name,
-        email: form.email,
-        password: form.password,
-      })
-      login(data.access_token, data.user)
-      navigate('/dashboard')
+      // Public registration always creates a `student` account — there is
+      // no role selector here, and none is sent to the backend.
+      await register({ name: form.name, email: form.email, password: form.password })
+      navigate('/student')
     } catch (err) {
       setError(err.response?.data?.detail || 'Registration failed. Please try again.')
     } finally {

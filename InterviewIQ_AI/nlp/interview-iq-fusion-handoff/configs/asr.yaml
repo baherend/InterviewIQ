@@ -1,0 +1,38 @@
+# configs/asr.yaml — ASR stage configuration
+# Interview IQ / NLP Module
+#
+# Baseline model: faster-whisper large-v3 ✅
+# Final ASR model selection is gated on pilot videos (Gate G3).
+# Do NOT change `checkpoint` without closing G3.
+
+model:
+  backend: "faster-whisper"
+  checkpoint: "large-v3"    # baseline — final choice deferred to Gate G3
+  language: "ar"
+  compute_type: "int8"      # CPU-compatible quantisation (int8 = no CUDA needed)
+  device: "cpu"
+
+vad:
+  source: "silero_vad"          # loaded via torch.hub
+  min_speech_duration_ms: 500   # segments shorter than this → status: too_short
+  max_speech_duration_s: 30     # hard ceiling per segment
+  threshold: 0.5                # Silero VAD confidence threshold for speech detection
+
+# Output follows Format Spec v1.1 exactly (D19 / §[1] of pipeline spec).
+# Field order is canonical — do not reorder.
+output:
+  format_spec_version: "1.1"
+  fields:
+    - question_id
+    - status              # ok | no_speech | too_short  (decided by VAD, before ASR)
+    - raw_transcript
+    - normalized_transcript
+    - normalization_log
+    - word_timestamps     # for localization use only
+    - vad_features        # Silero VAD on raw waveform — NOT from Whisper timestamps
+    - avg_logprob         # QC only, not used downstream
+    - pre_answer_latency_sec
+
+normalization:
+  target_register: "formal_arabic"    # فصحى مبسطة
+  technical_terms: "latin_script"     # keep technical terms in Latin (locked ✅)

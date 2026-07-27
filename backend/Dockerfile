@@ -7,8 +7,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN mkdir -p /tmp/uploads
+RUN mkdir -p /app/storage/uploads
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENV BACKEND_HOST=0.0.0.0
+ENV BACKEND_PORT=8000
+
+CMD uvicorn app.main:app --host ${BACKEND_HOST} --port ${BACKEND_PORT}

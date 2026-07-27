@@ -2,7 +2,31 @@ import React, { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../context/AuthContext'
-import { Brain, LayoutDashboard, History, Shield, LogOut, Menu, X, ChevronRight } from 'lucide-react'
+import { getHomeRouteForRole } from '../utils/roles'
+import {
+  Brain, LayoutDashboard, History, Building2, FileQuestion, Users,
+  PlayCircle, LogOut, Menu, X,
+} from 'lucide-react'
+
+// Exact per-role nav link sets (Phase 1F/2A). Deliberately minimal — this
+// is UX only, not a security boundary; the backend independently enforces
+// access to every one of these routes.
+const ROLE_NAV_LINKS = {
+  system_admin: [
+    { to: '/admin', label: 'Admin Home', icon: <LayoutDashboard size={16} /> },
+    { to: '/admin/users', label: 'Users', icon: <Users size={16} /> },
+    { to: '/admin/organizations', label: 'Organizations', icon: <Building2 size={16} /> },
+    { to: '/admin/questions', label: 'Platform Questions', icon: <FileQuestion size={16} /> },
+  ],
+  student: [
+    { to: '/student', label: 'Student Home', icon: <LayoutDashboard size={16} /> },
+    { to: '/interview/type', label: 'Start Interview', icon: <PlayCircle size={16} /> },
+    { to: '/history', label: 'History', icon: <History size={16} /> },
+  ],
+  company_admin: [{ to: '/company', label: 'Company Home', icon: <LayoutDashboard size={16} /> }],
+  interviewer: [{ to: '/interviewer', label: 'Interviewer Home', icon: <LayoutDashboard size={16} /> }],
+  candidate: [{ to: '/candidate', label: 'Candidate Home', icon: <LayoutDashboard size={16} /> }],
+}
 
 export default function Navbar() {
   const { user, logout, token } = useAuth()
@@ -16,14 +40,8 @@ export default function Navbar() {
     setMenuOpen(false)
   }
 
-  const navLinks = token
-    ? [
-        { to: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={16} /> },
-        { to: '/history', label: 'History', icon: <History size={16} /> },
-        { to: '/admin/questions', label: 'Admin', icon: <Shield size={16} /> },
-      ]
-    : []
-
+  const navLinks = token ? ROLE_NAV_LINKS[user?.role] || [] : []
+  const homeRoute = getHomeRouteForRole(user?.role)
   const isActive = (path) => location.pathname === path
 
   return (
@@ -31,7 +49,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to={token ? '/dashboard' : '/'} className="flex items-center gap-2 group">
+          <Link to={token ? homeRoute || '/dashboard' : '/'} className="flex items-center gap-2 group">
             <div className="p-1.5 rounded-lg bg-cyan-400/10 border border-cyan-400/20 group-hover:border-cyan-400/50 transition-all">
               <Brain size={22} className="text-cyan-400" />
             </div>
@@ -65,12 +83,6 @@ export default function Navbar() {
                     Hey, <span className="text-cyan-400 font-semibold">{user?.name?.split(' ')[0]}</span>
                   </span>
                 </div>
-                <button
-                  onClick={() => { navigate('/interview/type') }}
-                  className="btn-primary text-sm py-2 px-4"
-                >
-                  New Interview
-                </button>
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-1.5 text-gray-400 hover:text-red-400 transition-colors text-sm"
@@ -122,20 +134,12 @@ export default function Navbar() {
                 </Link>
               ))}
               {token ? (
-                <>
-                  <button
-                    onClick={() => { navigate('/interview/type'); setMenuOpen(false) }}
-                    className="btn-primary w-full text-sm py-2.5"
-                  >
-                    New Interview
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-2 w-full px-4 py-3 text-red-400 hover:bg-red-400/5 rounded-lg text-sm"
-                  >
-                    <LogOut size={16} /> Logout
-                  </button>
-                </>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 w-full px-4 py-3 text-red-400 hover:bg-red-400/5 rounded-lg text-sm"
+                >
+                  <LogOut size={16} /> Logout
+                </button>
               ) : (
                 <>
                   <Link to="/login" onClick={() => setMenuOpen(false)} className="btn-secondary w-full text-sm py-2.5 text-center block">Sign In</Link>

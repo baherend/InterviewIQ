@@ -1,0 +1,255 @@
+{
+  "question": "ما هو الـ Bit والـ Byte وما العلاقة بينهما؟",
+  "question_id": "GN-040",
+  "status": "SUCCESS",
+  "error": null,
+  "asr": {
+    "question_id": "GN-040",
+    "status": "ok",
+    "raw_transcript": "البيت هو أصغر وحدة معلومات في الحاسب وتاخد قيمة إما 0 أو 1 والبيت ده مجموعة من 16 بيت وهو الوحدة الأساسية اللي بتقيس بيها حجم البيانات وعنوانة الزاكرة",
+    "normalized_transcript": "البيت هو أصغر وحدة معلومات في الحاسب وتاخد قيمة إما 0 أو 1 والبيت ده مجموعة من 16 بيت وهو الوحدة الأساسية اللي بتقيس بيها حجم البيانات وعنوانة الزاكرة",
+    "normalization_log": [],
+    "word_timestamps": [
+      {
+        "word": " البيت",
+        "start": 0.0,
+        "end": 0.98
+      },
+      {
+        "word": " هو",
+        "start": 0.98,
+        "end": 1.14
+      },
+      {
+        "word": " أصغر",
+        "start": 1.14,
+        "end": 1.76
+      },
+      {
+        "word": " وحدة",
+        "start": 1.76,
+        "end": 2.12
+      },
+      {
+        "word": " معلومات",
+        "start": 2.12,
+        "end": 2.8
+      },
+      {
+        "word": " في",
+        "start": 2.8,
+        "end": 2.92
+      },
+      {
+        "word": " الحاسب",
+        "start": 2.92,
+        "end": 3.48
+      },
+      {
+        "word": " وتاخد",
+        "start": 3.48,
+        "end": 4.04
+      },
+      {
+        "word": " قيمة",
+        "start": 4.04,
+        "end": 4.56
+      },
+      {
+        "word": " إما",
+        "start": 4.56,
+        "end": 4.88
+      },
+      {
+        "word": " 0",
+        "start": 4.88,
+        "end": 5.18
+      },
+      {
+        "word": " أو",
+        "start": 5.18,
+        "end": 5.56
+      },
+      {
+        "word": " 1",
+        "start": 5.56,
+        "end": 5.86
+      },
+      {
+        "word": " والبيت",
+        "start": 5.86,
+        "end": 6.58
+      },
+      {
+        "word": " ده",
+        "start": 6.58,
+        "end": 6.74
+      },
+      {
+        "word": " مجموعة",
+        "start": 6.74,
+        "end": 7.42
+      },
+      {
+        "word": " من",
+        "start": 7.42,
+        "end": 7.58
+      },
+      {
+        "word": " 16",
+        "start": 7.58,
+        "end": 7.96
+      },
+      {
+        "word": " بيت",
+        "start": 7.96,
+        "end": 9.46
+      },
+      {
+        "word": " وهو",
+        "start": 9.46,
+        "end": 10.12
+      },
+      {
+        "word": " الوحدة",
+        "start": 10.12,
+        "end": 10.72
+      },
+      {
+        "word": " الأساسية",
+        "start": 10.72,
+        "end": 11.42
+      },
+      {
+        "word": " اللي",
+        "start": 11.42,
+        "end": 11.6
+      },
+      {
+        "word": " بتقيس",
+        "start": 11.6,
+        "end": 12.24
+      },
+      {
+        "word": " بيها",
+        "start": 12.24,
+        "end": 12.54
+      },
+      {
+        "word": " حجم",
+        "start": 12.54,
+        "end": 13.08
+      },
+      {
+        "word": " البيانات",
+        "start": 13.08,
+        "end": 13.68
+      },
+      {
+        "word": " وعنوانة",
+        "start": 13.68,
+        "end": 14.92
+      },
+      {
+        "word": " الزاكرة",
+        "start": 14.92,
+        "end": 15.64
+      }
+    ],
+    "vad_features": {
+      "segments": [
+        {
+          "start_ms": 642.0,
+          "end_ms": 8158.0
+        },
+        {
+          "start_ms": 8418.0,
+          "end_ms": 13790.0
+        },
+        {
+          "start_ms": 14210.0,
+          "end_ms": 15870.0
+        }
+      ],
+      "total_speech_duration_ms": 14548.0,
+      "threshold": 0.5
+    },
+    "avg_logprob": -0.10113075550864725,
+    "pre_answer_latency_sec": 0.642
+  },
+  "claims": [
+    "البيت هو أصغر وحدة معلومات في الحاسب.",
+    "البيت يأخذ قيمة إما 0 أو 1.",
+    "الـ Byte هو مجموعة من 8 بت، وليس 16 بت.",
+    "الـ Byte هو الوحدة الأساسية التي تقاس بها حجم البيانات.",
+    "الـ Byte هو الوحدة الأساسية التي تقاس بها عنونة الذاكرة."
+  ],
+  "decomposition_error": null,
+  "models_used": {
+    "asr_checkpoint": "large-v3",
+    "asr_device": "cpu",
+    "asr_compute_type": "int8",
+    "decomposition_model": "llama-3.3-70b-versatile",
+    "nli_base_model": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "nli_adapter_path": "/kaggle/input/models/hashemili/interview-iq-nli-lora/transformers/checkpoint27-mdeberta-v3-lora/1/iq-checkpoints-nli-v1"
+  },
+  "key_point_chunk_ids": [
+    "GN040-C01",
+    "GN040-C02"
+  ],
+  "max_e_per_keypoint": [
+    0.043852,
+    0.003167
+  ],
+  "precision": 0.8,
+  "coverage": 0.023509500000000003,
+  "harmonic_f": 0.045676704397459904,
+  "score": 4.56767043974599,
+  "claim_scores": [
+    {
+      "claim_index": 0,
+      "claim_text": "البيت هو أصغر وحدة معلومات في الحاسب.",
+      "best_chunk_id": "GN040-C01",
+      "max_e": 0.948731,
+      "max_c": 0.027879,
+      "verdict": "VERIFIED",
+      "claim_score": 1.0
+    },
+    {
+      "claim_index": 1,
+      "claim_text": "البيت يأخذ قيمة إما 0 أو 1.",
+      "best_chunk_id": "GN040-C01",
+      "max_e": 0.977743,
+      "max_c": 0.905095,
+      "verdict": "VERIFIED",
+      "claim_score": 1.0
+    },
+    {
+      "claim_index": 2,
+      "claim_text": "الـ Byte هو مجموعة من 8 بت، وليس 16 بت.",
+      "best_chunk_id": "GN040-C03",
+      "max_e": 0.068389,
+      "max_c": 0.210817,
+      "verdict": "NEUTRAL",
+      "claim_score": 0.0
+    },
+    {
+      "claim_index": 3,
+      "claim_text": "الـ Byte هو الوحدة الأساسية التي تقاس بها حجم البيانات.",
+      "best_chunk_id": "GN040-C02",
+      "max_e": 0.989696,
+      "max_c": 0.205587,
+      "verdict": "VERIFIED",
+      "claim_score": 1.0
+    },
+    {
+      "claim_index": 4,
+      "claim_text": "الـ Byte هو الوحدة الأساسية التي تقاس بها عنونة الذاكرة.",
+      "best_chunk_id": "GN040-C02",
+      "max_e": 0.987784,
+      "max_c": 0.090862,
+      "verdict": "VERIFIED",
+      "claim_score": 1.0
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "audio": "answer_wrong.wav",
+  "asr_status": "ok",
+  "raw_transcript": "البت هو أصغر وحدة معلومات في الحاسب وتاخد قيمة إما 0 أو 1 والبيت ده مجموعة من 16 بت وهو الوحدة الأساسية اللي بتقيس بيها حجم البيانات وعنوانة الزاكرة",
+  "normalized_transcript": "البت هو أصغر وحدة معلومات في الحاسب وتاخد قيمة إما 0 أو 1 والبيت ده مجموعة من 16 بت وهو الوحدة الأساسية اللي بتقيس بيها حجم البيانات وعنوانة الزاكرة",
+  "avg_logprob": -0.1019399577235601,
+  "top_candidates": [
+    {
+      "similarity": 0.824,
+      "question_id": "GN-040",
+      "question": "ما هو الـ Bit والـ Byte وما العلاقة بينهما؟",
+      "best_chunk_id": "GN040-C01",
+      "best_chunk_text": "الـ Bit أصغر وحدة معلومات في الحوسبة ويحمل إحدى قيمتين 0 أو 1."
+    },
+    {
+      "similarity": 0.8027,
+      "question_id": "GN-040",
+      "question": "ما هو الـ Bit والـ Byte وما العلاقة بينهما؟",
+      "best_chunk_id": "GN040-C02",
+      "best_chunk_text": "الـ Byte مجموعة من 8 بتات وهو الوحدة الأساسية لقياس حجم البيانات وعنونة الذاكرة."
+    },
+    {
+      "similarity": 0.6424,
+      "question_id": "GN-040",
+      "question": "ما هو الـ Bit والـ Byte وما العلاقة بينهما؟",
+      "best_chunk_id": "GN040-C06",
+      "best_chunk_text": "يفرق بين البايت B والبت b في وحدات القياس، فسرعات الشبكات تقاس عادة بالبت في الثانية bps بينما أحجام الملفات بالبايت."
+    },
+    {
+      "similarity": 0.6093,
+      "question_id": "GN-040",
+      "question": "ما هو الـ Bit والـ Byte وما العلاقة بينهما؟",
+      "best_chunk_id": "GN040-C03",
+      "best_chunk_text": "يمثل الـ Byte الواحد 256 قيمة مختلفة لأن 2 أس 8 يساوي 256."
+    },
+    {
+      "similarity": 0.5939,
+      "question_id": "GN-046",
+      "question": "ما هو ترميز ASCII و Unicode وما الفرق؟",
+      "best_chunk_id": "GN046-C06",
+      "best_chunk_text": "يمثل UTF-8 المحارف الأساسية في بايت واحد والمحارف الأعقد مثل العربية والرموز في عدة بايتات."
+    },
+    {
+      "similarity": 0.5861,
+      "question_id": "GN-039",
+      "question": "ما هو النظام الثنائي Binary ولماذا تستخدمه الحواسيب؟",
+      "best_chunk_id": "GN039-C02",
+      "best_chunk_text": "تمثل كل خانة Bit قوة من قوى العدد 2، فالعدد 1011 ثنائيًا يساوي 11 في النظام العشري."
+    },
+    {
+      "similarity": 0.584,
+      "question_id": "SE-026",
+      "question": "ما هو الـ Unit Testing وما صفات الاختبار الجيد؟",
+      "best_chunk_id": "SE026-C01",
+      "best_chunk_text": "اختبار الوحدة Unit Testing يتحقق من صحة أصغر جزء قابل للاختبار من الكود مثل دالة واحدة بمعزل عن بقية النظام."
+    },
+    {
+      "similarity": 0.5824,
+      "question_id": "CS-006",
+      "question": "ما هي خوارزمية AES وما أطوال مفاتيحها؟",
+      "best_chunk_id": "CS006-C02",
+      "best_chunk_text": "تعمل AES كخوارزمية Block Cipher تعالج البيانات في كتل ثابتة بحجم 128 bit."
+    },
+    {
+      "similarity": 0.5793,
+      "question_id": "GN-040",
+      "question": "ما هو الـ Bit والـ Byte وما العلاقة بينهما؟",
+      "best_chunk_id": "GN040-C05",
+      "best_chunk_text": "تتدرج وحدات الحجم صعودًا بالكيلوبايت والميجابايت والجيجابايت والتيرابايت."
+    },
+    {
+      "similarity": 0.5688,
+      "question_id": "GN-046",
+      "question": "ما هو ترميز ASCII و Unicode وما الفرق؟",
+      "best_chunk_id": "GN046-C02",
+      "best_chunk_text": "ترميز ASCII نظام قديم يمثل 128 محرفًا تشمل الحروف اللاتينية والأرقام والرموز الأساسية في 7 بتات."
+    },
+    {
+      "similarity": 0.5682,
+      "question_id": "SE-027",
+      "question": "ما الفرق بين Unit و Integration و End-to-End Testing؟",
+      "best_chunk_id": "SE027-C01",
+      "best_chunk_text": "اختبار الوحدة Unit يتحقق من مكون منفرد صغير بمعزل عن بقية النظام."
+    },
+    {
+      "similarity": 0.565,
+      "question_id": "DS-041",
+      "question": "ما هو الـ Tokenization وما أنواعه؟",
+      "best_chunk_id": "DS041-C01",
+      "best_chunk_text": "الـ Tokenization هو تقسيم النص إلى وحدات أصغر تسمى Tokens تشكل مدخلات النماذج اللغوية."
+    },
+    {
+      "similarity": 0.5637,
+      "question_id": "GN-006",
+      "question": "ما هو الـ IP Address والفرق بين IPv4 و IPv6؟",
+      "best_chunk_id": "GN006-C02",
+      "best_chunk_text": "يتكون عنوان IPv4 من 32 bit ويكتب عادة بأربعة أرقام عشرية تفصل بينها نقاط مثل 192.168.1.1."
+    },
+    {
+      "similarity": 0.563,
+      "question_id": "SE-022",
+      "question": "ما هو Kubernetes وما المشكلة التي يحلها؟",
+      "best_chunk_id": "SE022-C03",
+      "best_chunk_text": "الـ Pod هو أصغر وحدة نشر في Kubernetes وقد يضم حاوية واحدة أو أكثر تتشارك الشبكة والتخزين."
+    },
+    {
+      "similarity": 0.5613,
+      "question_id": "GN-005",
+      "question": "ما الفرق بين معمارية 32-bit و 64-bit؟",
+      "best_chunk_id": "GN005-C01",
+      "best_chunk_text": "تشير معمارية 32-bit و 64-bit إلى عرض الكلمة التي يعالجها المعالج وحجم العناوين التي يتعامل معها في العملية الواحدة."
+    }
+  ]
+}

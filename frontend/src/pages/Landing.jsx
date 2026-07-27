@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Brain, Eye, Mic, MessageSquare, ChevronRight, Star, Zap, Shield, BarChart3 } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import { getHomeRouteForRole } from '../utils/roles'
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -14,6 +16,8 @@ const FloatingOrb = ({ className }) => (
 )
 
 export default function Landing() {
+  const { isAuthenticated, user } = useAuth()
+  const home = isAuthenticated ? getHomeRouteForRole(user?.role) : null
   const features = [
     {
       icon: <Eye size={28} className="text-cyan-400" />,
@@ -73,12 +77,20 @@ export default function Landing() {
           </motion.p>
 
           <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/register" className="btn-primary text-base px-8 py-3.5 inline-flex items-center gap-2">
-              Start Free Interview <ChevronRight size={18} />
-            </Link>
-            <Link to="/login" className="btn-secondary text-base px-8 py-3.5">
-              Sign In
-            </Link>
+            {home ? (
+              <Link to={home} className="btn-primary text-base px-8 py-3.5 inline-flex items-center gap-2">
+                Continue to My Dashboard <ChevronRight size={18} />
+              </Link>
+            ) : (
+              <>
+                <Link to="/register" className="btn-primary text-base px-8 py-3.5 inline-flex items-center gap-2">
+                  Start Free Interview <ChevronRight size={18} />
+                </Link>
+                <Link to="/login" className="btn-secondary text-base px-8 py-3.5">
+                  Sign In
+                </Link>
+              </>
+            )}
           </motion.div>
         </div>
       </section>
@@ -163,9 +175,15 @@ export default function Landing() {
           <Brain size={48} className="text-cyan-400 mx-auto mb-6 animate-float" />
           <h2 className="text-3xl md:text-4xl font-black mb-4">Ready to Ace Your Next Interview?</h2>
           <p className="text-gray-400 mb-8 max-w-lg mx-auto">Join InterviewIQ and get AI-powered feedback that turns nervous candidates into confident professionals.</p>
-          <Link to="/register" className="btn-primary text-base px-10 py-4 inline-flex items-center gap-2">
-            Create Free Account <ChevronRight size={18} />
-          </Link>
+          {home ? (
+            <Link to={home} className="btn-primary text-base px-10 py-4 inline-flex items-center gap-2">
+              Continue to My Dashboard <ChevronRight size={18} />
+            </Link>
+          ) : (
+            <Link to="/register" className="btn-primary text-base px-10 py-4 inline-flex items-center gap-2">
+              Create Free Account <ChevronRight size={18} />
+            </Link>
+          )}
         </motion.div>
       </section>
 

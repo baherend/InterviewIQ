@@ -2,6 +2,14 @@ from sqlalchemy.orm import Session
 from app.models.question import Question
 
 SEED_QUESTIONS = [
+    # Required local Fusion test question, sourced from the existing
+    # reference_docs_250_FINAL_v1.json entry SE-028.
+    {
+        "question": "\u0645\u0627 \u0647\u0648 TDD \u0648\u0645\u0627 \u062f\u0648\u0631\u062a\u0647\u061f",
+        "interview_type": "Technical",
+        "track": "Software Engineering",
+        "difficulty": "Medium",
+    },
     # HR
     {"question": "Tell me about yourself.", "interview_type": "HR", "track": None, "difficulty": "Easy"},
     {"question": "Why should we hire you?", "interview_type": "HR", "track": None, "difficulty": "Medium"},
@@ -47,9 +55,14 @@ SEED_QUESTIONS = [
 
 
 def seed_questions(db: Session):
-    existing = db.query(Question).count()
-    if existing == 0:
-        for q in SEED_QUESTIONS:
+    existing_questions = {
+        row[0] for row in db.query(Question.question).all()
+    }
+    missing = [
+        q for q in SEED_QUESTIONS if q["question"] not in existing_questions
+    ]
+    if missing:
+        for q in missing:
             db.add(Question(**q))
         db.commit()
-        print(f"[Seed] Inserted {len(SEED_QUESTIONS)} questions.")
+        print(f"[Seed] Inserted {len(missing)} missing questions.")

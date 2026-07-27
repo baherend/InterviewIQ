@@ -1,0 +1,5 @@
+{
+  "_note": "Placeholder: this file was missing from the local checkout (D97's build-time-authored, human-reviewed glossary is not present here). Left empty (no entries invented) so apply_glossary() runs as a documented no-op -- decomposition_llm/transliteration.py's own _load_glossary() falls back to a never-matching pattern when entries is empty, per its 'No usable glossary entries -- match nothing' comment. Claims pass through unchanged; no transliteration substitution logic was added or altered.",
+  "entries": [],
+  "ambiguous": []
+}

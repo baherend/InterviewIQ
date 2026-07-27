@@ -1,0 +1,8 @@
+# configs/decomposition.yaml — placeholder.
+#
+# Missing from this local checkout (configs/ is untracked in git and this
+# file was never created). Config._load_yaml requires the file to exist for
+# every name in _CONFIG_NAMES, but no code on the evaluate_answer path reads
+# cfg.decomposition's contents (decomposition_llm/client.py reads GROQ_*
+# settings from .env, not from this YAML). Added empty so Config() can load
+# without altering any threshold, model id, or scoring/retrieval/NLI logic.

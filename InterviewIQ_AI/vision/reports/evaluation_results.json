@@ -1,0 +1,70 @@
+{
+    "model_name": "vsc_ravdess_lora_r16_test73_24",
+    "epoch": 11,
+    "validation_accuracy": 0.7387820512820513,
+    "test_accuracy": 0.7324,
+    "weighted_f1": 0.7229,
+    "macro_f1": 0.6885,
+    "test_samples": 624,
+    "class_order": [
+        "neutral",
+        "calm",
+        "happy",
+        "sad",
+        "angry",
+        "fearful",
+        "disgust",
+        "surprised"
+    ],
+    "per_class_results": {
+        "neutral": {
+            "precision": 0.6364,
+            "recall": 0.7292,
+            "f1": 0.6796,
+            "support": 48
+        },
+        "calm": {
+            "precision": 0.7831,
+            "recall": 0.6771,
+            "f1": 0.7263,
+            "support": 96
+        },
+        "happy": {
+            "precision": 0.8333,
+            "recall": 0.6771,
+            "f1": 0.7471,
+            "support": 96
+        },
+        "sad": {
+            "precision": 0.75,
+            "recall": 0.875,
+            "f1": 0.8077,
+            "support": 96
+        },
+        "angry": {
+            "precision": 0.8713,
+            "recall": 0.9167,
+            "f1": 0.8934,
+            "support": 96
+        },
+        "fearful": {
+            "precision": 0.6393,
+            "recall": 0.8125,
+            "f1": 0.7156,
+            "support": 96
+        },
+        "disgust": {
+            "precision": 0.8182,
+            "recall": 0.75,
+            "f1": 0.7826,
+            "support": 48
+        },
+        "surprised": {
+            "precision": 0.2069,
+            "recall": 0.125,
+            "f1": 0.1558,
+            "support": 48
+        }
+    },
+    "source_note": "Created from the verified evaluation values recorded for the Model B experiment."
+}

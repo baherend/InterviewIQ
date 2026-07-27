@@ -2,13 +2,29 @@
 __pycache__/
 *.py[cod]
 *.pyo
-.env
 *.egg-info/
 dist/
 build/
 .venv/
 venv/
 env/
+# All virtual environment variants
+.venv*/
+venv*/
+env*/
+**/.venv*/
+**/venv*/
+**/env*/
+
+# Project-specific environments
+backend.venv/
+backend/.venv/
+InterviewIQ_AI/audio/audio_emotion_package/.venv_audio/
+
+# Environment files
+.env
+.env.*
+!.env.example
 
 # Node
 node_modules/
@@ -24,6 +40,30 @@ uploads/
 *.webm
 *.mp4
 
+# Certificates (locally generated, dev-only)
+nginx/ssl/
+*.pem
+*.key
+*.crt
+
+# Logs
+*.log
+logs/
+
+# AI model weights / checkpoints (not part of this phase, ignored preemptively)
+*.pt
+*.pth
+*.onnx
+*.ckpt
+*.safetensors
+checkpoints/
+models/weights/
+
+# Temporary files
+*.tmp
+tmp/
+.tmp/
+
 # OS
 .DS_Store
 Thumbs.db
@@ -33,6 +73,6 @@ Thumbs.db
 .idea/
 *.swp
 
-# Alembic
-alembic/versions/*.py
-!alembic/versions/.gitkeep
+# Alembic migration files (backend/alembic/versions/*.py) are intentionally
+# tracked in Git as of Phase 1B — Alembic is now the authoritative schema
+# source. Do not re-add an ignore rule for them.

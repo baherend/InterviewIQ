@@ -1,0 +1,788 @@
+{
+  "zero_shot": {
+    "SE-028": {
+      "chunk_ids": [
+        "SE028-C01",
+        "SE028-C02",
+        "SE028-C03",
+        "SE028-C04",
+        "SE028-C05",
+        "SE028-C06"
+      ],
+      "claims": [
+        "تكتب التست الأول قبل كتابة الكود نفسه الذي سيحقق التست.",
+        "تتابع دورة قصيرة تُسمى دورة التطوير، حيث تكتب التست أولاً.",
+        "التست يفشل في البداية لأن الكود لا يزال غير موجود.",
+        "تكتب أقل كود ممكن لجعل التست ينجح.",
+        "تحسن وتنضف الكود دون تغيير سلوكه.",
+        "تكرر الدورة مرة أخرى."
+      ],
+      "matrix": [
+        [
+          {
+            "entailment": 0.231657,
+            "neutral": 0.2616,
+            "contradiction": 0.506744
+          },
+          {
+            "entailment": 0.001837,
+            "neutral": 0.965964,
+            "contradiction": 0.032199
+          },
+          {
+            "entailment": 0.013124,
+            "neutral": 0.009788,
+            "contradiction": 0.977088
+          },
+          {
+            "entailment": 0.001952,
+            "neutral": 0.004435,
+            "contradiction": 0.993614
+          },
+          {
+            "entailment": 0.001864,
+            "neutral": 0.815139,
+            "contradiction": 0.182996
+          },
+          {
+            "entailment": 0.001924,
+            "neutral": 0.905662,
+            "contradiction": 0.092414
+          }
+        ],
+        [
+          {
+            "entailment": 0.786301,
+            "neutral": 0.204352,
+            "contradiction": 0.009347
+          },
+          {
+            "entailment": 0.004256,
+            "neutral": 0.988804,
+            "contradiction": 0.00694
+          },
+          {
+            "entailment": 0.02901,
+            "neutral": 0.88686,
+            "contradiction": 0.08413
+          },
+          {
+            "entailment": 0.666267,
+            "neutral": 0.172167,
+            "contradiction": 0.161566
+          },
+          {
+            "entailment": 0.004613,
+            "neutral": 0.98916,
+            "contradiction": 0.006227
+          },
+          {
+            "entailment": 0.001439,
+            "neutral": 0.986464,
+            "contradiction": 0.012097
+          }
+        ],
+        [
+          {
+            "entailment": 0.000232,
+            "neutral": 0.992399,
+            "contradiction": 0.00737
+          },
+          {
+            "entailment": 0.000239,
+            "neutral": 0.969842,
+            "contradiction": 0.029919
+          },
+          {
+            "entailment": 0.9991,
+            "neutral": 0.000714,
+            "contradiction": 0.000186
+          },
+          {
+            "entailment": 0.000228,
+            "neutral": 0.009804,
+            "contradiction": 0.989968
+          },
+          {
+            "entailment": 0.000378,
+            "neutral": 0.083132,
+            "contradiction": 0.91649
+          },
+          {
+            "entailment": 0.000272,
+            "neutral": 0.880059,
+            "contradiction": 0.119669
+          }
+        ],
+        [
+          {
+            "entailment": 0.000355,
+            "neutral": 0.973224,
+            "contradiction": 0.026421
+          },
+          {
+            "entailment": 0.001424,
+            "neutral": 0.723707,
+            "contradiction": 0.274868
+          },
+          {
+            "entailment": 0.001399,
+            "neutral": 0.982188,
+            "contradiction": 0.016413
+          },
+          {
+            "entailment": 0.984876,
+            "neutral": 0.010784,
+            "contradiction": 0.00434
+          },
+          {
+            "entailment": 0.000425,
+            "neutral": 0.850423,
+            "contradiction": 0.149153
+          },
+          {
+            "entailment": 0.000122,
+            "neutral": 0.001634,
+            "contradiction": 0.998244
+          }
+        ],
+        [
+          {
+            "entailment": 0.000922,
+            "neutral": 0.001242,
+            "contradiction": 0.997837
+          },
+          {
+            "entailment": 0.00017,
+            "neutral": 0.001448,
+            "contradiction": 0.998382
+          },
+          {
+            "entailment": 8.3e-05,
+            "neutral": 0.00032,
+            "contradiction": 0.999597
+          },
+          {
+            "entailment": 0.907887,
+            "neutral": 0.029622,
+            "contradiction": 0.062491
+          },
+          {
+            "entailment": 0.00398,
+            "neutral": 0.000755,
+            "contradiction": 0.995265
+          },
+          {
+            "entailment": 0.001467,
+            "neutral": 0.000995,
+            "contradiction": 0.997537
+          }
+        ],
+        [
+          {
+            "entailment": 0.022806,
+            "neutral": 0.976962,
+            "contradiction": 0.000232
+          },
+          {
+            "entailment": 0.998687,
+            "neutral": 0.001161,
+            "contradiction": 0.000152
+          },
+          {
+            "entailment": 0.000675,
+            "neutral": 0.999133,
+            "contradiction": 0.000192
+          },
+          {
+            "entailment": 0.001238,
+            "neutral": 0.998534,
+            "contradiction": 0.000228
+          },
+          {
+            "entailment": 0.998565,
+            "neutral": 0.00127,
+            "contradiction": 0.000165
+          },
+          {
+            "entailment": 0.559735,
+            "neutral": 0.439765,
+            "contradiction": 0.000499
+          }
+        ]
+      ]
+    },
+    "GN-040": {
+      "chunk_ids": [
+        "GN040-C01",
+        "GN040-C02",
+        "GN040-C03",
+        "GN040-C04",
+        "GN040-C05",
+        "GN040-C06"
+      ],
+      "claims": [
+        "البيت هو أصغر وحدة معلومات في الحاسب.",
+        "البيت يأخذ قيمة إما 0 أو 1.",
+        "الـ Byte هو مجموعة من 8 بت، وليس 16 بت.",
+        "الـ Byte هو الوحدة الأساسية التي تقاس بها حجم البيانات.",
+        "الـ Byte هو الوحدة الأساسية التي تقاس بها عنونة الذاكرة."
+      ],
+      "matrix": [
+        [
+          {
+            "entailment": 0.998088,
+            "neutral": 0.001614,
+            "contradiction": 0.000298
+          },
+          {
+            "entailment": 0.000485,
+            "neutral": 0.99574,
+            "contradiction": 0.003775
+          },
+          {
+            "entailment": 0.000653,
+            "neutral": 0.998311,
+            "contradiction": 0.001036
+          },
+          {
+            "entailment": 0.000469,
+            "neutral": 0.998854,
+            "contradiction": 0.000677
+          },
+          {
+            "entailment": 0.000272,
+            "neutral": 0.979387,
+            "contradiction": 0.020342
+          },
+          {
+            "entailment": 0.00042,
+            "neutral": 0.998923,
+            "contradiction": 0.000657
+          }
+        ],
+        [
+          {
+            "entailment": 0.998404,
+            "neutral": 0.001359,
+            "contradiction": 0.000237
+          },
+          {
+            "entailment": 0.000615,
+            "neutral": 0.940109,
+            "contradiction": 0.059276
+          },
+          {
+            "entailment": 0.156457,
+            "neutral": 0.078078,
+            "contradiction": 0.765465
+          },
+          {
+            "entailment": 0.000768,
+            "neutral": 0.997422,
+            "contradiction": 0.00181
+          },
+          {
+            "entailment": 0.00038,
+            "neutral": 0.001349,
+            "contradiction": 0.998271
+          },
+          {
+            "entailment": 0.003881,
+            "neutral": 0.163338,
+            "contradiction": 0.832781
+          }
+        ],
+        [
+          {
+            "entailment": 0.000633,
+            "neutral": 0.981339,
+            "contradiction": 0.018028
+          },
+          {
+            "entailment": 0.000628,
+            "neutral": 0.999009,
+            "contradiction": 0.000362
+          },
+          {
+            "entailment": 0.133225,
+            "neutral": 0.649863,
+            "contradiction": 0.216912
+          },
+          {
+            "entailment": 0.000297,
+            "neutral": 0.99732,
+            "contradiction": 0.002382
+          },
+          {
+            "entailment": 0.000658,
+            "neutral": 0.562687,
+            "contradiction": 0.436655
+          },
+          {
+            "entailment": 0.000371,
+            "neutral": 0.991518,
+            "contradiction": 0.008111
+          }
+        ],
+        [
+          {
+            "entailment": 0.354683,
+            "neutral": 0.608673,
+            "contradiction": 0.036645
+          },
+          {
+            "entailment": 0.99854,
+            "neutral": 0.001317,
+            "contradiction": 0.000143
+          },
+          {
+            "entailment": 0.003526,
+            "neutral": 0.995437,
+            "contradiction": 0.001037
+          },
+          {
+            "entailment": 0.002541,
+            "neutral": 0.99699,
+            "contradiction": 0.000469
+          },
+          {
+            "entailment": 0.001032,
+            "neutral": 0.996698,
+            "contradiction": 0.002271
+          },
+          {
+            "entailment": 0.131675,
+            "neutral": 0.741997,
+            "contradiction": 0.126327
+          }
+        ],
+        [
+          {
+            "entailment": 0.01051,
+            "neutral": 0.979511,
+            "contradiction": 0.009978
+          },
+          {
+            "entailment": 0.99844,
+            "neutral": 0.001397,
+            "contradiction": 0.000163
+          },
+          {
+            "entailment": 0.001292,
+            "neutral": 0.997988,
+            "contradiction": 0.000721
+          },
+          {
+            "entailment": 0.001037,
+            "neutral": 0.998384,
+            "contradiction": 0.000579
+          },
+          {
+            "entailment": 0.000476,
+            "neutral": 0.997799,
+            "contradiction": 0.001726
+          },
+          {
+            "entailment": 0.001909,
+            "neutral": 0.993219,
+            "contradiction": 0.004872
+          }
+        ]
+      ]
+    }
+  },
+  "adapter": {
+    "SE-028": {
+      "chunk_ids": [
+        "SE028-C01",
+        "SE028-C02",
+        "SE028-C03",
+        "SE028-C04",
+        "SE028-C05",
+        "SE028-C06"
+      ],
+      "claims": [
+        "تكتب التست الأول قبل كتابة الكود نفسه الذي سيحقق التست.",
+        "تتابع دورة قصيرة تُسمى دورة التطوير، حيث تكتب التست أولاً.",
+        "التست يفشل في البداية لأن الكود لا يزال غير موجود.",
+        "تكتب أقل كود ممكن لجعل التست ينجح.",
+        "تحسن وتنضف الكود دون تغيير سلوكه.",
+        "تكرر الدورة مرة أخرى."
+      ],
+      "matrix": [
+        [
+          {
+            "entailment": 0.006639,
+            "neutral": 0.175799,
+            "contradiction": 0.817563
+          },
+          {
+            "entailment": 0.007348,
+            "neutral": 0.937811,
+            "contradiction": 0.054841
+          },
+          {
+            "entailment": 0.020348,
+            "neutral": 0.160028,
+            "contradiction": 0.819624
+          },
+          {
+            "entailment": 0.008573,
+            "neutral": 0.157178,
+            "contradiction": 0.834249
+          },
+          {
+            "entailment": 0.005712,
+            "neutral": 0.925381,
+            "contradiction": 0.068908
+          },
+          {
+            "entailment": 0.008171,
+            "neutral": 0.91577,
+            "contradiction": 0.076058
+          }
+        ],
+        [
+          {
+            "entailment": 0.041325,
+            "neutral": 0.783733,
+            "contradiction": 0.174942
+          },
+          {
+            "entailment": 0.01384,
+            "neutral": 0.914937,
+            "contradiction": 0.071223
+          },
+          {
+            "entailment": 0.016801,
+            "neutral": 0.913213,
+            "contradiction": 0.069986
+          },
+          {
+            "entailment": 0.017177,
+            "neutral": 0.918802,
+            "contradiction": 0.064021
+          },
+          {
+            "entailment": 0.014966,
+            "neutral": 0.95228,
+            "contradiction": 0.032754
+          },
+          {
+            "entailment": 0.003754,
+            "neutral": 0.98833,
+            "contradiction": 0.007917
+          }
+        ],
+        [
+          {
+            "entailment": 0.000905,
+            "neutral": 0.990489,
+            "contradiction": 0.008605
+          },
+          {
+            "entailment": 0.000779,
+            "neutral": 0.977884,
+            "contradiction": 0.021337
+          },
+          {
+            "entailment": 0.955747,
+            "neutral": 0.025256,
+            "contradiction": 0.018997
+          },
+          {
+            "entailment": 0.002461,
+            "neutral": 0.467078,
+            "contradiction": 0.530461
+          },
+          {
+            "entailment": 0.002874,
+            "neutral": 0.84653,
+            "contradiction": 0.150596
+          },
+          {
+            "entailment": 0.000514,
+            "neutral": 0.982985,
+            "contradiction": 0.016501
+          }
+        ],
+        [
+          {
+            "entailment": 0.001722,
+            "neutral": 0.976586,
+            "contradiction": 0.021692
+          },
+          {
+            "entailment": 0.004631,
+            "neutral": 0.919426,
+            "contradiction": 0.075943
+          },
+          {
+            "entailment": 0.006501,
+            "neutral": 0.964704,
+            "contradiction": 0.028795
+          },
+          {
+            "entailment": 0.190749,
+            "neutral": 0.393589,
+            "contradiction": 0.415662
+          },
+          {
+            "entailment": 0.00119,
+            "neutral": 0.966243,
+            "contradiction": 0.032567
+          },
+          {
+            "entailment": 0.00105,
+            "neutral": 0.106748,
+            "contradiction": 0.892202
+          }
+        ],
+        [
+          {
+            "entailment": 0.010461,
+            "neutral": 0.106068,
+            "contradiction": 0.883471
+          },
+          {
+            "entailment": 0.001844,
+            "neutral": 0.169092,
+            "contradiction": 0.829064
+          },
+          {
+            "entailment": 0.000323,
+            "neutral": 0.005066,
+            "contradiction": 0.994611
+          },
+          {
+            "entailment": 0.312748,
+            "neutral": 0.347075,
+            "contradiction": 0.340177
+          },
+          {
+            "entailment": 0.012693,
+            "neutral": 0.013099,
+            "contradiction": 0.974209
+          },
+          {
+            "entailment": 0.006364,
+            "neutral": 0.02157,
+            "contradiction": 0.972065
+          }
+        ],
+        [
+          {
+            "entailment": 0.010753,
+            "neutral": 0.98829,
+            "contradiction": 0.000957
+          },
+          {
+            "entailment": 0.982495,
+            "neutral": 0.014545,
+            "contradiction": 0.00296
+          },
+          {
+            "entailment": 0.001901,
+            "neutral": 0.997617,
+            "contradiction": 0.000482
+          },
+          {
+            "entailment": 0.002771,
+            "neutral": 0.996566,
+            "contradiction": 0.000663
+          },
+          {
+            "entailment": 0.921083,
+            "neutral": 0.043381,
+            "contradiction": 0.035537
+          },
+          {
+            "entailment": 0.032588,
+            "neutral": 0.967015,
+            "contradiction": 0.000397
+          }
+        ]
+      ]
+    },
+    "GN-040": {
+      "chunk_ids": [
+        "GN040-C01",
+        "GN040-C02",
+        "GN040-C03",
+        "GN040-C04",
+        "GN040-C05",
+        "GN040-C06"
+      ],
+      "claims": [
+        "البيت هو أصغر وحدة معلومات في الحاسب.",
+        "البيت يأخذ قيمة إما 0 أو 1.",
+        "الـ Byte هو مجموعة من 8 بت، وليس 16 بت.",
+        "الـ Byte هو الوحدة الأساسية التي تقاس بها حجم البيانات.",
+        "الـ Byte هو الوحدة الأساسية التي تقاس بها عنونة الذاكرة."
+      ],
+      "matrix": [
+        [
+          {
+            "entailment": 0.948731,
+            "neutral": 0.02339,
+            "contradiction": 0.027879
+          },
+          {
+            "entailment": 0.002848,
+            "neutral": 0.984848,
+            "contradiction": 0.012304
+          },
+          {
+            "entailment": 0.003304,
+            "neutral": 0.991392,
+            "contradiction": 0.005304
+          },
+          {
+            "entailment": 0.002107,
+            "neutral": 0.995425,
+            "contradiction": 0.002468
+          },
+          {
+            "entailment": 0.001176,
+            "neutral": 0.987592,
+            "contradiction": 0.011232
+          },
+          {
+            "entailment": 0.001936,
+            "neutral": 0.996346,
+            "contradiction": 0.001718
+          }
+        ],
+        [
+          {
+            "entailment": 0.977743,
+            "neutral": 0.015894,
+            "contradiction": 0.006362
+          },
+          {
+            "entailment": 0.00233,
+            "neutral": 0.978715,
+            "contradiction": 0.018955
+          },
+          {
+            "entailment": 0.098174,
+            "neutral": 0.493566,
+            "contradiction": 0.40826
+          },
+          {
+            "entailment": 0.003447,
+            "neutral": 0.991834,
+            "contradiction": 0.004719
+          },
+          {
+            "entailment": 0.00412,
+            "neutral": 0.090785,
+            "contradiction": 0.905095
+          },
+          {
+            "entailment": 0.016751,
+            "neutral": 0.755929,
+            "contradiction": 0.227321
+          }
+        ],
+        [
+          {
+            "entailment": 0.002828,
+            "neutral": 0.976867,
+            "contradiction": 0.020305
+          },
+          {
+            "entailment": 0.002546,
+            "neutral": 0.996437,
+            "contradiction": 0.001017
+          },
+          {
+            "entailment": 0.068389,
+            "neutral": 0.720794,
+            "contradiction": 0.210817
+          },
+          {
+            "entailment": 0.001272,
+            "neutral": 0.993834,
+            "contradiction": 0.004894
+          },
+          {
+            "entailment": 0.001513,
+            "neutral": 0.88916,
+            "contradiction": 0.109326
+          },
+          {
+            "entailment": 0.001755,
+            "neutral": 0.979636,
+            "contradiction": 0.018609
+          }
+        ],
+        [
+          {
+            "entailment": 0.082524,
+            "neutral": 0.711889,
+            "contradiction": 0.205587
+          },
+          {
+            "entailment": 0.989696,
+            "neutral": 0.007536,
+            "contradiction": 0.002768
+          },
+          {
+            "entailment": 0.01932,
+            "neutral": 0.971805,
+            "contradiction": 0.008875
+          },
+          {
+            "entailment": 0.009404,
+            "neutral": 0.987874,
+            "contradiction": 0.002722
+          },
+          {
+            "entailment": 0.004742,
+            "neutral": 0.980023,
+            "contradiction": 0.015235
+          },
+          {
+            "entailment": 0.039115,
+            "neutral": 0.852987,
+            "contradiction": 0.107899
+          }
+        ],
+        [
+          {
+            "entailment": 0.02566,
+            "neutral": 0.883477,
+            "contradiction": 0.090862
+          },
+          {
+            "entailment": 0.987784,
+            "neutral": 0.008292,
+            "contradiction": 0.003924
+          },
+          {
+            "entailment": 0.007325,
+            "neutral": 0.988695,
+            "contradiction": 0.00398
+          },
+          {
+            "entailment": 0.004866,
+            "neutral": 0.992788,
+            "contradiction": 0.002346
+          },
+          {
+            "entailment": 0.00234,
+            "neutral": 0.99015,
+            "contradiction": 0.007509
+          },
+          {
+            "entailment": 0.006597,
+            "neutral": 0.967023,
+            "contradiction": 0.026379
+          }
+        ]
+      ]
+    }
+  }
+}

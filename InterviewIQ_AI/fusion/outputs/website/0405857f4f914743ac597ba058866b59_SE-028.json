@@ -1,0 +1,535 @@
+{
+  "status": "success",
+  "input": {
+    "video_path": "D:\\InterviewIQ-final\\backend\\storage\\fusion_uploads\\0405857f4f914743ac597ba058866b59.mp4",
+    "question_id": "SE-028",
+    "question": "ما هو TDD وما دورته؟"
+  },
+  "preflight": {
+    "host_python": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\backend.venv\\Scripts\\python.exe"
+    },
+    "vision_python": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\vision\\.venv_vision\\Scripts\\python.exe"
+    },
+    "audio_python": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\audio\\audio_emotion_package\\.venv_audio\\Scripts\\python.exe"
+    },
+    "nlp_python": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\nlp\\interview-iq-fusion-handoff\\.venv_nlp\\Scripts\\python.exe"
+    },
+    "input_video": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\backend\\storage\\fusion_uploads\\0405857f4f914743ac597ba058866b59.mp4"
+    },
+    "reference_json": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\nlp\\interview-iq-fusion-handoff\\data\\refdocs\\reference_docs_250_FINAL_v1.json"
+    },
+    "vision_checkpoint": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\vision\\vsc_ravdess_test73_deployment (1)\\vsc_ravdess_lora_r16_test73_24.pt"
+    },
+    "audio_checkpoint": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\audio\\audio_emotion_package\\audio_model.pt"
+    },
+    "nlp_env": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\nlp\\interview-iq-fusion-handoff\\.env"
+    },
+    "vision_runner": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\runners\\run_vision_json.py"
+    },
+    "audio_runner": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\runners\\run_audio_json.py"
+    },
+    "nlp_runner": {
+      "ok": true,
+      "path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\runners\\run_nlp_json.py"
+    },
+    "ffmpeg": {
+      "ok": true,
+      "path": "C:\\Users\\student\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.1.1-full_build\\bin\\ffmpeg.EXE"
+    },
+    "groq_api_key": {
+      "ok": true,
+      "detail": "present"
+    },
+    "question_id": {
+      "ok": true,
+      "value": "SE-028"
+    },
+    "reference_json_valid": {
+      "ok": true
+    }
+  },
+  "question_answer_match": {
+    "valid": true,
+    "reason": "Transcript overlaps the selected question on: tdd."
+  },
+  "technical_evaluation": {
+    "status": "success",
+    "score": 66.77613227797826,
+    "precision": 1.0,
+    "coverage": 0.5012325,
+    "harmonic_f": 0.6677613227797826,
+    "claims": [
+      "التطوير المقاد بالاختبار (TDD) هي ممارسة تكتب فيها الاحتبارات قبل كتابة الكود الفعلي الذي يحققها."
+    ],
+    "claim_scores": [
+      {
+        "claim_index": 0,
+        "claim_text": "التطوير المقاد بالاختبار (TDD) هي ممارسة تكتب فيها الاحتبارات قبل كتابة الكود الفعلي الذي يحققها.",
+        "best_chunk_id": "SE028-C01",
+        "max_e": 0.998568,
+        "max_c": 0.992384,
+        "verdict": "VERIFIED",
+        "claim_score": 1.0
+      }
+    ],
+    "raw": {
+      "question": "ما هو TDD وما دورته؟",
+      "question_id": "SE-028",
+      "status": "SUCCESS",
+      "error": null,
+      "asr": {
+        "question_id": "SE-028",
+        "status": "ok",
+        "raw_transcript": "التطوير المقاد بالاختبار TDD ممارسة تكتب فيها الاحتبارات قبل كتابة الكود الفعلي الذي يحققها",
+        "normalized_transcript": "التطوير المقاد بالاختبار TDD ممارسة تكتب فيها الاحتبارات قبل كتابة الكود الفعلي الذي يحققها",
+        "normalization_log": [],
+        "word_timestamps": [
+          {
+            "word": " التطوير",
+            "start": 0.68,
+            "end": 1.56
+          },
+          {
+            "word": " المقاد",
+            "start": 1.56,
+            "end": 1.94
+          },
+          {
+            "word": " بالاختبار",
+            "start": 1.94,
+            "end": 2.54
+          },
+          {
+            "word": " TDD",
+            "start": 2.54,
+            "end": 2.92
+          },
+          {
+            "word": " ممارسة",
+            "start": 2.92,
+            "end": 3.54
+          },
+          {
+            "word": " تكتب",
+            "start": 3.54,
+            "end": 4.58
+          },
+          {
+            "word": " فيها",
+            "start": 4.58,
+            "end": 4.76
+          },
+          {
+            "word": " الاحتبارات",
+            "start": 4.76,
+            "end": 5.3
+          },
+          {
+            "word": " قبل",
+            "start": 5.3,
+            "end": 5.62
+          },
+          {
+            "word": " كتابة",
+            "start": 5.62,
+            "end": 6.06
+          },
+          {
+            "word": " الكود",
+            "start": 6.06,
+            "end": 6.36
+          },
+          {
+            "word": " الفعلي",
+            "start": 6.36,
+            "end": 6.7
+          },
+          {
+            "word": " الذي",
+            "start": 6.7,
+            "end": 6.84
+          },
+          {
+            "word": " يحققها",
+            "start": 6.84,
+            "end": 7.44
+          }
+        ],
+        "vad_features": {
+          "segments": [
+            {
+              "start_ms": 1122.0,
+              "end_ms": 3742.0
+            },
+            {
+              "start_ms": 4354.0,
+              "end_ms": 7646.0
+            }
+          ],
+          "total_speech_duration_ms": 5912.0,
+          "threshold": 0.5
+        },
+        "avg_logprob": -0.07703408484275524,
+        "pre_answer_latency_sec": 1.122
+      },
+      "claims_raw": [
+        "التطوير المقاد بالاختبار (TDD) هي ممارسة تكتب فيها الاحتبارات قبل كتابة الكود الفعلي الذي يحققها."
+      ],
+      "claims": [
+        "التطوير المقاد بالاختبار (TDD) هي ممارسة تكتب فيها الاحتبارات قبل كتابة الكود الفعلي الذي يحققها."
+      ],
+      "transliteration_audit": {
+        "substitutions": [],
+        "residual_ambiguous_count": 0
+      },
+      "decomposition_error": null,
+      "models_used": {
+        "asr_checkpoint": "large-v3",
+        "asr_device": "cpu",
+        "asr_compute_type": "int8",
+        "decomposition_model": "llama-3.3-70b-versatile",
+        "nli_base_model": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+        "nli_adapter_path": null
+      },
+      "key_point_chunk_ids": [
+        "SE028-C01",
+        "SE028-C02"
+      ],
+      "max_e_per_keypoint": [
+        0.998189,
+        0.004276
+      ],
+      "precision": 1.0,
+      "coverage": 0.5012325,
+      "harmonic_f": 0.6677613227797826,
+      "score": 66.77613227797826,
+      "claim_scores": [
+        {
+          "claim_index": 0,
+          "claim_text": "التطوير المقاد بالاختبار (TDD) هي ممارسة تكتب فيها الاحتبارات قبل كتابة الكود الفعلي الذي يحققها.",
+          "best_chunk_id": "SE028-C01",
+          "max_e": 0.998568,
+          "max_c": 0.992384,
+          "verdict": "VERIFIED",
+          "claim_score": 1.0
+        }
+      ]
+    }
+  },
+  "visual_analysis": {
+    "status": "success",
+    "sufficient_evidence": true,
+    "predicted_emotion": "angry",
+    "behavioral_confidence_score": 24.577731772248324,
+    "raw": {
+      "status": "ok",
+      "predicted_emotion": "angry",
+      "confidence": 0.585788905620575,
+      "emotion_probabilities": {
+        "neutral": 0.08411850842336814,
+        "calm": 0.012402151711285114,
+        "happy": 0.016055287948499124,
+        "sad": 0.03205545898526907,
+        "angry": 0.585788905620575,
+        "fearful": 0.18248695135116577,
+        "disgust": 0.03025494795292616,
+        "surprised": 0.05683783441781998
+      },
+      "visual_behavioral_confidence_score": 24.577731772248324,
+      "visual_confidence_level": "low",
+      "sufficient_evidence": true,
+      "number_of_windows": 3,
+      "metrics": {
+        "comfort_signal": 0.11257594808315238,
+        "mean_calm_probability": 0.012402151711285114,
+        "mean_neutral_probability": 0.08411850842336814,
+        "mean_happy_probability": 0.016055287948499124,
+        "emotion_stability": 0.757737449137494,
+        "mean_transition_distance": 0.24226255086250603,
+        "negative_affect_persistence": 0.915293131954968,
+        "mean_negative_affect_probability": 0.830586263909936,
+        "high_negative_affect_window_ratio": 1.0,
+        "longest_negative_affect_streak_windows": 3,
+        "longest_negative_affect_streak_ratio": 1.0,
+        "calm_recovery": 0.0,
+        "negative_affect_episode_count": 1,
+        "recovered_episode_count": 0,
+        "recovery_events": [
+          {
+            "negative_affect_start_window": 0,
+            "recovered": false,
+            "recovery_window": null
+          }
+        ],
+        "recovery_note": null,
+        "visual_reliability": 1.0,
+        "mean_face_detection_ratio": 1.0,
+        "window_coverage": 1.0
+      },
+      "warnings": [],
+      "processing_time_seconds": 11.4559,
+      "device": "cpu",
+      "windows": [
+        {
+          "window_index": 0,
+          "start_seconds": 0.0,
+          "end_seconds": 4.0,
+          "mid_seconds": 2.0,
+          "duration_seconds": 4.0,
+          "dominant_emotion": "angry",
+          "model_top1_probability": 0.5748685002326965,
+          "faces_detected": 16,
+          "face_detection_ratio": 1.0,
+          "frame_indices": [
+            0,
+            6,
+            13,
+            19,
+            25,
+            32,
+            38,
+            44,
+            51,
+            57,
+            63,
+            70,
+            76,
+            82,
+            89,
+            95
+          ],
+          "prob_neutral": 0.020272165536880493,
+          "prob_calm": 0.008226689882576466,
+          "prob_happy": 0.014395429752767086,
+          "prob_sad": 0.009118982590734959,
+          "prob_angry": 0.5748685002326965,
+          "prob_fearful": 0.24954873323440552,
+          "prob_disgust": 0.015486008487641811,
+          "prob_surprised": 0.1080835685133934
+        },
+        {
+          "window_index": 1,
+          "start_seconds": 4.0,
+          "end_seconds": 8.0,
+          "mid_seconds": 6.0,
+          "duration_seconds": 4.0,
+          "dominant_emotion": "angry",
+          "model_top1_probability": 0.6455128788948059,
+          "faces_detected": 16,
+          "face_detection_ratio": 1.0,
+          "frame_indices": [
+            96,
+            102,
+            109,
+            115,
+            121,
+            128,
+            134,
+            140,
+            147,
+            153,
+            159,
+            166,
+            172,
+            178,
+            185,
+            191
+          ],
+          "prob_neutral": 0.01725182868540287,
+          "prob_calm": 0.008077749982476234,
+          "prob_happy": 0.007052724715322256,
+          "prob_sad": 0.009620700031518936,
+          "prob_angry": 0.6455128788948059,
+          "prob_fearful": 0.2841041088104248,
+          "prob_disgust": 0.010405661538243294,
+          "prob_surprised": 0.017974399030208588
+        },
+        {
+          "window_index": 2,
+          "start_seconds": 8.0,
+          "end_seconds": 10.0,
+          "mid_seconds": 9.0,
+          "duration_seconds": 2.0,
+          "dominant_emotion": "angry",
+          "model_top1_probability": 0.5369853377342224,
+          "faces_detected": 16,
+          "face_detection_ratio": 1.0,
+          "frame_indices": [
+            192,
+            195,
+            198,
+            201,
+            205,
+            208,
+            211,
+            214,
+            217,
+            220,
+            223,
+            226,
+            230,
+            233,
+            236,
+            239
+          ],
+          "prob_neutral": 0.21483153104782104,
+          "prob_calm": 0.020902015268802643,
+          "prob_happy": 0.026717709377408028,
+          "prob_sad": 0.07742669433355331,
+          "prob_angry": 0.5369853377342224,
+          "prob_fearful": 0.013808012008666992,
+          "prob_disgust": 0.06487317383289337,
+          "prob_surprised": 0.04445553570985794
+        }
+      ],
+      "error": null,
+      "score_range": {
+        "low": 24.577731772248324,
+        "high": 24.577731772248324
+      },
+      "confidence_margin": 0.0,
+      "formula_weights": {
+        "comfort_signal": 0.35,
+        "emotion_stability": 0.25,
+        "calm_recovery": 0.2,
+        "low_negative_affect": 0.2
+      },
+      "interpretation": "Behavioral confidence indicators observed during this video; not a personality judgment. Score is reported as a range to reflect measurement uncertainty from visual reliability.",
+      "checkpoint_metadata": {
+        "epoch": 11,
+        "validation_accuracy": 0.7387820512820513,
+        "test_accuracy": 0.7324,
+        "lora_layers_injected": 12,
+        "checkpoint_key_layout": "added backbone.model",
+        "missing_keys_count": 0,
+        "unexpected_keys_count": 0
+      }
+    }
+  },
+  "vocal_analysis": {
+    "status": "success",
+    "dominant_emotion": "High Emotion",
+    "model_confidence": 0.9709,
+    "probabilities": {
+      "Low Emotion": 0.0107,
+      "Neutral Emotion": 0.0184,
+      "High Emotion": 0.9709
+    },
+    "raw": {
+      "dominant_emotion": "High Emotion",
+      "emotion_scores": {
+        "Low Emotion": 0.0107,
+        "Neutral Emotion": 0.0184,
+        "High Emotion": 0.9709
+      },
+      "confidence_score": 0.9709
+    }
+  },
+  "fusion_summary": {
+    "final_technical_score": 66.77613227797826,
+    "technical_interpretation": "NLP technical correctness score; not combined with behavioral model confidence.",
+    "visual_observation": "angry",
+    "vocal_observation": "High Emotion",
+    "limitations": [
+      "Visual analysis requires enough valid face-visible windows.",
+      "Audio emotion output is a model-estimated vocal pattern, not a competence measure.",
+      "Technical score is valid only when the spoken answer corresponds to the selected question.",
+      "Automated outputs require human review."
+    ]
+  },
+  "artifacts": {
+    "extracted_audio_path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\outputs\\website\\0405857f4f914743ac597ba058866b59_mono_16khz.wav",
+    "output_json_path": "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\outputs\\website\\0405857f4f914743ac597ba058866b59_SE-028.json"
+  },
+  "component_execution": {
+    "vision": {
+      "command": [
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\vision\\.venv_vision\\Scripts\\python.exe",
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\runners\\run_vision_json.py",
+        "--video",
+        "D:\\InterviewIQ-final\\backend\\storage\\fusion_uploads\\0405857f4f914743ac597ba058866b59.mp4"
+      ],
+      "cwd": "D:\\InterviewIQ-final\\InterviewIQ_AI\\vision",
+      "timeout_seconds": 1200,
+      "return_code": 0,
+      "duration_seconds": 15.125,
+      "stderr": "[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n[h264 @ 000001e933853640] mmco: unref short failure\n",
+      "status": "completed"
+    },
+    "ffmpeg": {
+      "status": "completed",
+      "command": [
+        "C:\\Users\\student\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.1.1-full_build\\bin\\ffmpeg.EXE",
+        "-y",
+        "-i",
+        "D:\\InterviewIQ-final\\backend\\storage\\fusion_uploads\\0405857f4f914743ac597ba058866b59.mp4",
+        "-vn",
+        "-ac",
+        "1",
+        "-ar",
+        "16000",
+        "-c:a",
+        "pcm_s16le",
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\outputs\\website\\0405857f4f914743ac597ba058866b59_mono_16khz.wav"
+      ],
+      "return_code": 0,
+      "stderr": "ffmpeg version 8.1.1-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers\n  built with gcc 15.2.0 (Rev13, Built by MSYS2 project)\n  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-cairo --enable-fontconfig --enable-iconv --enable-gnutls --enable-lcms2 --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-sdl2 --enable-libaribb24 --enable-libaribcaption --enable-libdav1d --enable-libdavs2 --enable-libopenjpeg --enable-libquirc --enable-libuavs3d --enable-libxevd --enable-libzvbi --enable-liboapv --enable-libqrencode --enable-librav1e --enable-libsvtav1 --enable-libvvenc --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxeve --enable-libxvid --enable-libaom --enable-libjxl --enable-libsvtjpegxs --enable-libvpx --enable-mediafoundation --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-liblensfun --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-libshaderc --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-openal --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libcodec2 --enable-libilbc --enable-libgsm --enable-liblc3 --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint --enable-whisper\n  libavutil      60. 26.101 / 60. 26.101\n  libavcodec     62. 28.101 / 62. 28.101\n  libavformat    62. 12.101 / 62. 12.101\n  libavdevice    62.  3.101 / 62.  3.101\n  libavfilter    11. 14.101 / 11. 14.101\n  libswscale      9.  5.101 /  9.  5.101\n  libswresample   6.  3.101 /  6.  3.101\nInput #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\\InterviewIQ-final\\backend\\storage\\fusion_uploads\\0405857f4f914743ac597ba058866b59.mp4':\n  Metadata:\n    major_brand     : isom\n    minor_version   : 512\n    compatible_brands: isomiso2avc1mp41\n    encoder         : Google\n  Duration: 00:00:10.01, start: 0.000000, bitrate: 2009 kb/s\n  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1280x720, 1870 kb/s, 24 fps, 24 tbr, 12288 tbn (default)\n    Metadata:\n      handler_name    : VideoHandler\n  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s (default)\n    Metadata:\n      handler_name    : SoundHandler\nStream mapping:\n  Stream #0:1 -> #0:0 (aac (native) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, wav, to 'D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\outputs\\website\\0405857f4f914743ac597ba058866b59_mono_16khz.wav':\n  Metadata:\n    major_brand     : isom\n    minor_version   : 512\n    compatible_brands: isomiso2avc1mp41\n    ISFT            : Lavf62.12.101\n  Stream #0:0(und): Audio: pcm_s16le ([1][0][0][0] / 0x0001), 16000 Hz, mono, s16, 256 kb/s (default)\n    Metadata:\n      encoder         : Lavc62.28.101 pcm_s16le\n      handler_name    : SoundHandler\n[out#0/wav @ 0000026c10d70840] video:0KiB audio:313KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.024362%\nsize=     313KiB time=00:00:10.00 bitrate= 256.1kbits/s speed= 883x elapsed=0:00:00.01    \n",
+      "duration_seconds": 0.125
+    },
+    "audio": {
+      "command": [
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\audio\\audio_emotion_package\\.venv_audio\\Scripts\\python.exe",
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\runners\\run_audio_json.py",
+        "--audio",
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\outputs\\website\\0405857f4f914743ac597ba058866b59_mono_16khz.wav"
+      ],
+      "cwd": "D:\\InterviewIQ-final\\InterviewIQ_AI\\audio\\audio_emotion_package",
+      "timeout_seconds": 1200,
+      "return_code": 0,
+      "duration_seconds": 27.25,
+      "stderr": "Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n\nLoading weights:   0%|          | 0/422 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 422/422 [00:00<00:00, 7641.15it/s]\n",
+      "status": "completed"
+    },
+    "nlp": {
+      "command": [
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\nlp\\interview-iq-fusion-handoff\\.venv_nlp\\Scripts\\python.exe",
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\runners\\run_nlp_json.py",
+        "--audio",
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\fusion\\outputs\\website\\0405857f4f914743ac597ba058866b59_mono_16khz.wav",
+        "--question-id",
+        "SE-028",
+        "--reference-json",
+        "D:\\InterviewIQ-final\\InterviewIQ_AI\\nlp\\interview-iq-fusion-handoff\\data\\refdocs\\reference_docs_250_FINAL_v1.json"
+      ],
+      "cwd": "D:\\InterviewIQ-final\\InterviewIQ_AI\\nlp\\interview-iq-fusion-handoff",
+      "timeout_seconds": 1200,
+      "return_code": 0,
+      "duration_seconds": 31.906,
+      "stderr": "[Config] PRE-CALIBRATION DEFAULT — NOT VALIDATED\n  τ   (contradiction gate) = 0.5\n  τ_E (entailment-priority threshold) = 0.9\n  α   (neutral weight) = 0.0\n  k   (BGE-M3 Top-k cap) = 10\n[Config] PRE-CALIBRATION DEFAULT — NOT VALIDATED\n  τ   (contradiction gate) = 0.5\n  τ_E (entailment-priority threshold) = 0.9\n  α   (neutral weight) = 0.0\n  k   (BGE-M3 Top-k cap) = 10\n[audio.segmentation] Loading Silero VAD via torch.hub ...\nUsing cache found in C:\\Users\\student/.cache\\torch\\hub\\snakers4_silero-vad_master\n[asr.engine] Loading faster-whisper large-v3 (device=cpu, compute_type=int8) ...\nD:\\InterviewIQ-final\\InterviewIQ_AI\\nlp\\interview-iq-fusion-handoff\\.venv_nlp\\Lib\\site-packages\\huggingface_hub\\file_download.py:949: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.\n  warnings.warn(\n[gold_eval] model.config.id2label = {0: 'entailment', 1: 'neutral', 2: 'contradiction'}\n[nli.engine] model.config.id2label = {0: 'entailment', 1: 'neutral', 2: 'contradiction'}\n[nli.engine] model.config.id2label = {0: 'entailment', 1: 'neutral', 2: 'contradiction'}\n",
+      "status": "completed"
+    }
+  },
+  "errors": []
+}

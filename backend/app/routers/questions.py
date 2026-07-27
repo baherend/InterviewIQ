@@ -4,8 +4,10 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models.question import Question
+from app.models.user import User, UserRole
 from app.schemas.question import QuestionCreate, QuestionUpdate, QuestionResponse
 from app.auth.jwt_handler import get_current_user
+from app.auth.permissions import require_global_roles
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
@@ -16,8 +18,9 @@ def get_questions(
     track: Optional[str] = None,
     difficulty: Optional[str] = None,
     db: Session = Depends(get_db),
-    _: int = Depends(get_current_user),
+    _: User = Depends(get_current_user),
 ):
+    # Read access: any authenticated user (unchanged from prior phases).
     q = db.query(Question)
     if interview_type:
         q = q.filter(Question.interview_type == interview_type)
@@ -32,8 +35,12 @@ def get_questions(
 def create_question(
     data: QuestionCreate,
     db: Session = Depends(get_db),
-    _: int = Depends(get_current_user),
+    _: User = Depends(require_global_roles(UserRole.SYSTEM_ADMIN)),
 ):
+    # Interim safety rule for this phase: question mutation is system_admin
+    # only. There is no organization-owned question bank yet — this table
+    # is still a single global question set — so a narrower per-company
+    # rule is not meaningful yet either; see README_LOCAL_SETUP.md.
     question = Question(**data.model_dump())
     db.add(question)
     db.commit()
@@ -46,7 +53,7 @@ def update_question(
     question_id: int,
     data: QuestionUpdate,
     db: Session = Depends(get_db),
-    _: int = Depends(get_current_user),
+    _: User = Depends(require_global_roles(UserRole.SYSTEM_ADMIN)),
 ):
     question = db.query(Question).filter(Question.id == question_id).first()
     if not question:
@@ -62,7 +69,7 @@ def update_question(
 def delete_question(
     question_id: int,
     db: Session = Depends(get_db),
-    _: int = Depends(get_current_user),
+    _: User = Depends(require_global_roles(UserRole.SYSTEM_ADMIN)),
 ):
     question = db.query(Question).filter(Question.id == question_id).first()
     if not question:

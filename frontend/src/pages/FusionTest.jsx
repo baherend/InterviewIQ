@@ -17,6 +17,12 @@ const NO_VALID_SCORE =
 const percent = (value, scale = 1) =>
   value == null || value < 0 ? 'Not available' : `${(value * scale).toFixed(1)}%`
 
+const score = (value) =>
+  typeof value === 'number' && Number.isFinite(value) ? `${value.toFixed(2)}/100` : 'Not available'
+
+const metricPercent = (value) =>
+  typeof value === 'number' && Number.isFinite(value) ? `${(value * 100).toFixed(2)}%` : 'Not available'
+
 const Value = ({ label, value, note }) => (
   <div className="rounded-xl border border-white/10 bg-white/[0.025] p-4">
     <p className="text-xs uppercase tracking-wider text-gray-500">{label}</p>
@@ -109,6 +115,15 @@ export default function FusionTest() {
 
   const selectedQuestion = questions.find((item) => item.question_id === questionId)
   const invalidAnswer = result?.question_answer_validity?.valid === false
+  const confidence = result?.confidence
+  const vocalConfidence = confidence?.vocal || {}
+  const visualConfidence = confidence?.visual || {}
+  const visualMetrics = visualConfidence.metrics || {}
+  const visualScore = visualConfidence.visual_behavioral_confidence_score
+    ?? visualConfidence.visual_confidence_score
+  const rangeLow = visualConfidence.score_range?.low
+  const rangeHigh = visualConfidence.score_range?.high
+  const hasScoreRange = Number.isFinite(rangeLow) && Number.isFinite(rangeHigh)
 
   return (
     <main className="gradient-bg min-h-screen px-4 pb-16 pt-24">
@@ -239,10 +254,63 @@ export default function FusionTest() {
                 note={result.question_answer_validity.reason}
               />
               <Value
-                label="Final technical score"
+                label="Technical Score"
                 value={result.fusion_summary.final_technical_score == null ? 'Not produced' : percent(result.fusion_summary.final_technical_score)}
                 note={result.fusion_summary.final_technical_score == null ? NO_VALID_SCORE : 'Candidate technical performance score.'}
               />
+              <Value
+                label="Delivery Confidence"
+                value={confidence?.final_confidence_score == null ? 'Not available' : percent(confidence.final_confidence_score)}
+                note="Experimental behavioral score; separate from technical performance."
+              />
+              <Value label="Vocal Confidence" value={vocalConfidence.vocal_confidence_score == null ? 'Not available' : percent(vocalConfidence.vocal_confidence_score)} />
+              <Value label="Visual Behavioral Confidence" value={score(visualScore)} />
+            </div>
+
+            {confidence?.final_confidence_score == null && (
+              <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-5 text-yellow-100">
+                Not enough audio or visual evidence to calculate Delivery Confidence.
+              </div>
+            )}
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              <article className="glass-card p-5">
+                <h2 className="mb-4 font-bold">Audio delivery features</h2>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Value label="Speaking rate" value={vocalConfidence.speaking_rate_wpm == null ? 'Not available' : `${vocalConfidence.speaking_rate_wpm.toFixed(1)} WPM`} />
+                  <Value label="Pause control" value={percent(vocalConfidence.pause_control_score, 100)} />
+                  <Value label="Volume stability" value={percent(vocalConfidence.volume_stability_score, 100)} />
+                  <Value label="Speech continuity" value={percent(vocalConfidence.speech_continuity_score, 100)} />
+                </div>
+              </article>
+              <article className="glass-card p-5">
+                <h2 className="mb-4 font-bold">Visual Behavioral Confidence</h2>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Value label="Visual Behavioral Confidence Score" value={score(visualScore)} />
+                  <Value label="Level" value={(visualConfidence.visual_confidence_level || 'Not available').replaceAll('_', ' ').toUpperCase()} />
+                  <Value label="Sufficient evidence" value={visualConfidence.sufficient_evidence === true ? 'Yes' : visualConfidence.sufficient_evidence === false ? 'No' : 'Unknown'} />
+                  <Value label="Number of windows" value={visualConfidence.number_of_windows ?? 'Not available'} />
+                  <Value label="Score range" value={hasScoreRange ? `${rangeLow.toFixed(1)}–${rangeHigh.toFixed(1)}` : 'Not available'} />
+                  <Value label="Confidence margin" value={Number.isFinite(visualConfidence.confidence_margin) ? `±${visualConfidence.confidence_margin.toFixed(1)}` : 'Not available'} />
+                  <Value label="Comfort signal" value={metricPercent(visualMetrics.comfort_signal ?? visualConfidence.comfort_signal)} />
+                  <Value label="Emotion stability" value={metricPercent(visualMetrics.emotion_stability ?? visualConfidence.emotion_stability)} />
+                  <Value label="Negative affect persistence" value={metricPercent(visualMetrics.negative_affect_persistence ?? visualConfidence.negative_affect_persistence)} />
+                  <Value label="Calm recovery" value={metricPercent(visualMetrics.calm_recovery ?? visualConfidence.calm_recovery)} />
+                  <Value label="Visual reliability" value={metricPercent(visualMetrics.visual_reliability ?? visualConfidence.visual_reliability)} />
+                </div>
+                {visualConfidence.sufficient_evidence === false && (
+                  <p className="mt-4 text-sm text-yellow-200">
+                    Visual score excluded from Delivery Confidence because the video did not contain enough temporal evidence.
+                  </p>
+                )}
+              </article>
+            </div>
+
+            <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-5 text-sm leading-6 text-gray-300">
+              <p>Model confidence describes confidence in the emotion classification.</p>
+              <p>Visual Behavioral Confidence is an experimental temporal behavioral score.</p>
+              <p>The score describes observable behavioral indicators and is not a personality judgment.</p>
+              <p>This score has not been validated for hiring decisions.</p>
             </div>
 
             {invalidAnswer && (
@@ -251,6 +319,10 @@ export default function FusionTest() {
               </div>
             )}
 
+            <h2 className="text-xl font-bold">Model classifications</h2>
+            <p className="-mt-4 text-sm text-gray-400">
+              Model confidence describes confidence in the emotion classification.
+            </p>
             <div className="grid gap-6 lg:grid-cols-3">
               <article className="glass-card p-5">
                 <h2 className="mb-4 flex items-center gap-2 font-bold"><Brain size={18} className="text-blue-400" /> NLP technical evaluation</h2>

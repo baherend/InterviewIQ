@@ -1,0 +1,58 @@
+{
+  "status": "success",
+  "technical_score": 66.8,
+  "fusion_summary": {
+    "final_technical_score": 66.8
+  },
+  "question_answer_validity": {
+    "valid": true,
+    "reason": "Fixture response."
+  },
+  "vision": {
+    "predicted_class": "disgust",
+    "model_confidence": 0.96,
+    "sufficient_evidence": false
+  },
+  "audio": {
+    "dominant_emotion": "Neutral Emotion",
+    "model_confidence": 0.91
+  },
+  "nlp": {
+    "technical_score": 66.8
+  },
+  "confidence": {
+    "vocal": {
+      "vocal_confidence_score": 74.0,
+      "sufficient_evidence": true
+    },
+    "visual": {
+      "visual_behavioral_confidence_score": 25.85,
+      "visual_confidence_level": "insufficient_evidence",
+      "sufficient_evidence": false,
+      "number_of_windows": 1,
+      "confidence_margin": 2.0,
+      "score_range": {
+        "low": 23.8,
+        "high": 27.8
+      },
+      "metrics": {
+        "comfort_signal": 0.0182,
+        "emotion_stability": 1.0,
+        "negative_affect_persistence": 0.9893,
+        "calm_recovery": 0.0,
+        "visual_reliability": 0.8667
+      },
+      "warnings": [
+        "Visual score excluded from Delivery Confidence because visual evidence was insufficient."
+      ]
+    },
+    "final_confidence_score": 74.0,
+    "confidence_evidence_status": "partial",
+    "warnings": [
+      "Visual score excluded from Delivery Confidence because visual evidence was insufficient."
+    ]
+  },
+  "warnings": [
+    "Visual score excluded from Delivery Confidence because visual evidence was insufficient."
+  ]
+}

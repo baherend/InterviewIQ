@@ -28,6 +28,11 @@ import pandas as pd
 import torch
 import torch.nn as nn
 
+from visual_behavioral_confidence import (
+    VisualConfidenceConfig as ApprovedVisualConfidenceConfig,
+    calculate_visual_confidence_summary as calculate_approved_visual_summary,
+)
+
 warnings.filterwarnings("ignore")
 
 try:
@@ -257,7 +262,7 @@ class VisualConfidenceConfig:
             raise ValueError("confidence_interval_max_margin must be non-negative.")
 
 
-VISUAL_CFG = VisualConfidenceConfig()
+VISUAL_CFG = ApprovedVisualConfidenceConfig()
 VISUAL_CFG.validate()
 
 
@@ -993,6 +998,7 @@ def analyze_emotion_windows(
                 "dominant_emotion": classes[predicted_index],
                 "model_top1_probability": float(probability_array[predicted_index]),
                 "faces_detected": int(faces_detected),
+                "sampled_frames": int(CFG.num_frames),
                 "face_detection_ratio": float(faces_detected / CFG.num_frames),
                 "frame_indices": frame_indices,
             }
@@ -1289,106 +1295,12 @@ def calculate_visual_confidence_summary(
     classes: List[str],
     analysis_config: VisualConfidenceConfig = VISUAL_CFG,
 ) -> Dict[str, object]:
-    if windows_df.empty:
-        raise InsufficientFramesError("windows_df is empty.")
-
-    stability = calculate_emotion_stability(windows_df, classes)
-
-    negative_affect = calculate_negative_affect_persistence(
-        windows_df=windows_df,
-        threshold=analysis_config.negative_affect_threshold,
-        sad_weight=analysis_config.sad_weight,
-        disgust_weight=analysis_config.disgust_weight,
-        fearful_weight=analysis_config.fearful_weight,
-        angry_weight=analysis_config.angry_weight,
+    """Compatibility delegate; canonical scoring lives in the production module."""
+    return calculate_approved_visual_summary(
+        windows_df,
+        classes=classes,
+        config=analysis_config,
     )
-
-    recovery = calculate_calm_recovery(
-        windows_df=windows_df,
-        negative_affect_threshold=analysis_config.negative_affect_threshold,
-        sad_weight=analysis_config.sad_weight,
-        disgust_weight=analysis_config.disgust_weight,
-        fearful_weight=analysis_config.fearful_weight,
-        angry_weight=analysis_config.angry_weight,
-        recovery_horizon_windows=analysis_config.recovery_horizon_windows,
-        recovery_minimum_signal=analysis_config.recovery_minimum_signal,
-        recovery_minimum_gain=analysis_config.recovery_minimum_gain,
-    )
-
-    comfort = calculate_comfort_signal(
-        windows_df=windows_df,
-        calm_weight=analysis_config.calm_weight,
-        neutral_weight=analysis_config.neutral_weight,
-        happy_weight=analysis_config.happy_weight,
-    )
-
-    reliability = calculate_visual_reliability(
-        windows_df=windows_df,
-        minimum_windows=analysis_config.minimum_windows_for_decision,
-    )
-
-    # --- Base score (fully linear, no gated penalty) ---
-    base_score_0_to_1 = (
-        analysis_config.comfort_weight * comfort["comfort_signal"]
-        + analysis_config.stability_weight * stability["emotion_stability"]
-        + analysis_config.recovery_weight * recovery["calm_recovery"]
-        + analysis_config.negative_affect_weight
-        * (1.0 - negative_affect["negative_affect_persistence"])
-    )
-
-    visual_score = float(np.clip(base_score_0_to_1 * 100.0, 0.0, 100.0))
-
-    # --- Confidence interval (built on visual reliability) ---
-    confidence_margin = float(
-        (1.0 - reliability["visual_reliability"]) * analysis_config.confidence_interval_max_margin
-    )
-
-    score_low = float(np.clip(visual_score - confidence_margin, 0.0, 100.0))
-    score_high = float(np.clip(visual_score + confidence_margin, 0.0, 100.0))
-
-    enough_windows = len(windows_df) >= analysis_config.minimum_windows_for_decision
-
-    enough_faces = (
-        reliability["mean_face_detection_ratio"] >= analysis_config.minimum_face_detection_ratio
-    )
-
-    sufficient_evidence = bool(enough_windows and enough_faces)
-
-    level = visual_confidence_level(score=visual_score, sufficient_evidence=sufficient_evidence)
-
-    summary = {
-        "visual_behavioral_confidence_score": visual_score,
-        "confidence_margin": confidence_margin,
-        "score_range": {"low": score_low, "high": score_high},
-        "visual_confidence_level": level,
-        "sufficient_evidence": sufficient_evidence,
-        "number_of_windows": int(len(windows_df)),
-        "evidence_checks": {
-            "enough_windows": bool(enough_windows),
-            "enough_faces": bool(enough_faces),
-        },
-        "metrics": {
-            **comfort,
-            **stability,
-            **negative_affect,
-            **recovery,
-            **reliability,
-        },
-        "formula_weights": {
-            "comfort_signal": analysis_config.comfort_weight,
-            "emotion_stability": analysis_config.stability_weight,
-            "calm_recovery": analysis_config.recovery_weight,
-            "low_negative_affect": analysis_config.negative_affect_weight,
-        },
-        "interpretation": (
-            "Behavioral confidence indicators observed during this video; "
-            "not a personality judgment. Score is reported as a range to "
-            "reflect measurement uncertainty from visual reliability."
-        ),
-    }
-
-    return summary
-
 
 # =============================================================================
 # Public entry point
@@ -1459,11 +1371,12 @@ def analyze_visual_confidence(video_path: str) -> Dict[str, object]:
             analysis_config=VISUAL_CFG,
         )
 
-        summary = calculate_visual_confidence_summary(
-            windows_df=windows_df,
+        summary = calculate_approved_visual_summary(
+            windows_df,
             classes=classes,
-            analysis_config=VISUAL_CFG,
+            config=VISUAL_CFG,
         )
+        warnings_list.extend(summary["warnings"])
 
         # Aggregate per-window probabilities (already computed by the
         # notebook's own analyze_emotion_windows) into a single overall
@@ -1502,6 +1415,7 @@ def analyze_visual_confidence(video_path: str) -> Dict[str, object]:
                 "visual_behavioral_confidence_score": summary[
                     "visual_behavioral_confidence_score"
                 ],
+                "visual_confidence_score": summary["visual_confidence_score"],
                 "score_range": summary["score_range"],
                 "confidence_margin": summary["confidence_margin"],
                 "visual_confidence_level": summary["visual_confidence_level"],
@@ -1510,7 +1424,8 @@ def analyze_visual_confidence(video_path: str) -> Dict[str, object]:
                 "metrics": summary["metrics"],
                 "formula_weights": summary["formula_weights"],
                 "interpretation": summary["interpretation"],
-                "warnings": warnings_list,
+                "evidence_checks": summary["evidence_checks"],
+                "warnings": list(dict.fromkeys(warnings_list)),
                 "device": device.type,
                 "windows": windows_records,
                 "checkpoint_metadata": checkpoint_metadata,

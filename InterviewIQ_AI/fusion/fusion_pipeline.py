@@ -11,10 +11,16 @@ import time
 from pathlib import Path
 from typing import Any
 
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+if str(PROJECT_DIR) not in sys.path:
+    sys.path.insert(0, str(PROJECT_DIR))
+
+from audio.audio_confidence import calculate_audio_confidence
 from adapters.audio_adapter import run_audio
 from adapters.nlp_adapter import run_nlp
 from adapters.vision_adapter import run_vision
 from config import Settings
+from confidence_fusion import fuse_confidence
 from schemas import assess_question_answer_match, mapped_audio, mapped_nlp, mapped_vision
 
 
@@ -141,6 +147,52 @@ def run_fusion(video: Path, question_id: str, output: Path, settings: Settings |
     vocal = mapped_audio(audio_raw, _error(component_execution["audio"]))
     technical = mapped_nlp(nlp_raw, _error(component_execution["nlp"]))
     transcript = ((nlp_raw or {}).get("asr") or {}).get("normalized_transcript")
+    confidence_errors: list[str] = []
+    try:
+        vocal_confidence = calculate_audio_confidence(audio_path, transcript)
+    except Exception as exc:
+        confidence_errors.append(f"Vocal confidence failed: {type(exc).__name__}: {exc}")
+        vocal_confidence = {"vocal_confidence_score": None, "sufficient_evidence": False,
+                            "warnings": [confidence_errors[-1]]}
+    try:
+        raw_visual = vision_raw or {}
+        metrics = raw_visual.get("metrics") or {}
+        raw_score = raw_visual.get("visual_behavioral_confidence_score")
+        visual_confidence = {
+            "visual_confidence_score": raw_score,
+            "visual_behavioral_confidence_score": raw_score,
+            "visual_confidence_level": raw_visual.get("visual_confidence_level"),
+            "sufficient_evidence": raw_visual.get("sufficient_evidence") is True,
+            "number_of_windows": raw_visual.get("number_of_windows"),
+            "score_range": raw_visual.get("score_range"),
+            "confidence_margin": raw_visual.get("confidence_margin"),
+            "visual_reliability": metrics.get("visual_reliability"),
+            "comfort_signal": metrics.get("comfort_signal"),
+            "emotion_stability": metrics.get("emotion_stability"),
+            "negative_affect_persistence": metrics.get("negative_affect_persistence"),
+            "calm_recovery": metrics.get("calm_recovery"),
+            "evidence_checks": raw_visual.get("evidence_checks") or {},
+            "metrics": metrics,
+            "formula_weights": raw_visual.get("formula_weights") or {},
+            "warnings": list(raw_visual.get("warnings") or []),
+        }
+        if raw_score is None:
+            raise ValueError("Vision output did not include behavioral confidence.")
+    except Exception as exc:
+        confidence_errors.append(f"Visual confidence failed: {type(exc).__name__}: {exc}")
+        visual_confidence = {
+            "visual_confidence_score": None,
+            "visual_behavioral_confidence_score": None,
+            "sufficient_evidence": False,
+            "warnings": [confidence_errors[-1]],
+        }
+    confidence_summary = fuse_confidence(
+        vocal_confidence.get("vocal_confidence_score"),
+        visual_confidence.get("visual_confidence_score"),
+        vocal_sufficient_evidence=vocal_confidence.get("sufficient_evidence") is True,
+        visual_sufficient_evidence=visual_confidence.get("sufficient_evidence") is True,
+        warnings=confidence_errors,
+    )
     match = assess_question_answer_match(doc["question"], transcript) if doc else {
         "valid": None, "reason": "Question record was not loaded."}
     successes = sum(x["status"] == "success" for x in (visual, vocal, technical))
@@ -162,6 +214,16 @@ def run_fusion(video: Path, question_id: str, output: Path, settings: Settings |
         "technical_evaluation": technical,
         "visual_analysis": visual,
         "vocal_analysis": vocal,
+        "confidence": {
+            "vocal": vocal_confidence,
+            "visual": visual_confidence,
+            "final_confidence_score": confidence_summary["final_confidence_score"],
+            "confidence_evidence_status": confidence_summary["confidence_evidence_status"],
+            "weights": confidence_summary["weights"],
+            "nominal_weights": confidence_summary["nominal_weights"],
+            "effective_weights": confidence_summary["effective_weights"],
+            "warnings": confidence_summary["warnings"],
+        },
         "fusion_summary": {
             "final_technical_score": technical["score"] if technical["status"] == "success" and match["valid"] is True else None,
             "technical_interpretation": "NLP technical correctness score; not combined with behavioral model confidence." if technical["status"] == "success" else None,

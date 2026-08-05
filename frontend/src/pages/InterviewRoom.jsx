@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Brain, Mic, MicOff, Video, VideoOff, ChevronRight, Clock, AlertCircle, Check } from 'lucide-react'
+import { Brain, Mic, MicOff, Video, VideoOff, ChevronRight, Clock, AlertCircle, Check, Loader2, RefreshCw } from 'lucide-react'
 import api from '../api/axios'
 
 const getMimeType = () => {
@@ -19,7 +19,9 @@ export default function InterviewRoom() {
   const chunksRef = useRef([])
   const streamRef = useRef(null)
   const timerRef = useRef(null)
+  const questionStartRef = useRef(null)
 
+  const [interviewId, setInterviewId] = useState(null)
   const [questions, setQuestions] = useState([])
   const [currentQ, setCurrentQ] = useState(0)
   const [phase, setPhase] = useState('loading')
@@ -28,18 +30,22 @@ export default function InterviewRoom() {
   const [cameraError, setCameraError] = useState(null)
   const [micOn, setMicOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState(null)
+  const [pendingBlob, setPendingBlob] = useState(null)
 
+  // Persists the ordered question sequence on the server (Phase 3A) —
+  // every question shown below is rendered from that persisted response,
+  // never re-derived or re-requested independently.
   useEffect(() => {
     if (!interview_type) {
       navigate('/interview/type')
       return
     }
-    const params = new URLSearchParams({ interview_type })
-    if (track) params.append('track', track)
-    api.get(`/questions?${params}`)
+    api.post('/interviews/start-interview', { interview_type, track: track || null })
       .then(res => {
-        if (!res.data.length) { navigate('/interview/type'); return }
-        setQuestions(res.data.slice(0, 5))
+        setInterviewId(res.data.id)
+        setQuestions(res.data.questions || [])
         setPhase('setup')
       })
       .catch(() => navigate('/interview/type'))
@@ -77,7 +83,10 @@ export default function InterviewRoom() {
     }, 1000)
   }
 
-  const beginRecording = () => {
+  // Starts a fresh recorder scoped to exactly one question — this is the
+  // structural fix for Phase 3A: every answer is its own MediaRecorder
+  // session, not a slice of one interview-long recording.
+  const startRecorderForQuestion = () => {
     const stream = streamRef.current
     if (!stream) return
     chunksRef.current = []
@@ -85,6 +94,11 @@ export default function InterviewRoom() {
     recorder.ondataavailable = (e) => { if (e.data.size > 0) chunksRef.current.push(e.data) }
     recorder.start(1000)
     mediaRecorderRef.current = recorder
+    questionStartRef.current = new Date().toISOString()
+  }
+
+  const beginRecording = () => {
+    startRecorderForQuestion()
     setPhase('interview')
     resetQuestionTimer()
   }
@@ -100,26 +114,71 @@ export default function InterviewRoom() {
     }, 1000)
   }
 
-  const goNext = () => {
-    if (currentQ < questions.length - 1) {
-      setCurrentQ(q => q + 1)
-      resetQuestionTimer()
-    } else {
-      finishInterview()
+  const stopCurrentRecorder = () => new Promise((resolve) => {
+    const recorder = mediaRecorderRef.current
+    if (!recorder || recorder.state === 'inactive') {
+      resolve(new Blob(chunksRef.current, { type: getMimeType() }))
+      return
+    }
+    recorder.onstop = () => resolve(new Blob(chunksRef.current, { type: getMimeType() }))
+    recorder.stop()
+  })
+
+  const uploadSegment = (blob, question, startedAtIso, endedAtIso) => {
+    const formData = new FormData()
+    formData.append('media', new File([blob], 'answer.webm', { type: blob.type || 'video/webm' }))
+    formData.append('interview_question_id', String(question.id))
+    if (question.question_id != null) formData.append('question_id', String(question.question_id))
+    formData.append('sequence_index', String(question.sequence_index))
+    if (startedAtIso) formData.append('started_at', startedAtIso)
+    if (endedAtIso) formData.append('ended_at', endedAtIso)
+    return api.post(`/interviews/${interviewId}/segments`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: 120000,
+    })
+  }
+
+  // Shared by both the normal Next flow and Retry-after-failure: uploads
+  // exactly one already-recorded Blob, waits for a confirmed acknowledgement,
+  // and only then advances. On failure the Blob is kept in memory so the
+  // candidate never has to re-record — just retry the upload.
+  const finalizeAnswer = async (blob) => {
+    setUploading(true)
+    setUploadError(null)
+    const question = questions[currentQ]
+    const endedAtIso = new Date().toISOString()
+    try {
+      await uploadSegment(blob, question, questionStartRef.current, endedAtIso)
+      setUploading(false)
+      setPendingBlob(null)
+      if (currentQ < questions.length - 1) {
+        setCurrentQ(q => q + 1)
+        resetQuestionTimer()
+        startRecorderForQuestion()
+      } else {
+        if (timerRef.current) clearInterval(timerRef.current)
+        if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop())
+        navigate('/interview/processing', { state: { interviewId } })
+      }
+    } catch (err) {
+      setUploading(false)
+      setPendingBlob(blob)
+      setUploadError(
+        err.response?.data?.detail
+        || 'Could not upload your answer. Please check your connection and retry.'
+      )
     }
   }
 
-  const finishInterview = () => {
-    if (timerRef.current) clearInterval(timerRef.current)
-    const recorder = mediaRecorderRef.current
-    if (recorder && recorder.state !== 'inactive') {
-      recorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: getMimeType() })
-        if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop())
-        navigate('/interview/processing', { state: { interview_type, track, blob } })
-      }
-      recorder.stop()
-    }
+  const goNext = async () => {
+    if (uploading) return
+    const blob = await stopCurrentRecorder()
+    await finalizeAnswer(blob)
+  }
+
+  const retryUpload = () => {
+    if (uploading || !pendingBlob) return
+    finalizeAnswer(pendingBlob)
   }
 
   const toggleMic = () => {
@@ -247,6 +306,7 @@ export default function InterviewRoom() {
                       'Ensure your face is well-lit and clearly visible',
                       'Speak clearly towards the microphone',
                       'You have 90 seconds to answer each question',
+                      'Each answer is recorded and submitted separately',
                     ].map(tip => (
                       <li key={tip} className="flex items-start gap-2.5 text-sm text-gray-400">
                         <Check size={14} className="text-cyan-400 mt-0.5 flex-shrink-0" />
@@ -311,25 +371,52 @@ export default function InterviewRoom() {
                     />
                   </div>
 
-                  <span className={`text-xs px-2.5 py-1 rounded-full border font-medium mb-4 self-start ${
-                    questions[currentQ].difficulty === 'Easy'
-                      ? 'bg-green-400/10 text-green-400 border-green-400/20'
-                      : questions[currentQ].difficulty === 'Hard'
-                      ? 'bg-red-400/10 text-red-400 border-red-400/20'
-                      : 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20'
-                  }`}>
-                    {questions[currentQ].difficulty}
-                  </span>
+                  {questions[currentQ].difficulty && (
+                    <span className={`text-xs px-2.5 py-1 rounded-full border font-medium mb-4 self-start ${
+                      questions[currentQ].difficulty === 'Easy'
+                        ? 'bg-green-400/10 text-green-400 border-green-400/20'
+                        : questions[currentQ].difficulty === 'Hard'
+                        ? 'bg-red-400/10 text-red-400 border-red-400/20'
+                        : 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20'
+                    }`}>
+                      {questions[currentQ].difficulty}
+                    </span>
+                  )}
 
                   <h2 className="text-xl font-bold leading-relaxed mb-8 flex-1">
-                    {questions[currentQ].question}
+                    {questions[currentQ].question_text}
                   </h2>
 
-                  <button onClick={goNext} className="btn-primary w-full py-3.5 flex items-center justify-center gap-2">
-                    {currentQ < questions.length - 1
-                      ? <><ChevronRight size={18} /> Next Question</>
-                      : <><Check size={18} /> Finish Interview</>}
-                  </button>
+                  {uploadError && (
+                    <div className="flex items-start gap-2.5 mb-4 p-3.5 rounded-xl bg-red-400/10 border border-red-400/20" role="alert">
+                      <AlertCircle size={18} className="text-red-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-red-300 leading-relaxed">{uploadError}</p>
+                    </div>
+                  )}
+
+                  {uploadError ? (
+                    <button
+                      onClick={retryUpload}
+                      disabled={uploading}
+                      className="btn-primary w-full py-3.5 flex items-center justify-center gap-2 disabled:opacity-60"
+                    >
+                      {uploading
+                        ? <><Loader2 size={18} className="animate-spin" /> Retrying upload...</>
+                        : <><RefreshCw size={18} /> Retry Upload</>}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={goNext}
+                      disabled={uploading}
+                      className="btn-primary w-full py-3.5 flex items-center justify-center gap-2 disabled:opacity-60"
+                    >
+                      {uploading
+                        ? <><Loader2 size={18} className="animate-spin" /> Submitting answer...</>
+                        : currentQ < questions.length - 1
+                          ? <><ChevronRight size={18} /> Next Question</>
+                          : <><Check size={18} /> Finish Interview</>}
+                    </button>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>

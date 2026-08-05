@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
+
+from app.schemas.interview_question import InterviewQuestionOut
 
 
 class InterviewStart(BaseModel):
@@ -20,3 +22,13 @@ class InterviewResponse(BaseModel):
     created_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+class InterviewStartResponse(InterviewResponse):
+    """Response for POST /interviews/start-interview. Adds the
+    server-persisted, ordered question sequence for this interview — the
+    frontend renders questions from this list, not from a fresh
+    independent /questions request.
+    """
+
+    questions: List[InterviewQuestionOut] = []

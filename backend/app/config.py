@@ -34,6 +34,15 @@ class Settings(BaseSettings):
     FUSION_PROCESS_TIMEOUT_SECONDS: int = 3900
     FUSION_MAX_UPLOAD_BYTES: int = 500 * 1024 * 1024
 
+    # --- Phase 3A: per-question answer segments + real local audio
+    # analysis (non-secret, safe to default). Deliberately smaller than
+    # FUSION_MAX_UPLOAD_BYTES: a segment is one answer to one question,
+    # not a whole-interview recording. ---
+    ANSWER_SEGMENT_UPLOAD_DIR: Optional[str] = None
+    ANSWER_SEGMENT_MAX_UPLOAD_BYTES: int = 150 * 1024 * 1024
+    AUDIO_EXTRACTION_TIMEOUT_SECONDS: int = 120
+    AUDIO_MODEL_TIMEOUT_SECONDS: int = 300
+
     # --- CORS (non-secret, safe local-dev default) ---
     CORS_ORIGINS: str = (
         "http://localhost:5173,http://127.0.0.1:5173"
@@ -101,6 +110,34 @@ class Settings(BaseSettings):
             if self.FUSION_OUTPUT_DIR
             else self.fusion_dir / "outputs" / "website"
         ).resolve()
+
+    @property
+    def interviewiq_ai_dir(self) -> Path:
+        return self.project_root / "InterviewIQ_AI"
+
+    @property
+    def answer_segment_upload_path(self) -> Path:
+        return (
+            Path(self.ANSWER_SEGMENT_UPLOAD_DIR).expanduser()
+            if self.ANSWER_SEGMENT_UPLOAD_DIR
+            else self.project_root / "backend" / "storage" / "answer_segments"
+        ).resolve()
+
+    @property
+    def audio_emotion_package_dir(self) -> Path:
+        return self.interviewiq_ai_dir / "audio" / "audio_emotion_package"
+
+    @property
+    def audio_emotion_python(self) -> Path:
+        return self.audio_emotion_package_dir / ".venv_audio" / "Scripts" / "python.exe"
+
+    @property
+    def audio_emotion_checkpoint(self) -> Path:
+        return self.audio_emotion_package_dir / "audio_model.pt"
+
+    @property
+    def audio_emotion_runner(self) -> Path:
+        return self.interviewiq_ai_dir / "fusion" / "runners" / "run_audio_json.py"
 
 
 def _load_settings() -> Settings:

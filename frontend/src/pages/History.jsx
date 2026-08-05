@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Brain, ChevronRight, PlayCircle, Filter, Eye, Mic, MessageSquare } from 'lucide-react'
+import { Brain, ChevronRight, PlayCircle, Filter, Eye, Mic, MessageSquare, Waves } from 'lucide-react'
 import api from '../api/axios'
 
 const verdictStyle = (verdict) => ({
@@ -131,19 +131,33 @@ export default function History() {
                         weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
                       })}
                     </p>
-                    <div className="flex items-center gap-3">
-                      {MODULE_BARS.map(m => (
-                        <div key={m.key} className="flex items-center gap-1.5 flex-1" title={`${m.title}: ${item[m.key]?.toFixed(1) ?? '—'}`}>
-                          <span className="text-xs text-gray-600 w-3">{m.label}</span>
-                          <div className="flex-1 bg-white/5 rounded-full h-1">
-                            <div
-                              className={`h-1 rounded-full ${m.color}`}
-                              style={{ width: `${item[m.key] ?? 0}%` }}
-                            />
+                    {item.vision_score != null && (
+                      <div className="flex items-center gap-3 mb-1.5">
+                        {MODULE_BARS.map(m => (
+                          <div key={m.key} className="flex items-center gap-1.5 flex-1" title={`${m.title}: ${item[m.key]?.toFixed(1) ?? '—'}`}>
+                            <span className="text-xs text-gray-600 w-3">{m.label}</span>
+                            <div className="flex-1 bg-white/5 rounded-full h-1">
+                              <div
+                                className={`h-1 rounded-full ${m.color}`}
+                                style={{ width: `${item[m.key] ?? 0}%` }}
+                              />
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    )}
+                    {item.audio_summary?.available && (
+                      <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                        <Waves size={12} className="text-cyan-400 flex-shrink-0" />
+                        <span>
+                          Vocal Delivery: <span className="text-gray-300 font-medium">{item.audio_summary.average_vocal_delivery_score.toFixed(1)}</span>
+                          {' '}({item.audio_summary.valid_segment_count}/{item.audio_summary.total_segment_count} answers)
+                        </span>
+                      </div>
+                    )}
+                    {!item.audio_summary?.available && item.vision_score == null && (
+                      <p className="text-xs text-gray-600 italic">Audio analysis not available for this historical interview.</p>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-3 flex-shrink-0">

@@ -2,12 +2,54 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.models.answer_segment import AnswerSegment
+from app.models.audio_analysis import AudioAnalysis
 from app.models.interview import Interview
 from app.models.result import Result
 from app.models.user import User
 from app.auth.jwt_handler import get_current_user
+from app.schemas.audio_analysis import AudioSummaryOut
 
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
+
+
+def _audio_summary_for_interview(db: Session, interview_id: int) -> dict:
+    """Reads persisted AudioAnalysis rows only — never re-runs inference.
+    Averages only valid (non-null) Vocal Delivery Scores; missing/invalid
+    segments are never counted as zero. Legacy interviews (no segments at
+    all) are reported honestly as unavailable, not as a zero score.
+    """
+    total_segments = (
+        db.query(AnswerSegment).filter(AnswerSegment.interview_id == interview_id).count()
+    )
+    scores = (
+        db.query(AudioAnalysis.vocal_delivery_score)
+        .join(AnswerSegment, AnswerSegment.id == AudioAnalysis.answer_segment_id)
+        .filter(AnswerSegment.interview_id == interview_id)
+        .all()
+    )
+    valid_scores = [row[0] for row in scores if row[0] is not None]
+
+    if valid_scores:
+        return AudioSummaryOut(
+            available=True,
+            average_vocal_delivery_score=round(sum(valid_scores) / len(valid_scores), 2),
+            valid_segment_count=len(valid_scores),
+            total_segment_count=total_segments,
+        ).model_dump(mode="json")
+    if total_segments:
+        return AudioSummaryOut(
+            available=False,
+            valid_segment_count=0,
+            total_segment_count=total_segments,
+            reason="No answer segments have a valid Vocal Delivery Score yet.",
+        ).model_dump(mode="json")
+    return AudioSummaryOut(
+        available=False,
+        valid_segment_count=0,
+        total_segment_count=0,
+        reason="Audio analysis not available for this historical interview.",
+    ).model_dump(mode="json")
 
 
 @router.get("/history")
@@ -36,6 +78,7 @@ def get_history(
             "audio_score": result.audio_score if result else None,
             "nlp_score": result.nlp_score if result else None,
             "weakest_module": result.weakest_module if result else None,
+            "audio_summary": _audio_summary_for_interview(db, interview.id),
         })
     return history
 

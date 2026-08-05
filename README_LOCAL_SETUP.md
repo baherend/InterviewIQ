@@ -763,6 +763,110 @@ the cached value).
   `student` account and always lands on `/student` — there is no role
   selector anywhere in the UI, and none is sent to the backend.
 
+## Real per-question audio analysis (Phase 3A)
+
+The normal student interview flow (`/interview/room` → `/interview/processing`
+→ `/report/:id` → `/history`) now records **one distinct answer segment per
+question** and runs **real, local audio analysis** on each segment — this
+replaced the `app/ai_modules/audio_module.py` random-score mock in that flow.
+`app/ai_modules/audio_module.py` itself still exists and is still used by the
+older, untouched `POST /api/interviews/analyze/{interview_id}` endpoint, but
+nothing in the new per-question flow calls it. Vision and NLP are unchanged —
+still mocked in the normal flow, still real only via the separate
+`/fusion-test` page (see "What this phase does NOT include" below).
+
+### What "real" means here
+
+Two independent, real signal sources — wired through
+`backend/app/services/audio_analysis_service.py`, which wraps the existing
+implementations under `InterviewIQ_AI/audio/` without changing their formulas:
+
+- **Audio emotion classification** — the same Wav2Vec2-XLSR + BiLSTM model
+  used by `/fusion-test` (`InterviewIQ_AI/audio/audio_emotion_package/`,
+  trained on BAVED), run in its own dedicated virtual environment via the
+  existing subprocess/JSON adapter pattern
+  (`InterviewIQ_AI/fusion/adapters/base.py::run_json_component`,
+  `InterviewIQ_AI/fusion/runners/run_audio_json.py`). Produces an
+  `emotion_label` (Low / Neutral / High Emotion), `emotion_probabilities`,
+  and `model_confidence` (`max(softmax(logits))`).
+  **`model_confidence` is diagnostic model certainty only — it is
+  uncalibrated (no temperature scaling, Platt/isotonic scaling, ECE, or
+  Brier score exists for this model) and it is not candidate performance.**
+- **Vocal delivery** — `InterviewIQ_AI/audio/audio_confidence.py`, a
+  deterministic DSP heuristic over speaking rate, pause control, volume
+  stability, and speech continuity, run in-process (pure numpy/wave code,
+  no ML model). **This is an experimental vocal-delivery indicator, not a
+  scientifically validated psychological confidence score.**
+  Its composite `vocal_delivery_score` requires a transcript to score
+  speaking rate — ASR/NLP is out of scope for this phase, so no transcript
+  is supplied, and this composite score (and `speaking_rate_wpm`) will
+  legitimately be "Not available" for most answers. The three
+  transcript-independent sub-scores (pause control, volume stability,
+  speech continuity) are real, computed values regardless.
+
+Neither category is ever replaced by a random value. If real analysis fails
+or the audio has no usable signal, the segment's `processing_status` is set
+to `failed` or `insufficient_evidence` with a stable `failure_code` (see
+`app/models/answer_segment.py::AudioFailureCode`) and a human-readable
+`failure_message` — the frontend shows "Not available" with that reason,
+never a fabricated 0%.
+
+### Recording → processing flow
+
+1. `InterviewRoom.jsx` calls `POST /interviews/start-interview`, which
+   persists the ordered question sequence server-side (`InterviewQuestion`
+   rows) and returns it — the UI renders only from that persisted list.
+2. For each question, a **fresh `MediaRecorder`** records just that answer.
+   Clicking Next stops it, uploads the resulting Blob to
+   `POST /interviews/{id}/segments` (bound to `interview_question_id`, with
+   `question_id`/`sequence_index` cross-validated server-side), and only
+   advances once the upload is acknowledged. A failed upload keeps the
+   candidate on the same question with the Blob retained in memory for
+   retry — it never silently drops the answer or silently skips ahead.
+3. After the last answer, `InterviewRoom.jsx` navigates to
+   `/interview/processing` with just the `interview_id`.
+   `Processing.jsx` calls `POST /interviews/{id}/process-audio` (marks the
+   recording stage complete and queues every uploaded segment) and polls
+   `GET /interviews/{id}/processing-status` until every segment reaches a
+   terminal state (`completed` / `partial` / `failed` /
+   `insufficient_evidence`), then navigates to `/report/{id}`.
+4. Processing runs via **FastAPI `BackgroundTasks`** — this is a
+   local/development-grade mechanism, **not a durable production job
+   queue**. If the backend process restarts mid-analysis, an affected
+   segment is left in `processing` and must be retried via
+   `POST /interviews/{id}/segments/{segment_id}/retry-audio`.
+5. `Report.jsx`/`History.jsx` only ever read persisted
+   `InterviewQuestion` / `AnswerSegment` / `AudioAnalysis` rows — opening a
+   report or the history list never re-runs any analysis. Interview-level
+   audio summaries average only segments with a valid
+   `vocal_delivery_score`; missing/invalid segments are never averaged in
+   as zero, and an interview with no valid scores yet (or a historical,
+   pre-Phase-3A interview with no segments at all) shows an honest
+   "not available" state instead of a fabricated summary.
+
+### Optional real-model test
+
+The default backend test suite (`pytest tests/`) never loads the audio
+model — the model/subprocess boundary is mocked. To actually exercise the
+real model once (takes about a minute, no paid API involved):
+
+```bash
+cd backend
+RUN_REAL_AUDIO_TESTS=1 <path-to-venv>/pytest tests/test_real_audio_smoke.py -v
+```
+
+### Migration
+
+One Alembic migration,
+`b4d8f2a917c3_add_interview_questions_answer_.py`, adds three new tables
+(`interview_questions`, `answer_segments`, `audio_analyses`) and one
+nullable column on `interviews` (`recording_completed_at`). It does not
+alter or drop any existing table, and its `downgrade()` removes only what
+it added. Historical interviews predating this migration simply have no
+`interview_questions`/`answer_segments` rows — Report/History treat that as
+a legacy record ("Audio analysis not available for this historical
+interview."), not an error.
+
 ## HTTPS certificate note
 
 `nginx/openssl.cnf` generates a self-signed certificate scoped to
@@ -776,9 +880,14 @@ a follow-up for a later phase, not part of this one.
 
 ## What this phase does NOT include
 
-- No real Vision, Audio, or NLP model integration. The AI modules remain
-  mock implementations (random-score generators) until the real model
-  packages are delivered.
+- No real Vision or NLP model integration in the normal student flow — the
+  `app/ai_modules/vision_module.py`/`nlp_module.py` mocks (random-score
+  generators) are still used by the legacy whole-interview
+  `POST /api/interviews/analyze/{interview_id}` endpoint. Audio is now real
+  in the normal flow as of Phase 3A (see "Real per-question audio analysis
+  (Phase 3A)" above) — real Vision/NLP/Late Fusion remain reachable only
+  via the separate, unauthenticated `/fusion-test` page and are deferred to
+  a later phase for the normal flow.
 - No OpenRouter integration. `OPENROUTER_*` variables in `.env.example` are
   preparation only — no code path calls OpenRouter yet.
 - Organizations and memberships exist as a data foundation with backend

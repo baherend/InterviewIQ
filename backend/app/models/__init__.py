@@ -8,3 +8,4 @@ from app.models.organization_invitation import OrganizationInvitation
 from app.models.interview_question import InterviewQuestion
 from app.models.answer_segment import AnswerSegment, UploadStatus, ProcessingStatus, AudioFailureCode
 from app.models.audio_analysis import AudioAnalysis
+from app.models.answer_content_analysis import AnswerContentAnalysis

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Brain, ChevronRight, PlayCircle, Filter, Eye, Mic, MessageSquare, Waves } from 'lucide-react'
+import { Brain, ChevronRight, PlayCircle, Filter, Eye, Mic, MessageSquare, Waves, Award } from 'lucide-react'
 import api from '../api/axios'
 
 const verdictStyle = (verdict) => ({
@@ -155,7 +155,16 @@ export default function History() {
                         </span>
                       </div>
                     )}
-                    {!item.audio_summary?.available && item.vision_score == null && (
+                    {item.content_summary?.available && (
+                      <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                        <Award size={12} className="text-yellow-400 flex-shrink-0" />
+                        <span>
+                          Answer Content Score: <span className="text-gray-300 font-medium">{item.content_summary.average_answer_content_score.toFixed(1)}</span>
+                          {' '}({item.content_summary.valid_segment_count}/{item.content_summary.total_segment_count} answers)
+                        </span>
+                      </div>
+                    )}
+                    {!item.audio_summary?.available && !item.content_summary?.available && item.vision_score == null && (
                       <p className="text-xs text-gray-600 italic">Audio analysis not available for this historical interview.</p>
                     )}
                   </div>

@@ -376,3 +376,224 @@ def test_legacy_audio_analysis_row_with_null_transcript_serializes_gracefully(cl
     assert audio_payload["transcript"] is None
     assert audio_payload["transcript_status"] is None
     assert audio_payload["emotion_label"] == "Neutral Emotion"
+
+
+# ============================================================================
+# Phase 3C — real Answer Content Score, persistence, report/history
+# integration.
+#
+# Mocks app.routers.interviews.score_answer_segment_content (the real
+# Groq/BGE-M3/NLI subprocess boundary — see
+# app.services.answer_content_service) so these tests run fast and
+# deterministically, while exercising the real persistence, report, and
+# history code paths end-to-end. One test below deliberately does NOT
+# mock it, to prove the real no-reference-document gate short-circuits
+# through the actual router/service wiring without any subprocess call.
+# ============================================================================
+
+from app.services.answer_content_service import AnswerContentOutcome
+
+
+def _set_nlp_reference_id(db_session, question_id: int, nlp_reference_id: str) -> None:
+    from app.models.question import Question
+
+    question = db_session.query(Question).filter(Question.id == question_id).first()
+    question.nlp_reference_id = nlp_reference_id
+    db_session.commit()
+
+
+def _content_success_outcome(**overrides):
+    defaults = dict(
+        status="SUCCESS",
+        error_message=None,
+        question_reference_id="SE-028",
+        precision=0.75,
+        coverage=0.5,
+        harmonic_f=0.6,
+        answer_content_score=60.0,
+        claims=["claim one"],
+        claim_scores=[{"claim_index": 0, "claim_text": "claim one", "verdict": "VERIFIED", "claim_score": 1.0}],
+        model_identifiers={"decomposition_model": "openai/gpt-oss-120b"},
+        raw_diagnostic={"note": "test"},
+    )
+    defaults.update(overrides)
+    return AnswerContentOutcome(**defaults)
+
+
+def test_content_analysis_persisted_and_appears_in_report_and_history(client, db_session):
+    (question,), interview_type = seed_questions(db_session, count=1)
+    _set_nlp_reference_id(db_session, question.id, "SE-028")
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    q = interview["questions"][0]
+    segment = _upload_segment(client, headers, interview["id"], q)
+
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio", return_value=_successful_outcome()
+    ), patch(
+        "app.routers.interviews.score_answer_segment_content",
+        return_value=_content_success_outcome(),
+    ) as mock_content:
+        r = client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+        assert r.status_code == 200
+
+    mock_content.assert_called_once()
+    # Reuses the audio task's persisted transcript -- never re-runs ASR.
+    call_args = mock_content.call_args[0]
+    assert call_args[0] == "This is the transcribed answer."
+    assert call_args[1] == "ok"
+    assert call_args[2] == "SE-028"
+
+    from app.models.answer_content_analysis import AnswerContentAnalysis
+
+    row = db_session.query(AnswerContentAnalysis).filter(
+        AnswerContentAnalysis.answer_segment_id == segment["id"]
+    ).first()
+    assert row is not None
+    assert row.status == "SUCCESS"
+    assert row.answer_content_score == 60.0
+    assert row.precision == 0.75
+    assert row.claim_scores[0]["verdict"] == "VERIFIED"
+
+    report = client.get(f"/api/interviews/report/{interview['id']}", headers=headers).json()
+    content_payload = report["questions"][0]["segment"]["content_analysis"]
+    assert content_payload["status"] == "SUCCESS"
+    assert content_payload["answer_content_score"] == 60.0
+    assert content_payload["claims"] == ["claim one"]
+    assert report["content_summary"]["available"] is True
+    assert report["content_summary"]["average_answer_content_score"] == 60.0
+
+    history = client.get("/api/dashboard/history", headers=headers).json()
+    item = next(h for h in history if h["id"] == interview["id"])
+    assert item["content_summary"]["available"] is True
+    assert item["content_summary"]["average_answer_content_score"] == 60.0
+
+
+def test_two_segments_content_scores_bound_to_correct_question_not_swapped(client, db_session):
+    """Two questions, each mapped to a DIFFERENT reference document.
+    score_answer_segment_content's mocked return value is driven purely
+    by the nlp_reference_id argument it actually receives -- if binding
+    were positional/order-based instead of ID-based, the two segments'
+    persisted scores would come out swapped.
+    """
+    (q1, q2), interview_type = seed_questions(db_session, count=2)
+    _set_nlp_reference_id(db_session, q1.id, "SE-028")
+    _set_nlp_reference_id(db_session, q2.id, "DA-001")
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    iq1, iq2 = interview["questions"]
+    segment1 = _upload_segment(client, headers, interview["id"], iq1)
+    segment2 = _upload_segment(client, headers, interview["id"], iq2)
+
+    def _content_side_effect(transcript, transcript_status, nlp_reference_id, timeout=None):
+        score = 11.0 if nlp_reference_id == "SE-028" else 22.0
+        return _content_success_outcome(question_reference_id=nlp_reference_id, answer_content_score=score)
+
+    audio_outcomes = [
+        _successful_outcome(transcript="First answer."),
+        _successful_outcome(transcript="Second answer."),
+    ]
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio", side_effect=audio_outcomes
+    ), patch(
+        "app.routers.interviews.score_answer_segment_content", side_effect=_content_side_effect
+    ) as mock_content:
+        r = client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+        assert r.status_code == 200
+
+    assert mock_content.call_count == 2
+
+    from app.models.answer_content_analysis import AnswerContentAnalysis
+
+    row1 = db_session.query(AnswerContentAnalysis).filter(
+        AnswerContentAnalysis.answer_segment_id == segment1["id"]
+    ).first()
+    row2 = db_session.query(AnswerContentAnalysis).filter(
+        AnswerContentAnalysis.answer_segment_id == segment2["id"]
+    ).first()
+    assert row1.question_reference_id == "SE-028"
+    assert row1.answer_content_score == 11.0
+    assert row2.question_reference_id == "DA-001"
+    assert row2.answer_content_score == 22.0
+
+
+def test_content_scoring_gated_out_for_real_when_question_has_no_reference_mapping(client, db_session):
+    """Deliberately does NOT mock score_answer_segment_content -- the
+    question has no nlp_reference_id, so the real service's own
+    eligibility gate must short-circuit (no subprocess, no Groq call)
+    and persist NO_REFERENCE_DOCUMENT.
+    """
+    _, interview_type = seed_questions(db_session, count=1)
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    q = interview["questions"][0]
+    segment = _upload_segment(client, headers, interview["id"], q)
+
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio", return_value=_successful_outcome()
+    ):
+        r = client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+        assert r.status_code == 200
+
+    from app.models.answer_content_analysis import AnswerContentAnalysis
+
+    row = db_session.query(AnswerContentAnalysis).filter(
+        AnswerContentAnalysis.answer_segment_id == segment["id"]
+    ).first()
+    assert row is not None
+    assert row.status == "NO_REFERENCE_DOCUMENT"
+    assert row.answer_content_score is None
+
+
+def test_retry_audio_does_not_duplicate_content_analysis_row(client, db_session):
+    (question,), interview_type = seed_questions(db_session, count=1)
+    _set_nlp_reference_id(db_session, question.id, "SE-028")
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    q = interview["questions"][0]
+    segment = _upload_segment(client, headers, interview["id"], q)
+
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio", return_value=_successful_outcome()
+    ), patch(
+        "app.routers.interviews.score_answer_segment_content",
+        return_value=_content_success_outcome(answer_content_score=60.0),
+    ):
+        client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio", return_value=_successful_outcome()
+    ), patch(
+        "app.routers.interviews.score_answer_segment_content",
+        return_value=_content_success_outcome(answer_content_score=75.0),
+    ):
+        r = client.post(
+            f"/api/interviews/{interview['id']}/segments/{segment['id']}/retry-audio", headers=headers
+        )
+        assert r.status_code == 200
+
+    from app.models.answer_content_analysis import AnswerContentAnalysis
+
+    rows = db_session.query(AnswerContentAnalysis).filter(
+        AnswerContentAnalysis.answer_segment_id == segment["id"]
+    ).all()
+    assert len(rows) == 1
+    assert rows[0].answer_content_score == 75.0
+
+
+def test_legacy_segment_without_content_analysis_serializes_gracefully(client, db_session):
+    """Simulates a row written before the Phase 3C migration/processing
+    ever ran for it (no AnswerContentAnalysis row at all) -- the API
+    must treat this as "not available", not an error.
+    """
+    _, interview_type = seed_questions(db_session, count=1)
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    q = interview["questions"][0]
+    _upload_segment(client, headers, interview["id"], q)
+
+    r = client.get(f"/api/interviews/report/{interview['id']}", headers=headers)
+    assert r.status_code == 200
+    body = r.json()
+    assert body["questions"][0]["segment"]["content_analysis"] is None
+    assert body["content_summary"]["available"] is False

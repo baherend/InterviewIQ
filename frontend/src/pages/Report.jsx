@@ -40,9 +40,29 @@ const SEGMENT_STATUS_META = {
   failed: { label: 'Analysis failed', className: 'bg-red-400/10 text-red-400 border-red-400/20' },
 }
 
+// Phase 3C: content_analysis.status -> a graceful, honest "not available"
+// reason. Only 'SUCCESS' has a real score; every other value is a typed,
+// non-fabricated outcome (see app.models.answer_content_analysis).
+const CONTENT_STATUS_REASON = {
+  TRANSCRIPT_UNAVAILABLE: 'Answer Content Score requires a usable transcript, which is not available for this answer.',
+  ASR_NO_SPEECH: 'No usable speech was detected in this answer, so Answer Content Score could not be computed.',
+  ASR_TOO_SHORT: 'This answer was too short for Answer Content Score to be computed.',
+  NO_REFERENCE_DOCUMENT: 'This question has no reference document configured for Answer Content Score.',
+  DECOMPOSITION_FAILED: 'Answer Content Score processing failed during claim decomposition.',
+  NLI_FAILED: 'Answer Content Score processing failed during evidence scoring.',
+  EXECUTION_FAILED: 'Answer Content Score processing failed unexpectedly.',
+}
+
+const CLAIM_VERDICT_STYLE = {
+  VERIFIED: 'bg-cyan-400/10 text-cyan-400 border-cyan-400/20',
+  CONTRADICTED: 'bg-red-400/10 text-red-400 border-red-400/20',
+  NEUTRAL: 'bg-gray-400/10 text-gray-400 border-gray-400/20',
+}
+
 function QuestionAudioCard({ item, index }) {
   const segment = item.segment
   const audio = segment?.audio_analysis
+  const content = segment?.content_analysis
   const statusMeta = segment
     ? (SEGMENT_STATUS_META[segment.processing_status] || SEGMENT_STATUS_META.pending)
     : { label: 'No recording', className: 'bg-gray-400/10 text-gray-400 border-gray-400/20' }
@@ -174,6 +194,53 @@ function QuestionAudioCard({ item, index }) {
           )}
         </div>
       )}
+
+      {content && (
+        <div className={audio ? 'mt-4 pt-4 border-t border-white/10' : ''}>
+          <div className="flex items-center gap-2 mb-2">
+            <Award size={15} className="text-yellow-400" />
+            <span className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Answer Content Score</span>
+          </div>
+          {content.status === 'SUCCESS' ? (
+            <>
+              <div className="flex flex-wrap gap-6 mb-3">
+                <div>
+                  <p className="text-lg font-black text-yellow-400">{num1(content.answer_content_score)}</p>
+                  <p className="text-[11px] text-gray-500">Score</p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">{pct(content.precision)}</p>
+                  <p className="text-[11px] text-gray-500">Precision</p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">{pct(content.coverage)}</p>
+                  <p className="text-[11px] text-gray-500">Coverage</p>
+                </div>
+              </div>
+              {content.claim_scores?.length > 0 && (
+                <div className="space-y-1.5">
+                  {content.claim_scores.map((cs, ci) => (
+                    <div key={ci} className="flex items-start gap-2">
+                      <span
+                        className={`text-[10px] px-1.5 py-0.5 rounded border flex-shrink-0 font-medium ${
+                          CLAIM_VERDICT_STYLE[cs.verdict] || CLAIM_VERDICT_STYLE.NEUTRAL
+                        }`}
+                      >
+                        {cs.verdict}
+                      </span>
+                      <span className="text-[11px] text-gray-400 leading-relaxed">{cs.claim_text}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <p className="text-[11px] text-gray-500 leading-relaxed">
+              {CONTENT_STATUS_REASON[content.status] || content.error_message || 'Answer Content Score is not available for this answer.'}
+            </p>
+          )}
+        </div>
+      )}
     </motion.div>
   )
 }
@@ -213,7 +280,7 @@ export default function Report() {
     )
   }
 
-  const { interview, result, questions = [], audio_summary: audioSummary } = data
+  const { interview, result, questions = [], audio_summary: audioSummary, content_summary: contentSummary } = data
 
   // Legacy (pre-Phase-3A) mocked scores — only shown when at least one
   // actually exists, so a Phase 3A interview (no Result row at all) never
@@ -385,6 +452,34 @@ export default function Report() {
               ) : (
                 <p className="text-sm text-gray-500">
                   {audioSummary?.reason || 'Audio analysis not available for this historical interview.'}
+                </p>
+              )}
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6 mb-4">
+              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <Award size={20} className="text-yellow-400" /> Answer Content Score Summary
+              </h3>
+              {contentSummary?.available ? (
+                <div className="flex flex-wrap items-center gap-6">
+                  <div>
+                    <p className="text-3xl font-black text-yellow-400">
+                      {contentSummary.average_answer_content_score.toFixed(1)}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">Average Answer Content Score</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">
+                      {contentSummary.valid_segment_count} of {contentSummary.total_segment_count} answers scored
+                    </p>
+                  </div>
+                  <p className="text-[11px] text-gray-500 leading-snug max-w-md">
+                    Claim decomposition + evidence-retrieval based correctness indicator, averaged only over answers with a valid score.
+                  </p>
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500">
+                  {contentSummary?.reason || 'Answer Content Score not available for this historical interview.'}
                 </p>
               )}
             </motion.div>

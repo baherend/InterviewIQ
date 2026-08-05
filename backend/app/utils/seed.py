@@ -9,6 +9,7 @@ SEED_QUESTIONS = [
         "interview_type": "Technical",
         "track": "Software Engineering",
         "difficulty": "Medium",
+        "nlp_reference_id": "SE-028",
     },
     # HR
     {"question": "Tell me about yourself.", "interview_type": "HR", "track": None, "difficulty": "Easy"},

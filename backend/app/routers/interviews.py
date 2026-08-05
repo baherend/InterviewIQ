@@ -19,6 +19,7 @@ from app.models.interview import Interview
 from app.models.interview_question import InterviewQuestion
 from app.models.answer_segment import AnswerSegment, UploadStatus, ProcessingStatus, AudioFailureCode
 from app.models.audio_analysis import AudioAnalysis
+from app.models.answer_content_analysis import AnswerContentAnalysis, ContentAnalysisStatus
 from app.models.question import Question
 from app.models.result import Result
 from app.models.user import User
@@ -29,6 +30,7 @@ from app.schemas.answer_segment import (
     ProcessAudioResponse,
 )
 from app.schemas.audio_analysis import AudioAnalysisOut, AudioSummaryOut
+from app.schemas.answer_content_analysis import AnswerContentAnalysisOut, ContentSummaryOut
 from app.auth.jwt_handler import get_current_user
 from app.ai_modules.vision_module import run_vision
 from app.ai_modules.audio_module import run_audio
@@ -37,6 +39,7 @@ from app.ai_modules.fusion_engine import fuse_scores
 from app.config import settings
 from app.fusion_response import clean_fusion_response
 from app.services.audio_analysis_service import analyze_answer_segment_audio
+from app.services.answer_content_service import score_answer_segment_content, AnswerContentOutcome
 
 router = APIRouter(prefix="/interviews", tags=["interviews"])
 
@@ -399,6 +402,62 @@ def analyze_interview(
 # ============================================================================
 
 
+def _process_segment_content_task(db: Session, segment: AnswerSegment) -> None:
+    """Phase 3C: real Answer Content Score for this exact segment, run
+    immediately after audio analysis (above) commits — reuses its
+    just-persisted transcript, never re-runs ASR. Called for every
+    segment that reaches the end of _process_segment_audio_task
+    regardless of the audio outcome; ineligible segments (no usable
+    transcript, no reference document mapped to their question) are
+    handled by score_answer_segment_content's own gates without ever
+    invoking the real (Groq-calling) subprocess.
+
+    Same "never leave stuck" discipline as the audio task: any
+    unexpected exception here still results in a typed, committed
+    AnswerContentAnalysis row, never a silently missing one, and never
+    touches/rolls back the AudioAnalysis row already committed above.
+    """
+    audio_analysis = db.query(AudioAnalysis).filter(
+        AudioAnalysis.answer_segment_id == segment.id
+    ).first()
+    transcript = audio_analysis.transcript if audio_analysis else None
+    transcript_status = audio_analysis.transcript_status if audio_analysis else None
+
+    nlp_reference_id = None
+    if segment.question_id is not None:
+        question = db.query(Question).filter(Question.id == segment.question_id).first()
+        if question is not None:
+            nlp_reference_id = question.nlp_reference_id
+
+    try:
+        outcome = score_answer_segment_content(transcript, transcript_status, nlp_reference_id)
+    except Exception as exc:  # noqa: BLE001 - never leave a segment with no content-analysis row
+        outcome = AnswerContentOutcome(
+            status=ContentAnalysisStatus.EXECUTION_FAILED.value,
+            error_message=f"Unexpected error during content scoring: {type(exc).__name__}: {exc}",
+            question_reference_id=nlp_reference_id,
+        )
+
+    content_analysis = db.query(AnswerContentAnalysis).filter(
+        AnswerContentAnalysis.answer_segment_id == segment.id
+    ).first()
+    if content_analysis is None:
+        content_analysis = AnswerContentAnalysis(answer_segment_id=segment.id)
+        db.add(content_analysis)
+    content_analysis.status = outcome.status
+    content_analysis.error_message = outcome.error_message
+    content_analysis.question_reference_id = outcome.question_reference_id
+    content_analysis.precision = outcome.precision
+    content_analysis.coverage = outcome.coverage
+    content_analysis.harmonic_f = outcome.harmonic_f
+    content_analysis.answer_content_score = outcome.answer_content_score
+    content_analysis.claims = outcome.claims
+    content_analysis.claim_scores = outcome.claim_scores
+    content_analysis.model_identifiers = outcome.model_identifiers
+    content_analysis.raw_diagnostic = outcome.raw_diagnostic
+    db.commit()
+
+
 def _process_segment_audio_task(segment_id: int) -> None:
     """Runs after the HTTP response for /process-audio or /retry-audio has
     already been sent (FastAPI BackgroundTasks). Opens its own database
@@ -423,6 +482,7 @@ def _process_segment_audio_task(segment_id: int) -> None:
                 f"Unexpected error during audio analysis: {type(exc).__name__}: {exc}"
             )
             db.commit()
+            _process_segment_content_task(db, segment)
             return
 
         segment.processing_status = outcome.processing_status
@@ -458,6 +518,7 @@ def _process_segment_audio_task(segment_id: int) -> None:
             audio_analysis.raw_diagnostic = outcome.raw_diagnostic
 
         db.commit()
+        _process_segment_content_task(db, segment)
     finally:
         db.close()
 
@@ -762,6 +823,7 @@ def get_report(
 
     questions_payload = []
     valid_vocal_scores: list[float] = []
+    valid_content_scores: list[float] = []
     total_segments = 0
     for interview_question in interview_questions:
         segment = db.query(AnswerSegment).filter(
@@ -777,6 +839,16 @@ def get_report(
                 ).model_dump(mode="json")
                 if segment.audio_analysis.vocal_delivery_score is not None:
                     valid_vocal_scores.append(segment.audio_analysis.vocal_delivery_score)
+            content_payload = None
+            if segment.content_analysis:
+                content_payload = AnswerContentAnalysisOut.model_validate(
+                    segment.content_analysis
+                ).model_dump(mode="json")
+                if (
+                    segment.content_analysis.status == ContentAnalysisStatus.SUCCESS.value
+                    and segment.content_analysis.answer_content_score is not None
+                ):
+                    valid_content_scores.append(segment.content_analysis.answer_content_score)
             segment_payload = {
                 "id": segment.id,
                 "upload_status": segment.upload_status,
@@ -786,6 +858,7 @@ def get_report(
                 "started_at": segment.started_at.isoformat() if segment.started_at else None,
                 "ended_at": segment.ended_at.isoformat() if segment.ended_at else None,
                 "audio_analysis": audio_payload,
+                "content_analysis": content_payload,
             }
         questions_payload.append({
             "sequence_index": interview_question.sequence_index,
@@ -819,6 +892,30 @@ def get_report(
             reason="Audio analysis not available for this historical interview.",
         )
 
+    if valid_content_scores:
+        content_summary = ContentSummaryOut(
+            available=True,
+            average_answer_content_score=round(
+                sum(valid_content_scores) / len(valid_content_scores), 2
+            ),
+            valid_segment_count=len(valid_content_scores),
+            total_segment_count=total_segments,
+        )
+    elif total_segments:
+        content_summary = ContentSummaryOut(
+            available=False,
+            valid_segment_count=0,
+            total_segment_count=total_segments,
+            reason="No answer segments have a valid Answer Content Score yet.",
+        )
+    else:
+        content_summary = ContentSummaryOut(
+            available=False,
+            valid_segment_count=0,
+            total_segment_count=0,
+            reason="Answer Content Score not available for this historical interview.",
+        )
+
     return {
         "interview": {
             "id": interview.id,
@@ -848,4 +945,5 @@ def get_report(
         },
         "questions": questions_payload,
         "audio_summary": audio_summary.model_dump(mode="json"),
+        "content_summary": content_summary.model_dump(mode="json"),
     }

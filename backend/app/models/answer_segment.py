@@ -107,3 +107,6 @@ class AnswerSegment(Base):
     audio_analysis = relationship(
         "AudioAnalysis", back_populates="answer_segment", uselist=False, cascade="all, delete-orphan"
     )
+    content_analysis = relationship(
+        "AnswerContentAnalysis", back_populates="answer_segment", uselist=False, cascade="all, delete-orphan"
+    )

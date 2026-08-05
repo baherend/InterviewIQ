@@ -45,6 +45,11 @@ class Settings(BaseSettings):
     # --- Phase 3B: per-question real ASR (faster-whisper large-v3, CPU) is
     # slower than the emotion classifier, hence the larger default timeout. ---
     ASR_TIMEOUT_SECONDS: int = 600
+    # --- Phase 3C: real Answer Content Score (claim decomposition via
+    # Groq + NLI model load + optional BGE-M3 load on first >k-chunk
+    # document) — reuses Phase 3B's transcript, so ASR itself never runs
+    # again here. ---
+    CONTENT_SCORE_TIMEOUT_SECONDS: int = 900
 
     # --- CORS (non-secret, safe local-dev default) ---
     CORS_ORIGINS: str = (
@@ -160,6 +165,13 @@ class Settings(BaseSettings):
     @property
     def asr_runner(self) -> Path:
         return self.interviewiq_ai_dir / "fusion" / "runners" / "run_asr_only_json.py"
+
+    # --- Phase 3C: real Answer Content Score (interview_iq.pipeline.
+    # evaluate_answer: claim decomposition, BGE-M3 retrieval, NLI,
+    # scoring), same dedicated .venv_nlp environment as ASR above. ---
+    @property
+    def content_score_runner(self) -> Path:
+        return self.interviewiq_ai_dir / "fusion" / "runners" / "run_content_score_json.py"
 
 
 def _load_settings() -> Settings:

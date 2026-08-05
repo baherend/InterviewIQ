@@ -440,6 +440,8 @@ def _process_segment_audio_task(segment_id: int) -> None:
             audio_analysis.emotion_probabilities = outcome.emotion_probabilities
             audio_analysis.model_confidence = outcome.model_confidence
             audio_analysis.model_confidence_calibrated = False
+            audio_analysis.transcript = outcome.transcript
+            audio_analysis.transcript_status = outcome.transcript_status
             audio_analysis.vocal_delivery_score = outcome.vocal_delivery_score
             audio_analysis.speaking_rate_wpm = outcome.speaking_rate_wpm
             audio_analysis.speaking_rate_score = outcome.speaking_rate_score

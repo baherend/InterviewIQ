@@ -28,13 +28,20 @@ class AudioAnalysis(Base):
     Vocal delivery (InterviewIQ_AI/audio/audio_confidence.py, a
     deterministic DSP heuristic — "no emotion inference is performed"):
         vocal_delivery_score and its four weighted sub-scores. The
-        composite score requires a transcript (for speaking-rate scoring)
-        which this phase does not produce (ASR/NLP integration is
-        explicitly out of scope for Phase 3A) — so `vocal_delivery_score`
-        and `speaking_rate_*` will legitimately be None/"Not available"
-        for most segments in this phase, while pause/volume/continuity
-        (which do not depend on a transcript) are still real computed
-        values. See PHASE_3A_REAL_AUDIO_IMPLEMENTATION_REPORT.md.
+        composite score requires a transcript (for speaking-rate scoring).
+        As of Phase 3B, `transcript` is the real transcript produced by
+        the existing ASR implementation
+        (interview_iq.asr.engine.transcribe_audio, faster-whisper) for
+        this exact answer segment's audio — so `vocal_delivery_score` and
+        `speaking_rate_*` are now populated whenever the segment has
+        enough real speech. `transcript_status` mirrors the ASR engine's
+        own status ("ok" | "no_speech" | "too_short") — a real,
+        non-error determination that there was nothing to transcribe is
+        not the same as an ASR failure (see `failure_reason` /
+        AnswerSegment.failure_code for actual failures). See
+        PHASE_3B_ASR_VOCAL_METRICS_REPORT.md for the full Phase 3B
+        design; PHASE_3A_REAL_AUDIO_IMPLEMENTATION_REPORT.md for the
+        original (transcript-less) Phase 3A behavior.
     """
 
     __tablename__ = "audio_analyses"
@@ -49,6 +56,10 @@ class AudioAnalysis(Base):
     emotion_probabilities = Column(JSON, nullable=True)
     model_confidence = Column(Float, nullable=True)
     model_confidence_calibrated = Column(Boolean, nullable=False, default=False)
+
+    # --- Transcript (Phase 3B: interview_iq.asr.engine.transcribe_audio) ---
+    transcript = Column(Text, nullable=True)
+    transcript_status = Column(String(20), nullable=True)
 
     # --- Vocal delivery DSP (InterviewIQ_AI/audio/audio_confidence.py) ---
     vocal_delivery_score = Column(Float, nullable=True)

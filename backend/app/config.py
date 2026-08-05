@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     ANSWER_SEGMENT_MAX_UPLOAD_BYTES: int = 150 * 1024 * 1024
     AUDIO_EXTRACTION_TIMEOUT_SECONDS: int = 120
     AUDIO_MODEL_TIMEOUT_SECONDS: int = 300
+    # --- Phase 3B: per-question real ASR (faster-whisper large-v3, CPU) is
+    # slower than the emotion classifier, hence the larger default timeout. ---
+    ASR_TIMEOUT_SECONDS: int = 600
 
     # --- CORS (non-secret, safe local-dev default) ---
     CORS_ORIGINS: str = (
@@ -138,6 +141,25 @@ class Settings(BaseSettings):
     @property
     def audio_emotion_runner(self) -> Path:
         return self.interviewiq_ai_dir / "fusion" / "runners" / "run_audio_json.py"
+
+    # --- Phase 3B: real ASR (interview_iq.asr.engine.transcribe_audio),
+    # run in its own dedicated environment exactly like the audio emotion
+    # model above — never imported directly into the backend process. ---
+    @property
+    def nlp_handoff_dir(self) -> Path:
+        return self.interviewiq_ai_dir / "nlp" / "interview-iq-fusion-handoff"
+
+    @property
+    def nlp_handoff_src_dir(self) -> Path:
+        return self.nlp_handoff_dir / "src"
+
+    @property
+    def nlp_handoff_python(self) -> Path:
+        return self.nlp_handoff_dir / ".venv_nlp" / "Scripts" / "python.exe"
+
+    @property
+    def asr_runner(self) -> Path:
+        return self.interviewiq_ai_dir / "fusion" / "runners" / "run_asr_only_json.py"
 
 
 def _load_settings() -> Settings:

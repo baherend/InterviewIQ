@@ -152,6 +152,21 @@ function QuestionAudioCard({ item, index }) {
             </div>
           </div>
 
+          {audio.transcript && (
+            <div className="sm:col-span-2 pt-2 border-t border-white/5">
+              <div className="flex items-center gap-2 mb-1.5">
+                <FileText size={15} className="text-gray-400" />
+                <span className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Transcript</span>
+              </div>
+              <p className="text-sm text-gray-300 leading-relaxed italic">&ldquo;{audio.transcript}&rdquo;</p>
+            </div>
+          )}
+          {!audio.transcript && (audio.transcript_status === 'no_speech' || audio.transcript_status === 'too_short') && (
+            <div className="sm:col-span-2 text-[11px] text-gray-500 leading-relaxed pt-2 border-t border-white/5">
+              No usable speech was detected in this answer's audio.
+            </div>
+          )}
+
           {audio.failure_reason && (
             <div className="sm:col-span-2 text-[11px] text-gray-500 leading-relaxed pt-2 border-t border-white/5">
               {audio.failure_reason}

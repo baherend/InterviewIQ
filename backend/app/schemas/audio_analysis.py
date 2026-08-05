@@ -13,17 +13,27 @@ class AudioAnalysisOut(BaseModel):
 
     `vocal_delivery_score` is an experimental, deterministic DSP-based
     delivery indicator, not a scientifically validated psychological
-    confidence score. It requires a transcript to score speaking rate;
-    since ASR/NLP is out of scope for this phase, it and
-    `speaking_rate_*` will commonly be null ("Not available") while the
-    transcript-independent sub-scores (pause/volume/continuity) are real
-    computed values.
+    confidence score. As of Phase 3B it is scored against the real
+    `transcript` below (produced by the existing ASR implementation for
+    this exact answer); it and `speaking_rate_*` are still null ("Not
+    available") whenever the answer had too little duration/words/speech
+    energy for a reliable estimate — see `failure_reason` for why in that
+    case — while the transcript-independent sub-scores (pause/volume/
+    continuity) are always real computed values regardless.
+
+    `transcript_status` mirrors the ASR engine's own determination:
+    "ok" (real transcribed speech), "no_speech"/"too_short" (a real,
+    non-error determination that there was nothing usable to transcribe),
+    or None (ASR did not run or failed — see `failure_reason`).
     """
 
     emotion_label: Optional[str] = None
     emotion_probabilities: Optional[Dict[str, float]] = None
     model_confidence: Optional[float] = None
     model_confidence_calibrated: bool = False
+
+    transcript: Optional[str] = None
+    transcript_status: Optional[str] = None
 
     vocal_delivery_score: Optional[float] = None
     speaking_rate_wpm: Optional[float] = None

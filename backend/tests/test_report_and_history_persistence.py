@@ -1,9 +1,10 @@
-"""Phase 3A: persistence, report/history integration, and aggregation.
+"""Phase 3A/3B: persistence, report/history integration, and aggregation.
 
 Mocks app.routers.interviews.analyze_answer_segment_audio (the real
-model/subprocess boundary) so these tests run fast and deterministically,
-while exercising the real persistence, report, and history code paths
-end-to-end.
+model/subprocess boundary, which now includes ASR — see
+app.services.audio_analysis_service) so these tests run fast and
+deterministically, while exercising the real persistence, report, and
+history code paths end-to-end.
 """
 import io
 from unittest.mock import patch
@@ -44,6 +45,8 @@ def _successful_outcome(**overrides):
         emotion_label="High Emotion",
         emotion_probabilities={"Low Emotion": 0.1, "Neutral Emotion": 0.1, "High Emotion": 0.8},
         model_confidence=0.8,
+        transcript="This is the transcribed answer.",
+        transcript_status="ok",
         vocal_delivery_score=72.4,
         speaking_rate_wpm=130.0,
         speaking_rate_score=0.9,
@@ -91,6 +94,9 @@ def test_audio_analysis_persisted_against_correct_segment(client, db_session):
     assert row.model_confidence_calibrated is False
     # The two categories must never be conflated.
     assert row.model_confidence != row.vocal_delivery_score
+    # Phase 3B: transcript persisted against this exact segment's row.
+    assert row.transcript == "This is the transcribed answer."
+    assert row.transcript_status == "ok"
 
 
 def test_failed_analysis_persists_failure_code_without_audio_analysis_row(client, db_session):
@@ -149,6 +155,10 @@ def test_report_reads_persisted_data_and_never_reruns_inference(client, db_sessi
     assert q0["segment"]["audio_analysis"]["model_confidence"] == 0.8
     assert q0["segment"]["audio_analysis"]["vocal_delivery_score"] == 72.4
     assert q0["segment"]["audio_analysis"]["model_confidence_calibrated"] is False
+    # Phase 3B: transcript/status reach the Report (and, via the same
+    # persisted row, History) API without the frontend recomputing WPM.
+    assert q0["segment"]["audio_analysis"]["transcript"] == "This is the transcribed answer."
+    assert q0["segment"]["audio_analysis"]["transcript_status"] == "ok"
     assert r1.json() == r2.json()
 
 
@@ -190,8 +200,14 @@ def test_aggregation_uses_only_valid_scores_and_ignores_missing(client, db_sessi
                              processing_status=ProcessingStatus.PARTIAL.value,
                              audio_failure_reason="no transcript"),
     ]
-    with patch("app.routers.interviews.analyze_answer_segment_audio", side_effect=outcomes):
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio", side_effect=outcomes
+    ) as mock_analyze:
         client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+
+    # One real (ASR-inclusive) analysis call per persisted AnswerSegment —
+    # never batched, never skipped, never re-run for a different segment.
+    assert mock_analyze.call_count == 3
 
     r = client.get(f"/api/interviews/report/{interview['id']}", headers=headers)
     summary = r.json()["audio_summary"]
@@ -264,3 +280,99 @@ def test_legacy_interview_with_no_segments_reports_unavailable_honestly(client, 
     r2 = client.get("/api/dashboard/history", headers=legacy_headers)
     item = next(h for h in r2.json() if h["id"] == legacy_interview.id)
     assert item["audio_summary"]["available"] is False
+
+
+def test_two_segments_each_get_their_own_asr_call_bound_to_correct_segment(client, db_session):
+    """Two persisted AnswerSegments must cause two independent analysis
+    (ASR-inclusive) calls, each result landing on its own segment's row —
+    never swapped, merged, or applied to the wrong segment.
+    """
+    _, interview_type = seed_questions(db_session, count=2)
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    q0, q1 = interview["questions"]
+    segment0 = _upload_segment(client, headers, interview["id"], q0)
+    segment1 = _upload_segment(client, headers, interview["id"], q1)
+
+    outcomes = [
+        _successful_outcome(transcript="First answer transcript.", vocal_delivery_score=55.0),
+        _successful_outcome(transcript="Second answer transcript.", vocal_delivery_score=90.0),
+    ]
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio", side_effect=outcomes
+    ) as mock_analyze:
+        r = client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+        assert r.status_code == 200
+
+    assert mock_analyze.call_count == 2
+
+    from app.models.audio_analysis import AudioAnalysis
+
+    row0 = db_session.query(AudioAnalysis).filter(
+        AudioAnalysis.answer_segment_id == segment0["id"]
+    ).first()
+    row1 = db_session.query(AudioAnalysis).filter(
+        AudioAnalysis.answer_segment_id == segment1["id"]
+    ).first()
+    assert row0.transcript == "First answer transcript."
+    assert row0.vocal_delivery_score == 55.0
+    assert row1.transcript == "Second answer transcript."
+    assert row1.vocal_delivery_score == 90.0
+
+    # Still exactly one AudioAnalysis row per segment (the FK is
+    # unique=True at the model level) — no duplicates from this run.
+    assert db_session.query(AudioAnalysis).filter(
+        AudioAnalysis.answer_segment_id.in_([segment0["id"], segment1["id"]])
+    ).count() == 2
+
+
+def test_unicode_transcript_round_trips_through_report_api(client, db_session):
+    _, interview_type = seed_questions(db_session, count=1)
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    q = interview["questions"][0]
+    _upload_segment(client, headers, interview["id"], q)
+
+    arabic_transcript = "مرحبا، هذا اختبار للنسخ الصوتي في هذه المقابلة"
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio",
+        return_value=_successful_outcome(transcript=arabic_transcript, transcript_status="ok"),
+    ):
+        client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+
+    r = client.get(f"/api/interviews/report/{interview['id']}", headers=headers)
+    q0 = r.json()["questions"][0]
+    assert q0["segment"]["audio_analysis"]["transcript"] == arabic_transcript
+
+
+def test_legacy_audio_analysis_row_with_null_transcript_serializes_gracefully(client, db_session):
+    """Simulates a row written before the Phase 3B migration (transcript
+    columns default to NULL for every pre-existing row) — the API must
+    treat this as "not available", not an error.
+    """
+    _, interview_type = seed_questions(db_session, count=1)
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type=interview_type)
+    q = interview["questions"][0]
+    segment = _upload_segment(client, headers, interview["id"], q)
+
+    from app.models.audio_analysis import AudioAnalysis
+
+    legacy_row = AudioAnalysis(
+        answer_segment_id=segment["id"],
+        emotion_label="Neutral Emotion",
+        model_confidence=0.7,
+        model_confidence_calibrated=False,
+        vocal_delivery_score=None,
+        transcript=None,
+        transcript_status=None,
+    )
+    db_session.add(legacy_row)
+    db_session.commit()
+
+    r = client.get(f"/api/interviews/report/{interview['id']}", headers=headers)
+    assert r.status_code == 200
+    audio_payload = r.json()["questions"][0]["segment"]["audio_analysis"]
+    assert audio_payload["transcript"] is None
+    assert audio_payload["transcript_status"] is None
+    assert audio_payload["emotion_label"] == "Neutral Emotion"

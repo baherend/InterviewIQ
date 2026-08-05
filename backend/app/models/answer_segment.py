@@ -52,6 +52,10 @@ class AudioFailureCode(str, enum.Enum):
     AUDIO_INFERENCE_FAILED = "AUDIO_INFERENCE_FAILED"
     AUDIO_INSUFFICIENT_EVIDENCE = "AUDIO_INSUFFICIENT_EVIDENCE"
     AUDIO_TIMEOUT = "AUDIO_TIMEOUT"
+    # Phase 3B: real ASR (interview_iq.asr.engine.transcribe_audio) failed
+    # or crashed — distinct from AUDIO_INFERENCE_FAILED (emotion model) so
+    # a failure_code always identifies which real component failed.
+    AUDIO_TRANSCRIPTION_FAILED = "AUDIO_TRANSCRIPTION_FAILED"
 
 
 class AnswerSegment(Base):

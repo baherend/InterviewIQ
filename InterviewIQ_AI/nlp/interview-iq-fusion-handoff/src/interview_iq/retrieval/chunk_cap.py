@@ -68,7 +68,16 @@ class BgeM3Embedder:
             from FlagEmbedding import BGEM3FlagModel  # heavy import deferred to first use
 
             print(f"[chunk_cap] Loading BGE-M3 ({self._model_name}) on {self._device} ...")
-            self._model = BGEM3FlagModel(self._model_name, device=self._device)
+            # use_fp16=False: BGEM3FlagModel defaults to fp16, which has no
+            # LayerNorm CPU kernel in this torch build (RuntimeError:
+            # "LayerNormKernelImpl" not implemented for 'Half') -- see
+            # test_real_nlp_pipeline.py's _MatchingEmbedder, which already
+            # applies this same fix in test-only code.
+            self._model = BGEM3FlagModel(
+                self._model_name,
+                use_fp16=False,
+                device=self._device,
+            )
 
     def encode(self, texts: Sequence[str]) -> list[list[float]]:
         self._ensure_loaded()

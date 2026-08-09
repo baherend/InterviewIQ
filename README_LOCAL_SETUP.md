@@ -771,9 +771,10 @@ question** and runs **real, local audio analysis** on each segment — this
 replaced the `app/ai_modules/audio_module.py` random-score mock in that flow.
 `app/ai_modules/audio_module.py` itself still exists and is still used by the
 older, untouched `POST /api/interviews/analyze/{interview_id}` endpoint, but
-nothing in the new per-question flow calls it. Vision and NLP are unchanged —
-still mocked in the normal flow, still real only via the separate
-`/fusion-test` page (see "What this phase does NOT include" below).
+nothing in the new per-question flow calls it. As of Phase 3B/3C (see below),
+ASR and Answer Content Score are also real in this same normal flow. Vision
+remains unchanged — still mocked in the normal flow, still real only via the
+separate `/fusion-test` page (see "What this phase does NOT include" below).
 
 ### What "real" means here
 
@@ -867,6 +868,55 @@ it added. Historical interviews predating this migration simply have no
 a legacy record ("Audio analysis not available for this historical
 interview."), not an error.
 
+## Real per-question ASR and vocal delivery (Phase 3B)
+
+Every persisted `AnswerSegment` is transcribed once by the existing real
+ASR implementation (`interview_iq.asr.engine.transcribe_audio`,
+faster-whisper `large-v3`, Arabic), run out of process in the NLP module's
+own dedicated `.venv_nlp` environment via a thin sibling wrapper
+(`InterviewIQ_AI/fusion/runners/run_asr_only_json.py`) — never the
+`evaluate_answer` entry point, so this step never touches claim
+decomposition/Groq/BGE-M3/NLI. The resulting transcript and its status
+(`ok` / `no_speech` / `too_short`) are persisted on `AudioAnalysis`
+(`transcript`, `transcript_status`) and fed into the existing, unchanged
+`InterviewIQ_AI/audio/audio_confidence.py::calculate_audio_confidence`
+DSP formula, so `vocal_delivery_score` and `speaking_rate_wpm` (previously
+always "Not available" in Phase 3A, since that formula needs a transcript
+for speaking-rate scoring) are now populated whenever a segment has enough
+real, transcribed speech. Formula/weights/thresholds are unchanged from
+Phase 3A. Report and History detail both display the persisted transcript
+and completed vocal-delivery metrics — nothing is recomputed client-side.
+Migration: `c7e1a4f8b2d5_add_audio_analysis_transcript.py`.
+
+## Real per-question Answer Content Score (Phase 3C)
+
+For each segment, once its transcript is persisted (above), the existing
+real NLP pipeline (`interview_iq.pipeline.evaluate_answer`: claim
+decomposition via Groq → BGE-M3 retrieval → NLI → Precision/Coverage/
+Harmonic-F scoring) runs against it via a second thin sibling wrapper
+(`InterviewIQ_AI/fusion/runners/run_content_score_json.py`) that injects
+the already-persisted transcript in place of `evaluate_answer`'s own ASR
+call — the real faster-whisper model never runs a second time for the
+same segment. The question a segment belongs to is resolved purely by
+persisted foreign keys (`AnswerSegment.question_id` → `Question.id`),
+never by question text or array position. `Question.nlp_reference_id`
+(and, as of Phase 3D, the stable `Question.code` provisioning key — see
+below) maps a question to one of the 250 documents in
+`InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/refdocs/
+reference_docs_250_FINAL_v1.json`; a question with no mapping persists a
+typed `NO_REFERENCE_DOCUMENT` status (`answer_content_score`/`claims`
+stay `null`, never a fabricated score) without ever invoking Groq. Real
+BGE-M3 ranking (the `>k`-chunk retrieval path, as opposed to the common
+`<=k` pass-through) was verified against the corpus's one `>10`-chunk
+document (`DS-014`) as part of the Phase 3C completion fix
+(`use_fp16=False` for CPU — see `chunk_cap.py`). Results persist 1:1 on
+`AnswerContentAnalysis`, retries upsert by `answer_segment_id` (never
+duplicate rows), and Report/History display the persisted
+precision/coverage/score/claims read-only — nothing is recomputed
+client-side. Migration: `d3f9a1c6e8b4_add_answer_content_analysis.py`
+(plus `e7a2c4f19b6d_add_question_code.py`, Phase 3D, for stable
+question-to-reference provisioning).
+
 ## HTTPS certificate note
 
 `nginx/openssl.cnf` generates a self-signed certificate scoped to
@@ -880,14 +930,16 @@ a follow-up for a later phase, not part of this one.
 
 ## What this phase does NOT include
 
-- No real Vision or NLP model integration in the normal student flow — the
-  `app/ai_modules/vision_module.py`/`nlp_module.py` mocks (random-score
-  generators) are still used by the legacy whole-interview
-  `POST /api/interviews/analyze/{interview_id}` endpoint. Audio is now real
-  in the normal flow as of Phase 3A (see "Real per-question audio analysis
-  (Phase 3A)" above) — real Vision/NLP/Late Fusion remain reachable only
-  via the separate, unauthenticated `/fusion-test` page and are deferred to
-  a later phase for the normal flow.
+- No real Vision model integration in the normal student flow — the
+  `app/ai_modules/vision_module.py` mock (random-score generator) is still
+  used by the legacy whole-interview `POST /api/interviews/analyze/{interview_id}`
+  endpoint. Audio (Phase 3A), ASR/vocal delivery (Phase 3B), and Answer
+  Content Score (Phase 3C) are all real in the normal flow now (see the
+  sections above) — real Vision and Late Fusion remain reachable only via
+  the separate, unauthenticated `/fusion-test` page and are deferred to a
+  later phase for the normal flow. `app/ai_modules/nlp_module.py` still
+  exists and is still used by the legacy `/analyze/{interview_id}`
+  endpoint, but nothing in the new per-question flow calls it.
 - No OpenRouter integration. `OPENROUTER_*` variables in `.env.example` are
   preparation only — no code path calls OpenRouter yet.
 - Organizations and memberships exist as a data foundation with backend

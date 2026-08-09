@@ -9,6 +9,7 @@ SEED_QUESTIONS = [
         "interview_type": "Technical",
         "track": "Software Engineering",
         "difficulty": "Medium",
+        "code": "se-028-tdd",
         "nlp_reference_id": "SE-028",
     },
     # HR
@@ -26,10 +27,25 @@ SEED_QUESTIONS = [
     {"question": "How would you describe your leadership style?", "interview_type": "Leadership", "track": None, "difficulty": "Easy"},
 
     # Technical - Data Analysis
-    {"question": "Explain the difference between INNER JOIN and LEFT JOIN in SQL.", "interview_type": "Technical", "track": "Data Analysis", "difficulty": "Medium"},
+    {
+        "question": "Explain the difference between INNER JOIN and LEFT JOIN in SQL.",
+        "interview_type": "Technical", "track": "Data Analysis", "difficulty": "Medium",
+        "code": "da-017-sql-join-inner-left",
+        "nlp_reference_id": "DA-017",
+    },
     {"question": "What is database normalization and why is it important?", "interview_type": "Technical", "track": "Data Analysis", "difficulty": "Medium"},
     {"question": "Explain the GROUP BY clause and when you would use HAVING vs WHERE.", "interview_type": "Technical", "track": "Data Analysis", "difficulty": "Medium"},
-    {"question": "How do you handle missing values in a dataset?", "interview_type": "Technical", "track": "Data Analysis", "difficulty": "Medium"},
+    {
+        "question": "How do you handle missing values in a dataset?",
+        "interview_type": "Technical", "track": "Data Analysis", "difficulty": "Medium",
+        "code": "da-005-missing-values",
+        "nlp_reference_id": "DA-005",
+    },
+    # Question 16 (descriptive vs inferential statistics) is deliberately
+    # left without a code/nlp_reference_id -- Phase 3D's acceptance test
+    # uses it to verify the NO_REFERENCE_DOCUMENT gate. No matching
+    # reference document exists in the corpus for it (checked all 50
+    # Data-Analysis-track reference documents).
     {"question": "What is the difference between descriptive and inferential statistics?", "interview_type": "Technical", "track": "Data Analysis", "difficulty": "Easy"},
 
     # Technical - Data Science
@@ -56,12 +72,25 @@ SEED_QUESTIONS = [
 
 
 def seed_questions(db: Session):
+    """Inserts every SEED_QUESTIONS entry not yet present. Entries that
+    declare a stable `code` are deduplicated by that code (Phase 3D);
+    legacy entries without one fall back to the original exact-text
+    check. This only decides whether to INSERT a missing row -- it never
+    UPDATEs an existing row's code/nlp_reference_id retroactively (that
+    one-time backfill is a migration's job, not a startup hook's).
+    """
+    existing_codes = {
+        row[0] for row in db.query(Question.code).filter(Question.code.isnot(None)).all()
+    }
     existing_questions = {
         row[0] for row in db.query(Question.question).all()
     }
-    missing = [
-        q for q in SEED_QUESTIONS if q["question"] not in existing_questions
-    ]
+
+    def _is_missing(q: dict) -> bool:
+        code = q.get("code")
+        return code not in existing_codes if code else q["question"] not in existing_questions
+
+    missing = [q for q in SEED_QUESTIONS if _is_missing(q)]
     if missing:
         for q in missing:
             db.add(Question(**q))

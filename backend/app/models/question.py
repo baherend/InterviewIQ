@@ -19,3 +19,11 @@ class Question(Base):
     # question with no matching reference document, which Answer Content
     # Score treats as "not available", never a guessed/fuzzy match.
     nlp_reference_id = Column(String(20), nullable=True)
+
+    # Phase 3D: stable, hand-assigned, backend-only provisioning key (e.g.
+    # "da-017-sql-join-inner-left") for seed_questions()/migrations to
+    # target a specific row by. Replaces matching on the exact `question`
+    # text (fragile — breaks silently on any wording edit). Never derived
+    # from text or row order, never exposed via any API schema. NULL for
+    # every legacy seed row that predates this mechanism.
+    code = Column(String(50), nullable=True, unique=True)

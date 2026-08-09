@@ -597,3 +597,122 @@ def test_legacy_segment_without_content_analysis_serializes_gracefully(client, d
     body = r.json()
     assert body["questions"][0]["segment"]["content_analysis"] is None
     assert body["content_summary"]["available"] is False
+
+
+# ============================================================================
+# Phase 3D — real seed-data wiring check (no camera required).
+#
+# Everything above this point uses synthetic questions from conftest's
+# seed_questions() helper. This one test instead drives
+# app.utils.seed.seed_questions() -- the real production SEED_QUESTIONS
+# data -- through a real Technical/Data-Analysis interview, to prove the
+# actual Q12->DA-017 / Q15->DA-005 / Q16->NO_REFERENCE_DOCUMENT wiring
+# resolves correctly through the real router/service code path, not just
+# through a synthetic stand-in.
+#
+# What this test does NOT prove (still exclusively the deferred manual
+# browser acceptance's job):
+#   - the real camera/microphone browser recording flow
+#   - real faster-whisper ASR transcription of real speech
+#   - real Groq decomposition / BGE-M3 retrieval / NLI semantic quality
+#   - any manual UI acceptance/visual check
+# This test only proves data + binding correctness through automation.
+# ============================================================================
+
+from app.models.question import Question
+from app.utils.seed import seed_questions as seed_real_questions
+from app.services.answer_content_service import (
+    score_answer_segment_content as real_score_answer_segment_content,
+)
+
+
+def test_real_data_analysis_seed_wiring_resolves_through_real_application_path(client, db_session):
+    seed_real_questions(db_session)
+
+    # Resolved by stable code / exact known text -- test *setup* only,
+    # never a runtime-binding assumption. Deliberately NOT hardcoded
+    # literal Question.id values: the shared pytest database is seeded
+    # after other tests' synthetic questions have already consumed
+    # earlier autoincrement ids, so the real SEED_QUESTIONS rows do not
+    # land at ids 12/15/16 here the way they do in the real dev database.
+    # Asserting on literal ids would silently reintroduce the exact
+    # "unstable identifier" antipattern Question.code exists to avoid.
+    da_017_question = db_session.query(Question).filter(Question.code == "da-017-sql-join-inner-left").first()
+    da_005_question = db_session.query(Question).filter(Question.code == "da-005-missing-values").first()
+    unmapped_question = db_session.query(Question).filter(
+        Question.track == "Data Analysis",
+        Question.question == "What is the difference between descriptive and inferential statistics?",
+    ).first()
+    assert da_017_question is not None
+    assert da_005_question is not None
+    assert unmapped_question is not None and unmapped_question.code is None
+
+    all_data_analysis_questions = (
+        db_session.query(Question)
+        .filter(Question.interview_type == "Technical", Question.track == "Data Analysis")
+        .order_by(Question.id)
+        .all()
+    )
+    # Today's real corpus has exactly 5 Data-Analysis questions -- the
+    # whole Phase 3D acceptance dataset relies on all 5 fitting in one
+    # session (DEFAULT_QUESTION_COUNT=5, ORDER BY id LIMIT 5). If a 6th
+    # Data-Analysis question is ever added without noticing the overflow
+    # risk (as already silently happened to the Software-Engineering
+    # track), this assertion fails loudly instead of invalidating that
+    # assumption silently.
+    assert len(all_data_analysis_questions) == 5
+    expected_question_ids = [q.id for q in all_data_analysis_questions]
+
+    headers, _ = register_and_login(client)
+    interview = _start_interview(client, headers, interview_type="Technical", track="Data Analysis")
+
+    questions = interview["questions"]
+    returned_question_ids = [iq["question_id"] for iq in questions]
+    assert returned_question_ids == expected_question_ids
+
+    by_question_id = {iq["question_id"]: iq for iq in questions}
+    q_join = by_question_id[da_017_question.id]
+    q_missing_values = by_question_id[da_005_question.id]
+    q_unmapped = by_question_id[unmapped_question.id]
+
+    segment_join = _upload_segment(client, headers, interview["id"], q_join)
+    segment_missing_values = _upload_segment(client, headers, interview["id"], q_missing_values)
+    segment_unmapped = _upload_segment(client, headers, interview["id"], q_unmapped)
+
+    def _content_side_effect(transcript, transcript_status, nlp_reference_id, timeout=None):
+        if nlp_reference_id == "DA-017":
+            return _content_success_outcome(question_reference_id="DA-017", answer_content_score=11.0)
+        if nlp_reference_id == "DA-005":
+            return _content_success_outcome(question_reference_id="DA-005", answer_content_score=22.0)
+        # Q16: nlp_reference_id is None -- run the real gate, not a mock.
+        return real_score_answer_segment_content(transcript, transcript_status, nlp_reference_id)
+
+    with patch(
+        "app.routers.interviews.analyze_answer_segment_audio",
+        return_value=_successful_outcome(),
+    ), patch(
+        "app.routers.interviews.score_answer_segment_content", side_effect=_content_side_effect
+    ) as mock_content:
+        r = client.post(f"/api/interviews/{interview['id']}/process-audio", headers=headers)
+        assert r.status_code == 200
+
+    assert mock_content.call_count == 3
+
+    report = client.get(f"/api/interviews/report/{interview['id']}", headers=headers).json()
+    by_segment_id = {
+        item["segment"]["id"]: item["segment"]["content_analysis"]
+        for item in report["questions"] if item["segment"]
+    }
+
+    content_join = by_segment_id[segment_join["id"]]
+    assert content_join["status"] == "SUCCESS"
+    assert content_join["answer_content_score"] == 11.0
+
+    content_missing_values = by_segment_id[segment_missing_values["id"]]
+    assert content_missing_values["status"] == "SUCCESS"
+    assert content_missing_values["answer_content_score"] == 22.0
+
+    content_unmapped = by_segment_id[segment_unmapped["id"]]
+    assert content_unmapped["status"] == "NO_REFERENCE_DOCUMENT"
+    assert content_unmapped["answer_content_score"] is None
+    assert content_unmapped["claims"] is None

@@ -1,0 +1,2247 @@
+{
+  "schema_version": 1,
+  "diagnosis_id": "interviewiq-nli-phase2d-lora-failure-diagnosis-v1",
+  "checkpoint": "CP-010",
+  "created_at": "2026-08-23T20:50:48+03:00",
+  "status": "VERIFIED_DIAGNOSIS_COMPLETE_NO_REMEDIATION",
+  "scope": {
+    "analysis_only": true,
+    "model_loaded": false,
+    "inference_run": false,
+    "dataset_modified": false,
+    "training_data_created": false,
+    "adapter_trained_or_modified": false,
+    "production_changed": false,
+    "threshold_or_scoring_changed": false,
+    "retrieval_or_fusion_changed": false
+  },
+  "dependencies": {
+    "data/nli/evaluation/heldout_ar_codeswitch_v1.json": {
+      "sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+      "verified": true
+    },
+    "data/nli/training/phase2b_lora_corpus_v1.json": {
+      "sha256": "3FB523040C9B2482A0FCF0AAC8FDCC13D54E32AC2D9CB75DF5CE970E2E341F33",
+      "verified": true
+    },
+    "data/nli/training/phase2b_lora_split_manifest_v1.json": {
+      "sha256": "157BE9BD9261411A89BA60F46D86DEF56664051AA0B3A2C7F29E18257B85D3F4",
+      "verified": true
+    },
+    "results/nli_baseline_cp005/current_model_baseline_v1.json": {
+      "sha256": "7FAFA2F8EF8B1C5BA70AD2AAED371A7780557F7D05E6690C7E8468234495BFC6",
+      "verified": true
+    },
+    "results/nli_checkpoint_control_cp006/checkpoint_comparison_v1.json": {
+      "sha256": "908A1F72D426BCA7B54F867C823B1AFB9FAD59BC1480C7A9C9770961DF48BB55",
+      "verified": true
+    },
+    "results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.json": {
+      "sha256": "207B9AD75416F9B0A77680352D7A96C9D2D8685271C4F6333BCA050D19AC26D1",
+      "verified": true
+    },
+    "results/nli_phase2c_training_cp009/cp005_adapter_evaluation_v1.json": {
+      "sha256": "C05B1FEFDC3160C6D3D2695125B1A3E71A2C6D7462E7844C659D38C9B7C5005F",
+      "verified": true
+    },
+    "results/nli_phase2c_training_cp009/training_metrics_v1.json": {
+      "sha256": "7F751A8CEC937D303FE2B64DFC34720461DD9F9E1FDB894580179BA0E3C3C240",
+      "verified": true
+    }
+  },
+  "verified_inputs": {
+    "cp005_cases": 45,
+    "cp005_do_not_train": true,
+    "training_records": 600,
+    "train_records": 480,
+    "dev_records": 120,
+    "training_eval_question_overlap": [],
+    "training_best_internal_dev_macro_f1": 1.0,
+    "cp005_baseline_accuracy": 0.8222222222222222,
+    "cp005_lora_accuracy": 0.8222222222222222,
+    "cp005_baseline_macro_f1": 0.8186307519640854,
+    "cp005_lora_macro_f1": 0.8206391309839584
+  },
+  "generalization_gap": {
+    "label_distribution_mismatch": {
+      "training": {
+        "contradiction": 200,
+        "entailment": 200,
+        "neutral": 200
+      },
+      "cp005": {
+        "contradiction": 15,
+        "entailment": 15,
+        "neutral": 15
+      },
+      "assessment": "NONE: both are exactly balanced by label; label-count imbalance does not explain the gap."
+    },
+    "language_distribution": {
+      "training": {
+        "arabic_english_code_switch": 180,
+        "arabic_msa": 150,
+        "arabic_transliteration_variant": 60,
+        "egyptian_arabic": 150,
+        "english_diagnostic": 60
+      },
+      "cp005": {
+        "arabic_english_code_switch": 12,
+        "arabic_msa": 10,
+        "arabic_transliteration_variant": 5,
+        "egyptian_arabic": 9,
+        "english_diagnostic": 9
+      },
+      "assessment": "Broad categories overlap, but English diagnostics are 10% of training versus 20% of CP-005, and the Arabic/Egyptian/code-switch training realizations are mostly deterministic wrappers rather than natural independent formulations."
+    },
+    "difficulty_distribution": {
+      "training": {
+        "direct_contradiction": 90,
+        "domain_entailment_preservation": 20,
+        "near_neighbor_contradiction": 110,
+        "neutral_technical": 120,
+        "paraphrase_entailment": 180,
+        "semantically_adjacent_neutral": 80
+      },
+      "cp005": {
+        "asr_like_lexical_variation": 3,
+        "code_switched_technical_terminology": 2,
+        "direct_contradiction": 5,
+        "exact_or_near_exact_entailment": 1,
+        "natural_paraphrase_entailment": 7,
+        "near_neighbor_concept_contradiction": 5,
+        "negation_contradiction": 5,
+        "partial_entailment": 2,
+        "semantically_adjacent_non_entailing": 12,
+        "unrelated_technical_neutral": 3
+      },
+      "assessment": "Names and counts suggest coverage, but their operational meanings differ: training paraphrases are predominantly copy-plus-prefix, direct contradictions are explicit negations, and neutrals are donor facts with independence markers; CP-005 requires unmarked semantic and relational decisions."
+    },
+    "concept_and_reasoning_mismatch": {
+      "training_question_count": 50,
+      "cp005_question_count": 10,
+      "question_overlap": [],
+      "join_term_record_count": 0,
+      "assessment": "Exact exclusion works, but the independent training concepts include no JOIN examples and do not cover LEFT/INNER cardinality, matched/unmatched-row preservation, or equivalent bilingual relational statements."
+    },
+    "reasoning_pattern_mismatch": {
+      "assessment": "The generator teaches label-correlated surface operations (copy/prefix, explicit negation or one phrase replacement, donor-plus-independent marker). CP-005 failures require compositional paraphrase, scope, cardinality, and near-neighbor relational reasoning without those markers."
+    }
+  },
+  "training_corpus_analysis": {
+    "records": 600,
+    "questions": 50,
+    "records_per_question": {
+      "12": 50
+    },
+    "question_ids": [
+      "CS-002",
+      "CS-003",
+      "CS-004",
+      "CS-006",
+      "CS-007",
+      "CS-008",
+      "CS-009",
+      "CS-010",
+      "CS-011",
+      "CS-012",
+      "CS-013",
+      "CS-014",
+      "DA-002",
+      "DA-003",
+      "DA-004",
+      "DA-005",
+      "DA-006",
+      "DA-007",
+      "DA-008",
+      "DA-009",
+      "DA-010",
+      "DA-011",
+      "DA-012",
+      "DA-013",
+      "DA-014",
+      "DS-002",
+      "DS-004",
+      "DS-005",
+      "DS-006",
+      "DS-007",
+      "DS-008",
+      "DS-009",
+      "DS-010",
+      "DS-011",
+      "DS-012",
+      "DS-013",
+      "DS-015",
+      "DS-016",
+      "SE-001",
+      "SE-002",
+      "SE-003",
+      "SE-004",
+      "SE-005",
+      "SE-006",
+      "SE-007",
+      "SE-008",
+      "SE-009",
+      "SE-011",
+      "SE-012",
+      "SE-013"
+    ],
+    "distributions": {
+      "label": {
+        "contradiction": 200,
+        "entailment": 200,
+        "neutral": 200
+      },
+      "language_style": {
+        "arabic_english_code_switch": 180,
+        "arabic_msa": 150,
+        "arabic_transliteration_variant": 60,
+        "egyptian_arabic": 150,
+        "english_diagnostic": 60
+      },
+      "difficulty_type": {
+        "direct_contradiction": 90,
+        "domain_entailment_preservation": 20,
+        "near_neighbor_contradiction": 110,
+        "neutral_technical": 120,
+        "paraphrase_entailment": 180,
+        "semantically_adjacent_neutral": 80
+      },
+      "technical_domain": {
+        "cybersecurity": 144,
+        "data_analysis": 156,
+        "data_science": 156,
+        "software_engineering": 144
+      }
+    },
+    "split_distributions": {
+      "train": {
+        "records": 480,
+        "questions": 40,
+        "label": {
+          "contradiction": 160,
+          "entailment": 160,
+          "neutral": 160
+        },
+        "language_style": {
+          "arabic_english_code_switch": 150,
+          "arabic_msa": 111,
+          "arabic_transliteration_variant": 51,
+          "egyptian_arabic": 117,
+          "english_diagnostic": 51
+        },
+        "difficulty_type": {
+          "direct_contradiction": 70,
+          "domain_entailment_preservation": 17,
+          "near_neighbor_contradiction": 90,
+          "neutral_technical": 97,
+          "paraphrase_entailment": 143,
+          "semantically_adjacent_neutral": 63
+        }
+      },
+      "dev": {
+        "records": 120,
+        "questions": 10,
+        "label": {
+          "contradiction": 40,
+          "entailment": 40,
+          "neutral": 40
+        },
+        "language_style": {
+          "arabic_english_code_switch": 30,
+          "arabic_msa": 39,
+          "arabic_transliteration_variant": 9,
+          "egyptian_arabic": 33,
+          "english_diagnostic": 9
+        },
+        "difficulty_type": {
+          "direct_contradiction": 20,
+          "domain_entailment_preservation": 3,
+          "near_neighbor_contradiction": 20,
+          "neutral_technical": 23,
+          "paraphrase_entailment": 37,
+          "semantically_adjacent_neutral": 17
+        }
+      }
+    },
+    "surface_form_evidence": {
+      "exclusive_label_marker_coverage": {
+        "entailment": {
+          "records": 200,
+          "exclusive_label_marker_detected": 170,
+          "coverage": 0.85,
+          "wrong_label_marker_count": 0
+        },
+        "neutral": {
+          "records": 200,
+          "exclusive_label_marker_detected": 180,
+          "coverage": 0.9,
+          "wrong_label_marker_count": 0
+        },
+        "contradiction": {
+          "records": 200,
+          "exclusive_label_marker_detected": 150,
+          "coverage": 0.75,
+          "wrong_label_marker_count": 0
+        }
+      },
+      "exclusive_label_marker_coverage_by_split": {
+        "train": {
+          "entailment": {
+            "records": 160,
+            "exclusive_label_marker_detected": 136,
+            "coverage": 0.85
+          },
+          "neutral": {
+            "records": 160,
+            "exclusive_label_marker_detected": 143,
+            "coverage": 0.89375
+          },
+          "contradiction": {
+            "records": 160,
+            "exclusive_label_marker_detected": 120,
+            "coverage": 0.75
+          }
+        },
+        "dev": {
+          "entailment": {
+            "records": 40,
+            "exclusive_label_marker_detected": 34,
+            "coverage": 0.85
+          },
+          "neutral": {
+            "records": 40,
+            "exclusive_label_marker_detected": 37,
+            "coverage": 0.925
+          },
+          "contradiction": {
+            "records": 40,
+            "exclusive_label_marker_detected": 30,
+            "coverage": 0.75
+          }
+        }
+      },
+      "premise_hypothesis_containment": {
+        "entailment": {
+          "records": 200,
+          "hypothesis_contains_full_normalized_premise": 173,
+          "normalized_pair_identical": 10,
+          "containment_rate": 0.865
+        },
+        "neutral": {
+          "records": 200,
+          "hypothesis_contains_full_normalized_premise": 0,
+          "normalized_pair_identical": 0,
+          "containment_rate": 0.0
+        },
+        "contradiction": {
+          "records": 200,
+          "hypothesis_contains_full_normalized_premise": 70,
+          "normalized_pair_identical": 0,
+          "containment_rate": 0.35
+        }
+      },
+      "token_jaccard_by_label": {
+        "entailment": {
+          "minimum": 0.0,
+          "median": 0.842105,
+          "mean": 0.765996,
+          "maximum": 1.0
+        },
+        "neutral": {
+          "minimum": 0.0,
+          "median": 0.0,
+          "mean": 0.011,
+          "maximum": 0.111111
+        },
+        "contradiction": {
+          "minimum": 0.0,
+          "median": 0.75,
+          "mean": 0.671227,
+          "maximum": 0.947368
+        }
+      },
+      "token_jaccard_by_difficulty": {
+        "direct_contradiction": {
+          "minimum": 0.0,
+          "median": 0.833333,
+          "mean": 0.672528,
+          "maximum": 0.884615
+        },
+        "domain_entailment_preservation": {
+          "minimum": 0.818182,
+          "median": 0.952381,
+          "mean": 0.941653,
+          "maximum": 1.0
+        },
+        "near_neighbor_contradiction": {
+          "minimum": 0.307692,
+          "median": 0.666667,
+          "mean": 0.670164,
+          "maximum": 0.947368
+        },
+        "neutral_technical": {
+          "minimum": 0.0,
+          "median": 0.0,
+          "mean": 0.0077,
+          "maximum": 0.078947
+        },
+        "paraphrase_entailment": {
+          "minimum": 0.0,
+          "median": 0.842105,
+          "mean": 0.746478,
+          "maximum": 0.9
+        },
+        "semantically_adjacent_neutral": {
+          "minimum": 0.0,
+          "median": 0.0,
+          "mean": 0.015951,
+          "maximum": 0.111111
+        }
+      },
+      "entailment_paraphrase_records": 180,
+      "paraphrase_entailments_containing_full_premise": 153,
+      "direct_contradictions_with_explicit_negation_marker": 90,
+      "neutral_cases_with_explicit_independence_marker": 180,
+      "shared_authoring_methods": [
+        "AI_CANDIDATE_FROM_CANONICAL_REFERENCE_PENDING_HUMAN_REVIEW"
+      ],
+      "semantic_family_ids_are_question_only": true,
+      "template_or_generator_family_ids_recorded": false,
+      "interpretation": "Question-level splitting prevents source-question overlap but leaves the same label-specific wrappers, mutation operators, and 12-slot generation schedule in train and dev."
+    },
+    "concept_coverage": {
+      "join_term_record_count": 0,
+      "join_term_case_ids": [],
+      "sql_term_source_question_ids": [
+        "CS-007",
+        "CS-013",
+        "CS-014",
+        "DA-003",
+        "DA-012",
+        "DA-013",
+        "DS-015",
+        "SE-012",
+        "SE-013"
+      ],
+      "interpretation": "DA-017 is correctly excluded, but the corpus contains no JOIN relation example; SQL mentions come from other concepts and do not teach JOIN cardinality or unmatched-row semantics."
+    }
+  },
+  "error_transition_analysis": {
+    "counts": {
+      "fixed": 2,
+      "regressed_new_failure": 2,
+      "unchanged_correct": 35,
+      "unchanged_failure": 6
+    },
+    "fixed_case_ids": [
+      "NLI-EVAL-007",
+      "NLI-EVAL-035"
+    ],
+    "regressed_new_failure_case_ids": [
+      "NLI-EVAL-037",
+      "NLI-EVAL-041"
+    ],
+    "unchanged_failure_case_ids": [
+      "NLI-EVAL-009",
+      "NLI-EVAL-018",
+      "NLI-EVAL-023",
+      "NLI-EVAL-042",
+      "NLI-EVAL-043",
+      "NLI-EVAL-045"
+    ],
+    "unchanged_failure_prediction_changed": [
+      "NLI-EVAL-043"
+    ],
+    "unchanged_correct_count": 35,
+    "predicted_label_counts": {
+      "baseline": {
+        "contradiction": 12,
+        "entailment": 15,
+        "neutral": 18
+      },
+      "lora": {
+        "contradiction": 14,
+        "entailment": 11,
+        "neutral": 20
+      }
+    },
+    "mean_output_probability_shift_lora_minus_baseline": {
+      "entailment": -0.076967,
+      "neutral": 0.042667,
+      "contradiction": 0.0343
+    },
+    "average_predictive_entropy": {
+      "baseline": 0.12446,
+      "lora": 0.20324
+    },
+    "error_confidence": {
+      "baseline": {
+        "errors": 8,
+        "mean_max_confidence": 0.830853,
+        "high_confidence_errors_ge_0_90": 5,
+        "high_confidence_error_case_ids": [
+          "NLI-EVAL-007",
+          "NLI-EVAL-009",
+          "NLI-EVAL-023",
+          "NLI-EVAL-042",
+          "NLI-EVAL-045"
+        ]
+      },
+      "lora": {
+        "errors": 8,
+        "mean_max_confidence": 0.867238,
+        "high_confidence_errors_ge_0_90": 4,
+        "high_confidence_error_case_ids": [
+          "NLI-EVAL-009",
+          "NLI-EVAL-041",
+          "NLI-EVAL-042",
+          "NLI-EVAL-045"
+        ]
+      }
+    },
+    "cases": [
+      {
+        "case_id": "NLI-EVAL-001",
+        "source_question_id": "DA-001",
+        "expected_label": "entailment",
+        "language_style": "arabic_msa",
+        "difficulty_type": "exact_or_near_exact_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.998418,
+            "neutral": 0.001434,
+            "contradiction": 0.000148
+          },
+          "max_confidence": 0.998418,
+          "gold_probability": 0.998418
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.996432,
+            "neutral": 0.001075,
+            "contradiction": 0.002493
+          },
+          "max_confidence": 0.996432,
+          "gold_probability": 0.996432
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.001986,
+        "max_confidence_delta": -0.001986
+      },
+      {
+        "case_id": "NLI-EVAL-002",
+        "source_question_id": "DA-001",
+        "expected_label": "neutral",
+        "language_style": "arabic_msa",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000395,
+            "neutral": 0.999242,
+            "contradiction": 0.000362
+          },
+          "max_confidence": 0.999242,
+          "gold_probability": 0.999242
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.00139,
+            "neutral": 0.998326,
+            "contradiction": 0.000284
+          },
+          "max_confidence": 0.998326,
+          "gold_probability": 0.998326
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000916,
+        "max_confidence_delta": -0.000916
+      },
+      {
+        "case_id": "NLI-EVAL-003",
+        "source_question_id": "DA-001",
+        "expected_label": "contradiction",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "negation_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000103,
+            "neutral": 0.000149,
+            "contradiction": 0.999748
+          },
+          "max_confidence": 0.999748,
+          "gold_probability": 0.999748
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 6.5e-05,
+            "neutral": 0.000679,
+            "contradiction": 0.999256
+          },
+          "max_confidence": 0.999256,
+          "gold_probability": 0.999256
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000492,
+        "max_confidence_delta": -0.000492
+      },
+      {
+        "case_id": "NLI-EVAL-004",
+        "source_question_id": "DA-001",
+        "expected_label": "entailment",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "natural_paraphrase_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.998994,
+            "neutral": 0.000814,
+            "contradiction": 0.000193
+          },
+          "max_confidence": 0.998994,
+          "gold_probability": 0.998994
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.996456,
+            "neutral": 0.001058,
+            "contradiction": 0.002486
+          },
+          "max_confidence": 0.996456,
+          "gold_probability": 0.996456
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.002538,
+        "max_confidence_delta": -0.002538
+      },
+      {
+        "case_id": "NLI-EVAL-005",
+        "source_question_id": "DA-001",
+        "expected_label": "contradiction",
+        "language_style": "arabic_transliteration_variant",
+        "difficulty_type": "near_neighbor_concept_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000193,
+            "neutral": 0.000446,
+            "contradiction": 0.999361
+          },
+          "max_confidence": 0.999361,
+          "gold_probability": 0.999361
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000292,
+            "neutral": 0.060103,
+            "contradiction": 0.939605
+          },
+          "max_confidence": 0.939605,
+          "gold_probability": 0.939605
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.059756,
+        "max_confidence_delta": -0.059756
+      },
+      {
+        "case_id": "NLI-EVAL-006",
+        "source_question_id": "DS-001",
+        "expected_label": "entailment",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "code_switched_technical_terminology",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.997498,
+            "neutral": 0.002272,
+            "contradiction": 0.00023
+          },
+          "max_confidence": 0.997498,
+          "gold_probability": 0.997498
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.927717,
+            "neutral": 0.018873,
+            "contradiction": 0.05341
+          },
+          "max_confidence": 0.927717,
+          "gold_probability": 0.927717
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.069781,
+        "max_confidence_delta": -0.069781
+      },
+      {
+        "case_id": "NLI-EVAL-007",
+        "source_question_id": "DS-001",
+        "expected_label": "neutral",
+        "language_style": "arabic_msa",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.98488,
+            "neutral": 0.015044,
+            "contradiction": 7.6e-05
+          },
+          "max_confidence": 0.98488,
+          "gold_probability": 0.015044
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.058587,
+            "neutral": 0.940814,
+            "contradiction": 0.000598
+          },
+          "max_confidence": 0.940814,
+          "gold_probability": 0.940814
+        },
+        "category": "fixed",
+        "prediction_changed": true,
+        "gold_probability_delta": 0.92577,
+        "max_confidence_delta": -0.044066
+      },
+      {
+        "case_id": "NLI-EVAL-008",
+        "source_question_id": "DS-001",
+        "expected_label": "contradiction",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "negation_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.001364,
+            "neutral": 0.000371,
+            "contradiction": 0.998265
+          },
+          "max_confidence": 0.998265,
+          "gold_probability": 0.998265
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000158,
+            "neutral": 0.000774,
+            "contradiction": 0.999068
+          },
+          "max_confidence": 0.999068,
+          "gold_probability": 0.999068
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": 0.000803,
+        "max_confidence_delta": 0.000803
+      },
+      {
+        "case_id": "NLI-EVAL-009",
+        "source_question_id": "DS-001",
+        "expected_label": "contradiction",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "direct_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.001893,
+            "neutral": 0.991015,
+            "contradiction": 0.007091
+          },
+          "max_confidence": 0.991015,
+          "gold_probability": 0.007091
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.001749,
+            "neutral": 0.99392,
+            "contradiction": 0.004331
+          },
+          "max_confidence": 0.99392,
+          "gold_probability": 0.004331
+        },
+        "category": "unchanged_failure",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.00276,
+        "max_confidence_delta": 0.002905
+      },
+      {
+        "case_id": "NLI-EVAL-010",
+        "source_question_id": "DS-001",
+        "expected_label": "neutral",
+        "language_style": "arabic_transliteration_variant",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000296,
+            "neutral": 0.999236,
+            "contradiction": 0.000468
+          },
+          "max_confidence": 0.999236,
+          "gold_probability": 0.999236
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000824,
+            "neutral": 0.998754,
+            "contradiction": 0.000422
+          },
+          "max_confidence": 0.998754,
+          "gold_probability": 0.998754
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000482,
+        "max_confidence_delta": -0.000482
+      },
+      {
+        "case_id": "NLI-EVAL-011",
+        "source_question_id": "DS-003",
+        "expected_label": "entailment",
+        "language_style": "arabic_msa",
+        "difficulty_type": "natural_paraphrase_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.998865,
+            "neutral": 0.000959,
+            "contradiction": 0.000175
+          },
+          "max_confidence": 0.998865,
+          "gold_probability": 0.998865
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.994138,
+            "neutral": 0.001518,
+            "contradiction": 0.004345
+          },
+          "max_confidence": 0.994138,
+          "gold_probability": 0.994138
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.004727,
+        "max_confidence_delta": -0.004727
+      },
+      {
+        "case_id": "NLI-EVAL-012",
+        "source_question_id": "DS-003",
+        "expected_label": "neutral",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "unrelated_technical_neutral",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.001345,
+            "neutral": 0.997148,
+            "contradiction": 0.001507
+          },
+          "max_confidence": 0.997148,
+          "gold_probability": 0.997148
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.003615,
+            "neutral": 0.994342,
+            "contradiction": 0.002043
+          },
+          "max_confidence": 0.994342,
+          "gold_probability": 0.994342
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.002806,
+        "max_confidence_delta": -0.002806
+      },
+      {
+        "case_id": "NLI-EVAL-013",
+        "source_question_id": "DS-003",
+        "expected_label": "contradiction",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "near_neighbor_concept_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000184,
+            "neutral": 0.001129,
+            "contradiction": 0.998687
+          },
+          "max_confidence": 0.998687,
+          "gold_probability": 0.998687
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000245,
+            "neutral": 0.039214,
+            "contradiction": 0.96054
+          },
+          "max_confidence": 0.96054,
+          "gold_probability": 0.96054
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.038147,
+        "max_confidence_delta": -0.038147
+      },
+      {
+        "case_id": "NLI-EVAL-014",
+        "source_question_id": "DS-003",
+        "expected_label": "entailment",
+        "language_style": "arabic_transliteration_variant",
+        "difficulty_type": "asr_like_lexical_variation",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.998147,
+            "neutral": 0.00158,
+            "contradiction": 0.000273
+          },
+          "max_confidence": 0.998147,
+          "gold_probability": 0.998147
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.8723,
+            "neutral": 0.018192,
+            "contradiction": 0.109508
+          },
+          "max_confidence": 0.8723,
+          "gold_probability": 0.8723
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.125847,
+        "max_confidence_delta": -0.125847
+      },
+      {
+        "case_id": "NLI-EVAL-015",
+        "source_question_id": "DS-003",
+        "expected_label": "neutral",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.001938,
+            "neutral": 0.996448,
+            "contradiction": 0.001614
+          },
+          "max_confidence": 0.996448,
+          "gold_probability": 0.996448
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.002355,
+            "neutral": 0.996483,
+            "contradiction": 0.001162
+          },
+          "max_confidence": 0.996483,
+          "gold_probability": 0.996483
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": 3.5e-05,
+        "max_confidence_delta": 3.5e-05
+      },
+      {
+        "case_id": "NLI-EVAL-016",
+        "source_question_id": "CS-001",
+        "expected_label": "entailment",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "partial_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.998357,
+            "neutral": 0.001395,
+            "contradiction": 0.000249
+          },
+          "max_confidence": 0.998357,
+          "gold_probability": 0.998357
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.940127,
+            "neutral": 0.007594,
+            "contradiction": 0.052279
+          },
+          "max_confidence": 0.940127,
+          "gold_probability": 0.940127
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.05823,
+        "max_confidence_delta": -0.05823
+      },
+      {
+        "case_id": "NLI-EVAL-017",
+        "source_question_id": "CS-001",
+        "expected_label": "neutral",
+        "language_style": "arabic_msa",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000343,
+            "neutral": 0.99937,
+            "contradiction": 0.000287
+          },
+          "max_confidence": 0.99937,
+          "gold_probability": 0.99937
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.001079,
+            "neutral": 0.998673,
+            "contradiction": 0.000248
+          },
+          "max_confidence": 0.998673,
+          "gold_probability": 0.998673
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000697,
+        "max_confidence_delta": -0.000697
+      },
+      {
+        "case_id": "NLI-EVAL-018",
+        "source_question_id": "CS-001",
+        "expected_label": "contradiction",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "direct_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.010912,
+            "neutral": 0.781225,
+            "contradiction": 0.207863
+          },
+          "max_confidence": 0.781225,
+          "gold_probability": 0.207863
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.002987,
+            "neutral": 0.566207,
+            "contradiction": 0.430806
+          },
+          "max_confidence": 0.566207,
+          "gold_probability": 0.430806
+        },
+        "category": "unchanged_failure",
+        "prediction_changed": false,
+        "gold_probability_delta": 0.222943,
+        "max_confidence_delta": -0.215018
+      },
+      {
+        "case_id": "NLI-EVAL-019",
+        "source_question_id": "CS-001",
+        "expected_label": "neutral",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000224,
+            "neutral": 0.999487,
+            "contradiction": 0.000289
+          },
+          "max_confidence": 0.999487,
+          "gold_probability": 0.999487
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.00058,
+            "neutral": 0.999248,
+            "contradiction": 0.000172
+          },
+          "max_confidence": 0.999248,
+          "gold_probability": 0.999248
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000239,
+        "max_confidence_delta": -0.000239
+      },
+      {
+        "case_id": "NLI-EVAL-020",
+        "source_question_id": "CS-001",
+        "expected_label": "contradiction",
+        "language_style": "arabic_transliteration_variant",
+        "difficulty_type": "negation_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000955,
+            "neutral": 0.000502,
+            "contradiction": 0.998543
+          },
+          "max_confidence": 0.998543,
+          "gold_probability": 0.998543
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000529,
+            "neutral": 0.001314,
+            "contradiction": 0.998157
+          },
+          "max_confidence": 0.998157,
+          "gold_probability": 0.998157
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000386,
+        "max_confidence_delta": -0.000386
+      },
+      {
+        "case_id": "NLI-EVAL-021",
+        "source_question_id": "CS-005",
+        "expected_label": "entailment",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "natural_paraphrase_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.998209,
+            "neutral": 0.00159,
+            "contradiction": 0.000201
+          },
+          "max_confidence": 0.998209,
+          "gold_probability": 0.998209
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.948388,
+            "neutral": 0.008005,
+            "contradiction": 0.043607
+          },
+          "max_confidence": 0.948388,
+          "gold_probability": 0.948388
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.049821,
+        "max_confidence_delta": -0.049821
+      },
+      {
+        "case_id": "NLI-EVAL-022",
+        "source_question_id": "CS-005",
+        "expected_label": "neutral",
+        "language_style": "arabic_msa",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000208,
+            "neutral": 0.999407,
+            "contradiction": 0.000385
+          },
+          "max_confidence": 0.999407,
+          "gold_probability": 0.999407
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000498,
+            "neutral": 0.999231,
+            "contradiction": 0.000272
+          },
+          "max_confidence": 0.999231,
+          "gold_probability": 0.999231
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000176,
+        "max_confidence_delta": -0.000176
+      },
+      {
+        "case_id": "NLI-EVAL-023",
+        "source_question_id": "CS-005",
+        "expected_label": "contradiction",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "near_neighbor_concept_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.004422,
+            "neutral": 0.934163,
+            "contradiction": 0.061415
+          },
+          "max_confidence": 0.934163,
+          "gold_probability": 0.061415
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.002416,
+            "neutral": 0.873414,
+            "contradiction": 0.124171
+          },
+          "max_confidence": 0.873414,
+          "gold_probability": 0.124171
+        },
+        "category": "unchanged_failure",
+        "prediction_changed": false,
+        "gold_probability_delta": 0.062756,
+        "max_confidence_delta": -0.060749
+      },
+      {
+        "case_id": "NLI-EVAL-024",
+        "source_question_id": "CS-005",
+        "expected_label": "contradiction",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "near_neighbor_concept_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000496,
+            "neutral": 0.000743,
+            "contradiction": 0.998761
+          },
+          "max_confidence": 0.998761,
+          "gold_probability": 0.998761
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000277,
+            "neutral": 0.002516,
+            "contradiction": 0.997207
+          },
+          "max_confidence": 0.997207,
+          "gold_probability": 0.997207
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.001554,
+        "max_confidence_delta": -0.001554
+      },
+      {
+        "case_id": "NLI-EVAL-025",
+        "source_question_id": "SE-010",
+        "expected_label": "entailment",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "code_switched_technical_terminology",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.98271,
+            "neutral": 0.015731,
+            "contradiction": 0.001559
+          },
+          "max_confidence": 0.98271,
+          "gold_probability": 0.98271
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.827586,
+            "neutral": 0.071488,
+            "contradiction": 0.100926
+          },
+          "max_confidence": 0.827586,
+          "gold_probability": 0.827586
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.155124,
+        "max_confidence_delta": -0.155124
+      },
+      {
+        "case_id": "NLI-EVAL-026",
+        "source_question_id": "SE-010",
+        "expected_label": "neutral",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "unrelated_technical_neutral",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000252,
+            "neutral": 0.996392,
+            "contradiction": 0.003356
+          },
+          "max_confidence": 0.996392,
+          "gold_probability": 0.996392
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.00056,
+            "neutral": 0.998407,
+            "contradiction": 0.001032
+          },
+          "max_confidence": 0.998407,
+          "gold_probability": 0.998407
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": 0.002015,
+        "max_confidence_delta": 0.002015
+      },
+      {
+        "case_id": "NLI-EVAL-027",
+        "source_question_id": "SE-010",
+        "expected_label": "contradiction",
+        "language_style": "arabic_msa",
+        "difficulty_type": "negation_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000842,
+            "neutral": 0.00059,
+            "contradiction": 0.998568
+          },
+          "max_confidence": 0.998568,
+          "gold_probability": 0.998568
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000551,
+            "neutral": 0.00675,
+            "contradiction": 0.992699
+          },
+          "max_confidence": 0.992699,
+          "gold_probability": 0.992699
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.005869,
+        "max_confidence_delta": -0.005869
+      },
+      {
+        "case_id": "NLI-EVAL-028",
+        "source_question_id": "SE-010",
+        "expected_label": "neutral",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.00058,
+            "neutral": 0.998941,
+            "contradiction": 0.00048
+          },
+          "max_confidence": 0.998941,
+          "gold_probability": 0.998941
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.001243,
+            "neutral": 0.998234,
+            "contradiction": 0.000524
+          },
+          "max_confidence": 0.998234,
+          "gold_probability": 0.998234
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000707,
+        "max_confidence_delta": -0.000707
+      },
+      {
+        "case_id": "NLI-EVAL-029",
+        "source_question_id": "SE-014",
+        "expected_label": "entailment",
+        "language_style": "arabic_transliteration_variant",
+        "difficulty_type": "asr_like_lexical_variation",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.998274,
+            "neutral": 0.001407,
+            "contradiction": 0.000319
+          },
+          "max_confidence": 0.998274,
+          "gold_probability": 0.998274
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.871294,
+            "neutral": 0.028042,
+            "contradiction": 0.100664
+          },
+          "max_confidence": 0.871294,
+          "gold_probability": 0.871294
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.12698,
+        "max_confidence_delta": -0.12698
+      },
+      {
+        "case_id": "NLI-EVAL-030",
+        "source_question_id": "SE-014",
+        "expected_label": "contradiction",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "direct_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.003006,
+            "neutral": 0.015443,
+            "contradiction": 0.98155
+          },
+          "max_confidence": 0.98155,
+          "gold_probability": 0.98155
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.002979,
+            "neutral": 0.124276,
+            "contradiction": 0.872746
+          },
+          "max_confidence": 0.872746,
+          "gold_probability": 0.872746
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.108804,
+        "max_confidence_delta": -0.108804
+      },
+      {
+        "case_id": "NLI-EVAL-031",
+        "source_question_id": "SE-014",
+        "expected_label": "contradiction",
+        "language_style": "arabic_msa",
+        "difficulty_type": "negation_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000236,
+            "neutral": 0.002964,
+            "contradiction": 0.9968
+          },
+          "max_confidence": 0.9968,
+          "gold_probability": 0.9968
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000801,
+            "neutral": 0.218467,
+            "contradiction": 0.780732
+          },
+          "max_confidence": 0.780732,
+          "gold_probability": 0.780732
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.216068,
+        "max_confidence_delta": -0.216068
+      },
+      {
+        "case_id": "NLI-EVAL-032",
+        "source_question_id": "SE-014",
+        "expected_label": "neutral",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.00043,
+            "neutral": 0.993519,
+            "contradiction": 0.006051
+          },
+          "max_confidence": 0.993519,
+          "gold_probability": 0.993519
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000777,
+            "neutral": 0.996843,
+            "contradiction": 0.00238
+          },
+          "max_confidence": 0.996843,
+          "gold_probability": 0.996843
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": 0.003324,
+        "max_confidence_delta": 0.003324
+      },
+      {
+        "case_id": "NLI-EVAL-033",
+        "source_question_id": "SE-034",
+        "expected_label": "entailment",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "natural_paraphrase_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.861568,
+            "neutral": 0.010859,
+            "contradiction": 0.127573
+          },
+          "max_confidence": 0.861568,
+          "gold_probability": 0.861568
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.514415,
+            "neutral": 0.175435,
+            "contradiction": 0.310149
+          },
+          "max_confidence": 0.514415,
+          "gold_probability": 0.514415
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.347153,
+        "max_confidence_delta": -0.347153
+      },
+      {
+        "case_id": "NLI-EVAL-034",
+        "source_question_id": "SE-034",
+        "expected_label": "neutral",
+        "language_style": "arabic_msa",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.001826,
+            "neutral": 0.997898,
+            "contradiction": 0.000275
+          },
+          "max_confidence": 0.997898,
+          "gold_probability": 0.997898
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.002505,
+            "neutral": 0.996758,
+            "contradiction": 0.000738
+          },
+          "max_confidence": 0.996758,
+          "gold_probability": 0.996758
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.00114,
+        "max_confidence_delta": -0.00114
+      },
+      {
+        "case_id": "NLI-EVAL-035",
+        "source_question_id": "SE-034",
+        "expected_label": "contradiction",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "near_neighbor_concept_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.039526,
+            "neutral": 0.531816,
+            "contradiction": 0.428657
+          },
+          "max_confidence": 0.531816,
+          "gold_probability": 0.428657
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.002455,
+            "neutral": 0.077894,
+            "contradiction": 0.919651
+          },
+          "max_confidence": 0.919651,
+          "gold_probability": 0.919651
+        },
+        "category": "fixed",
+        "prediction_changed": true,
+        "gold_probability_delta": 0.490994,
+        "max_confidence_delta": 0.387835
+      },
+      {
+        "case_id": "NLI-EVAL-036",
+        "source_question_id": "SE-034",
+        "expected_label": "neutral",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.040085,
+            "neutral": 0.955359,
+            "contradiction": 0.004556
+          },
+          "max_confidence": 0.955359,
+          "gold_probability": 0.955359
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.046309,
+            "neutral": 0.943064,
+            "contradiction": 0.010627
+          },
+          "max_confidence": 0.943064,
+          "gold_probability": 0.943064
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.012295,
+        "max_confidence_delta": -0.012295
+      },
+      {
+        "case_id": "NLI-EVAL-037",
+        "source_question_id": "SE-039",
+        "expected_label": "entailment",
+        "language_style": "arabic_msa",
+        "difficulty_type": "natural_paraphrase_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.777082,
+            "neutral": 0.222466,
+            "contradiction": 0.000452
+          },
+          "max_confidence": 0.777082,
+          "gold_probability": 0.777082
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.095652,
+            "neutral": 0.895218,
+            "contradiction": 0.00913
+          },
+          "max_confidence": 0.895218,
+          "gold_probability": 0.095652
+        },
+        "category": "regressed_new_failure",
+        "prediction_changed": true,
+        "gold_probability_delta": -0.68143,
+        "max_confidence_delta": 0.118136
+      },
+      {
+        "case_id": "NLI-EVAL-038",
+        "source_question_id": "SE-039",
+        "expected_label": "entailment",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "partial_entailment",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.993519,
+            "neutral": 0.006163,
+            "contradiction": 0.000318
+          },
+          "max_confidence": 0.993519,
+          "gold_probability": 0.993519
+        },
+        "lora": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.982699,
+            "neutral": 0.007122,
+            "contradiction": 0.010178
+          },
+          "max_confidence": 0.982699,
+          "gold_probability": 0.982699
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.01082,
+        "max_confidence_delta": -0.01082
+      },
+      {
+        "case_id": "NLI-EVAL-039",
+        "source_question_id": "SE-039",
+        "expected_label": "neutral",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "semantically_adjacent_non_entailing",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000236,
+            "neutral": 0.99907,
+            "contradiction": 0.000693
+          },
+          "max_confidence": 0.99907,
+          "gold_probability": 0.99907
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.000646,
+            "neutral": 0.998604,
+            "contradiction": 0.00075
+          },
+          "max_confidence": 0.998604,
+          "gold_probability": 0.998604
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.000466,
+        "max_confidence_delta": -0.000466
+      },
+      {
+        "case_id": "NLI-EVAL-040",
+        "source_question_id": "SE-039",
+        "expected_label": "contradiction",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "direct_contradiction",
+        "regression_anchor": false,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.002565,
+            "neutral": 0.00113,
+            "contradiction": 0.996305
+          },
+          "max_confidence": 0.996305,
+          "gold_probability": 0.996305
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.135076,
+            "neutral": 0.033573,
+            "contradiction": 0.831351
+          },
+          "max_confidence": 0.831351,
+          "gold_probability": 0.831351
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.164954,
+        "max_confidence_delta": -0.164954
+      },
+      {
+        "case_id": "NLI-EVAL-041",
+        "source_question_id": "DA-017",
+        "expected_label": "entailment",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "natural_paraphrase_entailment",
+        "regression_anchor": true,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.679402,
+            "neutral": 0.024493,
+            "contradiction": 0.296105
+          },
+          "max_confidence": 0.679402,
+          "gold_probability": 0.679402
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.00444,
+            "neutral": 0.007463,
+            "contradiction": 0.988097
+          },
+          "max_confidence": 0.988097,
+          "gold_probability": 0.00444
+        },
+        "category": "regressed_new_failure",
+        "prediction_changed": true,
+        "gold_probability_delta": -0.674962,
+        "max_confidence_delta": 0.308695
+      },
+      {
+        "case_id": "NLI-EVAL-042",
+        "source_question_id": "DA-017",
+        "expected_label": "entailment",
+        "language_style": "arabic_english_code_switch",
+        "difficulty_type": "natural_paraphrase_entailment",
+        "regression_anchor": true,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.007968,
+            "neutral": 0.010857,
+            "contradiction": 0.981175
+          },
+          "max_confidence": 0.981175,
+          "gold_probability": 0.007968
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.002799,
+            "neutral": 0.03213,
+            "contradiction": 0.965071
+          },
+          "max_confidence": 0.965071,
+          "gold_probability": 0.002799
+        },
+        "category": "unchanged_failure",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.005169,
+        "max_confidence_delta": -0.016104
+      },
+      {
+        "case_id": "NLI-EVAL-043",
+        "source_question_id": "DA-017",
+        "expected_label": "contradiction",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "direct_contradiction",
+        "regression_anchor": true,
+        "baseline": {
+          "predicted_label": "entailment",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.446733,
+            "neutral": 0.392953,
+            "contradiction": 0.160314
+          },
+          "max_confidence": 0.446733,
+          "gold_probability": 0.160314
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.127469,
+            "neutral": 0.672373,
+            "contradiction": 0.200158
+          },
+          "max_confidence": 0.672373,
+          "gold_probability": 0.200158
+        },
+        "category": "unchanged_failure",
+        "prediction_changed": true,
+        "gold_probability_delta": 0.039844,
+        "max_confidence_delta": 0.22564
+      },
+      {
+        "case_id": "NLI-EVAL-044",
+        "source_question_id": "DA-017",
+        "expected_label": "neutral",
+        "language_style": "english_diagnostic",
+        "difficulty_type": "unrelated_technical_neutral",
+        "regression_anchor": true,
+        "baseline": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.007348,
+            "neutral": 0.972105,
+            "contradiction": 0.020547
+          },
+          "max_confidence": 0.972105,
+          "gold_probability": 0.972105
+        },
+        "lora": {
+          "predicted_label": "neutral",
+          "correct": true,
+          "probabilities": {
+            "entailment": 0.007729,
+            "neutral": 0.978797,
+            "contradiction": 0.013473
+          },
+          "max_confidence": 0.978797,
+          "gold_probability": 0.978797
+        },
+        "category": "unchanged_correct",
+        "prediction_changed": false,
+        "gold_probability_delta": 0.006692,
+        "max_confidence_delta": 0.006692
+      },
+      {
+        "case_id": "NLI-EVAL-045",
+        "source_question_id": "DA-017",
+        "expected_label": "entailment",
+        "language_style": "egyptian_arabic",
+        "difficulty_type": "asr_like_lexical_variation",
+        "regression_anchor": true,
+        "baseline": {
+          "predicted_label": "contradiction",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.002671,
+            "neutral": 0.001515,
+            "contradiction": 0.995815
+          },
+          "max_confidence": 0.995815,
+          "gold_probability": 0.002671
+        },
+        "lora": {
+          "predicted_label": "contradiction",
+          "correct": false,
+          "probabilities": {
+            "entailment": 0.000785,
+            "neutral": 0.01561,
+            "contradiction": 0.983605
+          },
+          "max_confidence": 0.983605,
+          "gold_probability": 0.000785
+        },
+        "category": "unchanged_failure",
+        "prediction_changed": false,
+        "gold_probability_delta": -0.001886,
+        "max_confidence_delta": -0.01221
+      }
+    ]
+  },
+  "da017_deep_analysis": [
+    {
+      "case_id": "NLI-EVAL-041",
+      "premise": "INNER JOIN يعيد الصفوف التي تحقق شرط الربط في كلا الجدولين فقط.",
+      "hypothesis": "ال Inner Join يعيد الصفوف المتطابقة بين الجدولين.",
+      "expected_label": "entailment",
+      "baseline_prediction": "entailment",
+      "lora_prediction": "contradiction",
+      "baseline_probabilities": {
+        "entailment": 0.679402,
+        "neutral": 0.024493,
+        "contradiction": 0.296105
+      },
+      "lora_probabilities": {
+        "entailment": 0.00444,
+        "neutral": 0.007463,
+        "contradiction": 0.988097
+      },
+      "category": "regressed_new_failure",
+      "diagnosis": "New severe regression: the adapter turns a previously correct INNER JOIN paraphrase into a 0.988097 contradiction.",
+      "most_supported_cause": "The synthetic near-neighbor contradiction regime broadens the contradiction boundary around technical term/relation changes, while training contains no JOIN semantics and most entailments preserve the premise wording.",
+      "coverage_assessment": "Missing genuine relation-preserving paraphrases plus over-specialization to mutation templates; not label ambiguity."
+    },
+    {
+      "case_id": "NLI-EVAL-042",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال left join يعيد كل الصفوف من الجدول الايسر حتى اذا لم يكن هناك تطابق.",
+      "expected_label": "entailment",
+      "baseline_prediction": "contradiction",
+      "lora_prediction": "contradiction",
+      "baseline_probabilities": {
+        "entailment": 0.007968,
+        "neutral": 0.010857,
+        "contradiction": 0.981175
+      },
+      "lora_probabilities": {
+        "entailment": 0.002799,
+        "neutral": 0.03213,
+        "contradiction": 0.965071
+      },
+      "category": "unchanged_failure",
+      "diagnosis": "The original LEFT JOIN false contradiction remains, at 0.965071 contradiction after adaptation.",
+      "most_supported_cause": "No training example teaches the equivalence between the canonical LEFT JOIN definition and this natural Arabic/code-switched unmatched-left-row paraphrase.",
+      "coverage_assessment": "Insufficient semantic paraphrase and concept coverage; no evidence that the expected entailment label is ambiguous."
+    },
+    {
+      "case_id": "NLI-EVAL-043",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "LEFT JOIN returns only matching rows and removes unmatched left rows.",
+      "expected_label": "contradiction",
+      "baseline_prediction": "entailment",
+      "lora_prediction": "neutral",
+      "baseline_probabilities": {
+        "entailment": 0.446733,
+        "neutral": 0.392953,
+        "contradiction": 0.160314
+      },
+      "lora_probabilities": {
+        "entailment": 0.127469,
+        "neutral": 0.672373,
+        "contradiction": 0.200158
+      },
+      "category": "unchanged_failure",
+      "diagnosis": "The prediction moves from false entailment to neutral, but still misses the required contradiction.",
+      "most_supported_cause": "The adapter learns to avoid entailment for some technical mismatches, but its simple lexical-replacement/explicit-negation contradictions do not teach the relational consequence that LEFT JOIN preserves unmatched left rows.",
+      "coverage_assessment": "Partial boundary movement, insufficient relational hard-negative reasoning; not a fixed case."
+    },
+    {
+      "case_id": "NLI-EVAL-044",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "Python is commonly used for data analysis.",
+      "expected_label": "neutral",
+      "baseline_prediction": "neutral",
+      "lora_prediction": "neutral",
+      "baseline_probabilities": {
+        "entailment": 0.007348,
+        "neutral": 0.972105,
+        "contradiction": 0.020547
+      },
+      "lora_probabilities": {
+        "entailment": 0.007729,
+        "neutral": 0.978797,
+        "contradiction": 0.013473
+      },
+      "category": "unchanged_correct",
+      "diagnosis": "The unrelated Python statement remains a high-confidence neutral and is the only passing post-LoRA anchor.",
+      "most_supported_cause": "This is structurally similar to donor-based neutral training and does not exercise JOIN reasoning.",
+      "coverage_assessment": "Easy neutral/template match; it does not offset the four semantic JOIN failures."
+    },
+    {
+      "case_id": "NLI-EVAL-045",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال LEFT JOIN يعيد كل الصفوف من الجدول الشمال حتى لو لا يوجد تطابق.",
+      "expected_label": "entailment",
+      "baseline_prediction": "contradiction",
+      "lora_prediction": "contradiction",
+      "baseline_probabilities": {
+        "entailment": 0.002671,
+        "neutral": 0.001515,
+        "contradiction": 0.995815
+      },
+      "lora_probabilities": {
+        "entailment": 0.000785,
+        "neutral": 0.01561,
+        "contradiction": 0.983605
+      },
+      "category": "unchanged_failure",
+      "diagnosis": "The Egyptian Arabic LEFT JOIN entailment remains a very high-confidence contradiction (0.983605).",
+      "most_supported_cause": "Egyptian training coverage is numeric but mostly a fixed wrapper around copied canonical text, not independently worded dialectal paraphrase of relational semantics.",
+      "coverage_assessment": "Surface-style quota met, semantic/dialect realization missing; expected label remains unambiguous."
+    }
+  ],
+  "lora_behavior": {
+    "entailment_boundary": "WORSE_AND_MORE_CONSERVATIVE: predicted entailments fall 15->11; entailment recall falls 13/15->11/15; two baseline-correct entailments become non-entailments.",
+    "contradiction_boundary": "BROADER_NOT_RELIABLY_BETTER: true-contradiction recall improves 10/15->11/15, but contradiction precision falls 10/12->11/14 and false contradictions rise 2/15->3/15.",
+    "neutral_boundary": "MORE_COMPLETE_BUT_BROADER: neutral recall improves 14/15->15/15 while predicted neutrals rise 18->20 and precision falls 14/18->15/20.",
+    "class_bias_shift": "The adapter moves four predictions away from entailment: entailment 15->11, neutral 18->20, contradiction 12->14.",
+    "overconfidence": {
+      "baseline": {
+        "errors": 8,
+        "mean_max_confidence": 0.830853,
+        "high_confidence_errors_ge_0_90": 5,
+        "high_confidence_error_case_ids": [
+          "NLI-EVAL-007",
+          "NLI-EVAL-009",
+          "NLI-EVAL-023",
+          "NLI-EVAL-042",
+          "NLI-EVAL-045"
+        ]
+      },
+      "lora": {
+        "errors": 8,
+        "mean_max_confidence": 0.867238,
+        "high_confidence_errors_ge_0_90": 4,
+        "high_confidence_error_case_ids": [
+          "NLI-EVAL-009",
+          "NLI-EVAL-041",
+          "NLI-EVAL-042",
+          "NLI-EVAL-045"
+        ]
+      }
+    },
+    "memorization_assessment": "Strong evidence of generator/template shortcut learning and distribution memorization; no evidence of CP-005 record memorization because exact question/premise/hypothesis/pair overlap is zero. Perfect question-held-out dev is not independent of the shared authoring grammar.",
+    "optimization_assessment": "Optimization completed normally (rapid loss convergence and perfect internal dev). The frozen-held-out failure therefore points to representation/data-distribution mismatch, not an incomplete training run."
+  },
+  "cp006_control_context": {
+    "candidate_accuracy": 0.8666666666666667,
+    "candidate_macro_f1": 0.8662698412698413,
+    "candidate_false_contradiction_rate": 0.13333333333333333,
+    "candidate_da017_correct": 2,
+    "assessment": "A stronger checkpoint improved broad CP-005 classification but did not reduce false contradictions or improve DA-017, so checkpoint swapping alone also fails the critical relational-paraphrase defect."
+  },
+  "ranked_root_cause_hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "Cross-split authoring-template shortcut makes internal dev non-independent.",
+      "confidence": "HIGH",
+      "evidence": "All questions use the same 12-slot generator; label-exclusive wrappers cover 170/200 entailments, 150/200 contradictions, and 180/200 neutrals, with nearly identical train/dev rates; semantic_family_ids encode questions only, not generator/template families; dev reaches 1.0 while CP-005 does not improve."
+    },
+    {
+      "rank": 2,
+      "hypothesis": "Synthetic examples do not match natural semantic reasoning difficulty.",
+      "confidence": "HIGH",
+      "evidence": "Most purported paraphrase entailments retain the full premise; all direct contradictions have explicit negation markers; most neutrals announce independence; CP-005 errors are unmarked paraphrase, scope, and relational near-neighbor decisions."
+    },
+    {
+      "rank": 3,
+      "hypothesis": "Contradiction-focused mutations over-broaden the non-entailment boundary and suppress entailment.",
+      "confidence": "HIGH",
+      "evidence": "Predicted entailments drop 15->11; true-entailment recall drops 13/15->11/15; false contradictions rise 2->3; NLI-EVAL-041 flips from correct entailment to 0.988097 contradiction."
+    },
+    {
+      "rank": 4,
+      "hypothesis": "DA-017 relational concept and natural dialectal paraphrase coverage is absent.",
+      "confidence": "HIGH",
+      "evidence": "Zero training records contain a JOIN term; Egyptian/code-switch quotas are satisfied largely with wrappers around canonical text; DA-017 falls 2/5->1/5."
+    },
+    {
+      "rank": 5,
+      "hypothesis": "Base-family capacity/calibration remains a contributing limitation.",
+      "confidence": "MEDIUM",
+      "evidence": "Both the CP-006 checkpoint control and CP-009 adapter fail the critical false-contradiction/DA-017 gates, although they move other contradiction cases in useful directions."
+    },
+    {
+      "rank": 6,
+      "hypothesis": "Label imbalance, CP-005 leakage, or failed optimizer execution caused the gap.",
+      "confidence": "REJECTED_BY_EVIDENCE",
+      "evidence": "Labels are exactly balanced, frozen leakage checks are zero, hashes are unchanged, and training converged with validated artifacts."
+    }
+  ],
+  "failed_assumptions": [
+    "A complete-question train/dev split was assumed to be sufficient; it did not isolate the shared generator and label wrappers.",
+    "Difficulty labels such as paraphrase_entailment and near_neighbor_contradiction were assumed to imply natural reasoning diversity; generation mechanics show otherwise.",
+    "Matching language/style counts was assumed to imply representative dialect/code-switch coverage; many examples are canonical text plus a fixed wrapper.",
+    "Perfect internal dev was assumed to predict held-out gain; the dev set measured generalization to new questions under the same authoring grammar.",
+    "Simple lexical mutations were assumed to teach technical relation boundaries; DA-017 requires compositional row-preservation/cardinality reasoning."
+  ],
+  "required_before_any_future_training": [
+    "Define and audit generator/template family IDs, then split them so no authoring template or transformation operator is shared between train and model-selection dev.",
+    "Require independently worded natural Arabic, Egyptian, code-switched, and English pairs; reject copy-plus-prefix paraphrases and label-revealing wrappers.",
+    "Add unmarked hard entailment/contradiction/neutral contrasts that vary one semantic relation, scope, direction, cardinality, or exception while preserving surface similarity.",
+    "Cover relational technical reasoning through independent non-CP-005 concepts and examples; keep every CP-005 case/question/premise/hypothesis/pair excluded.",
+    "Create a separate template-independent diagnostic/dev set for training selection; keep CP-005 frozen as the final acceptance set and do not tune to its 45 labels.",
+    "Pre-register a one-variable comparison that can distinguish revised-data LoRA from a semantic-verifier/cascade alternative before authoring or training begins."
+  ],
+  "approach_decision": {
+    "current_adapter": "REJECTED_FOR_PROMOTION_EVALUATION_ONLY",
+    "lora": "PAUSE_CONDITIONAL_NOT_ABANDONED",
+    "recommendation": "Do not run a second LoRA on the current corpus. The immediate problem is the experiment's data/validation design. LoRA remains viable only after template-independent evidence exists; otherwise prioritize a controlled semantic-verifier/cascade experiment because checkpoint replacement and the current adapter both miss the critical false-contradiction/DA-017 objective."
+  },
+  "exact_next_step": "Await explicit Phase 2E design-only authorization to specify a template-independent corpus/diagnostic protocol and a pre-registered one-variable comparison between revised-data LoRA and a semantic-verifier/cascade. Do not author data, train, tune on CP-005, modify the adapter, or change production.",
+  "decision": "DIAGNOSIS_COMPLETE"
+}

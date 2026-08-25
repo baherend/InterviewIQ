@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "contract_id": "interviewiq-nli-ar-codeswitch-baseline-v1",
+  "status": "PREDECLARED_BEFORE_INFERENCE",
+  "dataset_id": "interviewiq-nli-ar-codeswitch-heldout-v1",
+  "model_under_test": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+  "inference_contract": {
+    "premise": "canonical reference evidence text",
+    "hypothesis": "candidate answer claim",
+    "label_order": [
+      "entailment",
+      "neutral",
+      "contradiction"
+    ],
+    "prediction_rule": "argmax of raw model logits",
+    "probability_rule": "softmax over the three logits",
+    "max_length": 256,
+    "batch_size": 8,
+    "adapter": null,
+    "thresholds_used": false
+  },
+  "scoring_population": {
+    "include": "cases where scored=true and label_review_status=approved_unambiguous",
+    "exclude": "ambiguous, duplicate, unresolved-source, or unreviewed cases",
+    "report_regression_anchors_separately": true,
+    "heldout_discovery_definition": "scored cases with regression_anchor=false"
+  },
+  "required_metrics": {
+    "overall_accuracy": "correct predictions divided by all scored cases",
+    "per_class": [
+      "precision",
+      "recall",
+      "f1",
+      "support"
+    ],
+    "macro_f1": "unweighted mean of entailment, neutral, and contradiction F1",
+    "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+    "false_contradiction_rate_on_entailments": "expected entailment predicted contradiction divided by expected entailment support",
+    "false_entailment_rate_on_contradictions": "expected contradiction predicted entailment divided by expected contradiction support",
+    "slice_breakdowns": [
+      "language_style",
+      "difficulty_type"
+    ],
+    "required_subreports": [
+      "all_scored_cases",
+      "heldout_discovery_only",
+      "DA-017_regression_anchors"
+    ]
+  },
+  "proposed_remediation_acceptance_target": {
+    "approval_status": "PROPOSED_NOT_YET_APPROVED",
+    "overall_accuracy_min": 0.85,
+    "macro_f1_min": 0.85,
+    "per_class_f1_min": 0.8,
+    "false_contradiction_rate_on_entailments_max": 0.05,
+    "false_entailment_rate_on_contradictions_max": 0.1,
+    "DA-017_regression_anchors_required_correct": "5/5",
+    "minimum_slice_accuracy_when_support_at_least_5": 0.7,
+    "rationale": "This is an evaluation gate proposal, not a business threshold. Macro/per-class floors prevent majority-class masking; the stricter false-contradiction ceiling reflects the verified Answer Content harm; the false-entailment ceiling preserves contradiction safety; all known regression anchors must pass. The first 45-case set is small, so final approval requires a larger independently reviewed set and confidence intervals."
+  },
+  "decision_limits": [
+    "Do not train on this evaluation set.",
+    "Do not select a remediation from aggregate accuracy alone.",
+    "Do not tune thresholds against this set.",
+    "Use failure clusters and heldout-discovery metrics to select the next experiment."
+  ]
+}

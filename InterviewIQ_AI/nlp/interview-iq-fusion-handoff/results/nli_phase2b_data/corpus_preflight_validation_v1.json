@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "validation_id": "interviewiq-nli-phase2b-corpus-preflight-v1",
+  "created_at": "2026-08-23T19:35:21+03:00",
+  "status": "PARTIAL_PASS_HUMAN_REVIEW_REQUIRED",
+  "training_ready": false,
+  "structural_and_exact_leakage_checks_passed": true,
+  "human_semantic_review_passed": false,
+  "counts": {
+    "records": 600,
+    "questions": 50,
+    "train_records": 480,
+    "dev_records": 120,
+    "train_questions": 40,
+    "dev_questions": 10,
+    "technical_examples": 600
+  },
+  "distributions": {
+    "label": {
+      "contradiction": 200,
+      "entailment": 200,
+      "neutral": 200
+    },
+    "language_style": {
+      "arabic_english_code_switch": 180,
+      "arabic_msa": 150,
+      "arabic_transliteration_variant": 60,
+      "egyptian_arabic": 150,
+      "english_diagnostic": 60
+    },
+    "difficulty_type": {
+      "direct_contradiction": 90,
+      "domain_entailment_preservation": 20,
+      "near_neighbor_contradiction": 110,
+      "neutral_technical": 120,
+      "paraphrase_entailment": 180,
+      "semantically_adjacent_neutral": 80
+    },
+    "technical_domain": {
+      "cybersecurity": 144,
+      "data_analysis": 156,
+      "data_science": 156,
+      "software_engineering": 144
+    }
+  },
+  "leakage": {
+    "cp005_dataset_sha256_verified": true,
+    "cp005_do_not_train_verified": true,
+    "protected_cp005_question_ids": [
+      "CS-001",
+      "CS-005",
+      "DA-001",
+      "DA-017",
+      "DS-001",
+      "DS-003",
+      "SE-010",
+      "SE-014",
+      "SE-034",
+      "SE-039"
+    ],
+    "additional_evaluation_exclusions": [
+      "DS-014"
+    ],
+    "protected_question_id_hits": [],
+    "evaluation_premise_hits": [],
+    "evaluation_hypothesis_hits": [],
+    "evaluation_pair_hits": [],
+    "high_semantic_similarity_hits": [],
+    "semantic_similarity_threshold_token_jaccard": 0.8,
+    "maximum_observed_token_jaccard": 0.346154,
+    "manual_semantic_family_gate": "PENDING_TWO_INDEPENDENT_HUMAN_REVIEWS"
+  },
+  "duplicates": {
+    "duplicate_case_ids": [],
+    "duplicate_normalized_pair_count": 0
+  },
+  "split_integrity": {
+    "train_question_ids": [
+      "CS-002",
+      "CS-003",
+      "CS-004",
+      "CS-006",
+      "CS-007",
+      "CS-008",
+      "CS-009",
+      "CS-010",
+      "CS-011",
+      "CS-012",
+      "DA-002",
+      "DA-003",
+      "DA-004",
+      "DA-005",
+      "DA-006",
+      "DA-007",
+      "DA-008",
+      "DA-009",
+      "DA-010",
+      "DA-011",
+      "DS-002",
+      "DS-004",
+      "DS-005",
+      "DS-006",
+      "DS-007",
+      "DS-008",
+      "DS-009",
+      "DS-010",
+      "DS-011",
+      "DS-012",
+      "SE-001",
+      "SE-002",
+      "SE-003",
+      "SE-004",
+      "SE-005",
+      "SE-006",
+      "SE-007",
+      "SE-008",
+      "SE-009",
+      "SE-011"
+    ],
+    "dev_question_ids": [
+      "CS-013",
+      "CS-014",
+      "DA-012",
+      "DA-013",
+      "DA-014",
+      "DS-013",
+      "DS-015",
+      "DS-016",
+      "SE-012",
+      "SE-013"
+    ],
+    "question_id_overlap": [],
+    "cross_split_semantic_families": [],
+    "cross_split_pair_groups": []
+  },
+  "provenance": {
+    "reference_corpus_path": "data/refdocs/reference_docs_250_FINAL_v1.json",
+    "reference_corpus_sha256": "BA062768EB02C6DBE16D90024C30B075AF98F85D08B9E946BB26862AAB250F07",
+    "standalone_question_bank_configured_path_present": false,
+    "question_and_key_point_source": "reference_docs_250_FINAL_v1.json documents[].question/key_points",
+    "unresolved_or_noncanonical_records": []
+  },
+  "review_gate": {
+    "ai_generated_candidates": 600,
+    "human_approved": 0,
+    "human_review_pending": 600,
+    "accepted_for_training": 0,
+    "minimum_independent_human_reviewers": 2,
+    "adjudication_required_on_disagreement": true,
+    "claim_limit": "Structural/exact leakage PASS does not satisfy the mandatory human semantic-family and label review gate."
+  },
+  "frozen_artifacts": {
+    "corpus": {
+      "path": "data/nli/training/phase2b_lora_corpus_v1.json",
+      "sha256": "3FB523040C9B2482A0FCF0AAC8FDCC13D54E32AC2D9CB75DF5CE970E2E341F33"
+    },
+    "review_ledger": {
+      "path": "data/nli/training/phase2b_lora_review_ledger_v1.json",
+      "sha256": "676B20BBA54D7D7DAF3A1DE7386871324137CB28BBAAFFDF93A6B0792828FDA3"
+    },
+    "split_manifest": {
+      "path": "data/nli/training/phase2b_lora_split_manifest_v1.json",
+      "sha256": "157BE9BD9261411A89BA60F46D86DEF56664051AA0B3A2C7F29E18257B85D3F4"
+    },
+    "source_corpus": {
+      "path": "data/refdocs/reference_docs_250_FINAL_v1.json",
+      "sha256": "BA062768EB02C6DBE16D90024C30B075AF98F85D08B9E946BB26862AAB250F07"
+    },
+    "cp005_exclusion_source": {
+      "path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+      "sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18"
+    }
+  },
+  "no_model_or_training_actions": {
+    "nli_model_loaded": false,
+    "inference_run": false,
+    "lora_training_run": false,
+    "adapter_checkpoint_created": false,
+    "production_behavior_changed": false
+  }
+}

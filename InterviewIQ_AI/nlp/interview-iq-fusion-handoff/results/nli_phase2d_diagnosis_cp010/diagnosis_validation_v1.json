@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "validation_id": "interviewiq-nli-phase2d-diagnosis-validation-v1",
+  "checkpoint": "CP-010",
+  "status": "PASS",
+  "checks": {
+    "frozen_dependency_hashes": "PASS",
+    "strict_json_and_utf8": "PASS",
+    "scope_boundary": "PASS_NO_MODEL_INFERENCE_TRAINING_DATA_OR_PRODUCTION_ACTION",
+    "corpus_counts_and_labels": "PASS_600_BALANCED",
+    "surface_marker_recomputation": {
+      "status": "PASS",
+      "counts": {
+        "entailment": 170,
+        "contradiction": 150,
+        "neutral": 180
+      }
+    },
+    "paraphrase_containment_recomputation": {
+      "status": "PASS",
+      "contained": 153,
+      "support": 180
+    },
+    "join_term_coverage": "PASS_ZERO_RECORDS",
+    "all_case_transition_recomputation": {
+      "status": "PASS",
+      "fixed": [
+        "NLI-EVAL-007",
+        "NLI-EVAL-035"
+      ],
+      "regressed_new_failures": [
+        "NLI-EVAL-037",
+        "NLI-EVAL-041"
+      ],
+      "unchanged_failures": [
+        "NLI-EVAL-009",
+        "NLI-EVAL-018",
+        "NLI-EVAL-023",
+        "NLI-EVAL-042",
+        "NLI-EVAL-043",
+        "NLI-EVAL-045"
+      ],
+      "unchanged_correct": 35
+    },
+    "predicted_class_shift": "PASS_E_15_TO_11_N_18_TO_20_C_12_TO_14",
+    "report_sections": "PASS",
+    "external_memory_cp010_markers": "PASS"
+  },
+  "artifacts": {
+    "diagnosis_json": {
+      "path": "results/nli_phase2d_diagnosis_cp010/lora_failure_diagnosis_v1.json",
+      "sha256": "C2BC1BC9CB153A40E367F063E865AAE4D2E2A3D017E154960469F89B7CCB20C9"
+    },
+    "diagnosis_report": {
+      "path": "results/nli_phase2d_diagnosis_cp010/lora_failure_diagnosis_v1.md",
+      "sha256": "29BCEDCE48C967ED21F41FB2D88AE2322DEC071E986DE1FC716EF60CA16EF7AA"
+    },
+    "analysis_utility": {
+      "path": "results/nli_phase2d_diagnosis_cp010/analyze_lora_failure_v1.py",
+      "sha256": "13E74A6FFD09DE5196D49028FD9ED0405B646575D9279C08119B856AA10FA9B6"
+    }
+  },
+  "decision": "CP010_VERIFIED_DIAGNOSIS_COMPLETE_NO_REMEDIATION"
+}

@@ -1,0 +1,1193 @@
+{
+  "schema_version": 1,
+  "comparison_id": "interviewiq-nli-phase2c-baseline-vs-lora-v1",
+  "decision": "ACCEPTANCE_FAIL_DO_NOT_PROMOTE",
+  "baseline": {
+    "source": "results/nli_baseline_cp005/current_model_baseline_v1.json",
+    "sha256": "7FAFA2F8EF8B1C5BA70AD2AAED371A7780557F7D05E6690C7E8468234495BFC6",
+    "metrics": {
+      "support": 45,
+      "accuracy": 0.8222222222222222,
+      "per_class": {
+        "entailment": {
+          "precision": 0.8666666666666667,
+          "recall": 0.8666666666666667,
+          "f1": 0.8666666666666667,
+          "support": 15.0
+        },
+        "neutral": {
+          "precision": 0.7777777777777778,
+          "recall": 0.9333333333333333,
+          "f1": 0.8484848484848485,
+          "support": 15.0
+        },
+        "contradiction": {
+          "precision": 0.8333333333333334,
+          "recall": 0.6666666666666666,
+          "f1": 0.7407407407407408,
+          "support": 15.0
+        }
+      },
+      "macro_f1": 0.8186307519640854,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 13,
+          "neutral": 0,
+          "contradiction": 2
+        },
+        "neutral": {
+          "entailment": 1,
+          "neutral": 14,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 1,
+          "neutral": 4,
+          "contradiction": 10
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 2,
+      "false_contradiction_rate_on_entailments": 0.13333333333333333,
+      "false_entailment_count_on_contradictions": 1,
+      "false_entailment_rate_on_contradictions": 0.06666666666666667
+    },
+    "DA017": {
+      "support": 5,
+      "accuracy": 0.4,
+      "per_class": {
+        "entailment": {
+          "precision": 0.5,
+          "recall": 0.3333333333333333,
+          "f1": 0.4,
+          "support": 3.0
+        },
+        "neutral": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1.0
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1.0
+        }
+      },
+      "macro_f1": 0.4666666666666666,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 1,
+          "neutral": 0,
+          "contradiction": 2
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 1,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 2,
+      "false_contradiction_rate_on_entailments": 0.6666666666666666,
+      "false_entailment_count_on_contradictions": 1,
+      "false_entailment_rate_on_contradictions": 1.0
+    }
+  },
+  "adapter": {
+    "source": "results/nli_phase2c_training_cp009/cp005_adapter_evaluation_v1.json",
+    "metrics": {
+      "support": 45,
+      "accuracy": 0.8222222222222222,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.7333333333333333,
+          "f1": 0.846153846153846,
+          "support": 15
+        },
+        "neutral": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "support": 15
+        },
+        "contradiction": {
+          "precision": 0.7857142857142857,
+          "recall": 0.7333333333333333,
+          "f1": 0.7586206896551724,
+          "support": 15
+        }
+      },
+      "macro_f1": 0.8206391309839584,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 11,
+          "neutral": 1,
+          "contradiction": 3
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 15,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 4,
+          "contradiction": 11
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 3,
+      "false_contradiction_rate_on_entailments": 0.2,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "DA017": {
+      "support": 5,
+      "accuracy": 0.2,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "neutral": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 1
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      },
+      "macro_f1": 0.2222222222222222,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 3
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 3,
+      "false_contradiction_rate_on_entailments": 1.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "resources": {
+      "method": "Fresh CPU/fp32 process; pinned local base plus adapter; one fixed first-batch warm-up excluded; batch 8; max_length 256; perf_counter_ns/process_time_ns; RSS sampled every 10ms.",
+      "memory_before_load": {
+        "rss_bytes": 374390784,
+        "uss_bytes": 303910912,
+        "private_bytes": 1886195712,
+        "peak_working_set_bytes": 374816768
+      },
+      "memory_after_inference": {
+        "rss_bytes": 1814364160,
+        "uss_bytes": 1739370496,
+        "private_bytes": 3674365952,
+        "peak_working_set_bytes": 2221363200
+      },
+      "sampled_peak_lifecycle_rss_bytes": 2185248768,
+      "process_peak_working_set_bytes": 2221363200,
+      "inference_wall_seconds": 3.7073609,
+      "inference_cpu_seconds": 28.203125,
+      "milliseconds_per_case": 82.38579777777777,
+      "cases_per_second": 12.13801440264421
+    }
+  },
+  "deltas": {
+    "accuracy": 0.0,
+    "macro_f1": 0.002008379019872941,
+    "false_contradiction_count": 1,
+    "false_entailment_count": -1
+  },
+  "language_slices": {
+    "arabic_english_code_switch": {
+      "support": 12,
+      "accuracy": 0.75,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "support": 6
+        },
+        "neutral": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "support": 3
+        },
+        "contradiction": {
+          "precision": 0.5,
+          "recall": 0.6666666666666666,
+          "f1": 0.5714285714285715,
+          "support": 3
+        }
+      },
+      "macro_f1": 0.7428571428571429,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 4,
+          "neutral": 0,
+          "contradiction": 2
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 3,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 2
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 2,
+      "false_contradiction_rate_on_entailments": 0.3333333333333333,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "arabic_msa": {
+      "support": 10,
+      "accuracy": 0.9,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "support": 3
+        },
+        "neutral": {
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "f1": 0.9090909090909091,
+          "support": 5
+        },
+        "contradiction": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 2
+        }
+      },
+      "macro_f1": 0.903030303030303,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 2,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 5,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 2
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "arabic_transliteration_variant": {
+      "support": 5,
+      "accuracy": 1.0,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 2
+        },
+        "neutral": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "contradiction": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 2
+        }
+      },
+      "macro_f1": 1.0,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 2,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 2
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "egyptian_arabic": {
+      "support": 9,
+      "accuracy": 0.8888888888888888,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571428571428571,
+          "support": 4
+        },
+        "neutral": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 3
+        },
+        "contradiction": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1": 0.8,
+          "support": 2
+        }
+      },
+      "macro_f1": 0.8857142857142858,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 3,
+          "neutral": 0,
+          "contradiction": 1
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 3,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 2
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 1,
+      "false_contradiction_rate_on_entailments": 0.25,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "english_diagnostic": {
+      "support": 9,
+      "accuracy": 0.6666666666666666,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "neutral": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 3
+        },
+        "contradiction": {
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6666666666666666,
+          "support": 6
+        }
+      },
+      "macro_f1": 0.4444444444444444,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 3,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 3,
+          "contradiction": 3
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    }
+  },
+  "difficulty_slices": {
+    "asr_like_lexical_variation": {
+      "support": 3,
+      "accuracy": 0.6666666666666666,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "support": 3
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "macro_f1": 0.26666666666666666,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 2,
+          "neutral": 0,
+          "contradiction": 1
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 1,
+      "false_contradiction_rate_on_entailments": 0.3333333333333333,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "code_switched_technical_terminology": {
+      "support": 2,
+      "accuracy": 1.0,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 2
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "macro_f1": 0.3333333333333333,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 2,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "direct_contradiction": {
+      "support": 5,
+      "accuracy": 0.4,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 1.0,
+          "recall": 0.4,
+          "f1": 0.5714285714285715,
+          "support": 5
+        }
+      },
+      "macro_f1": 0.1904761904761905,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 3,
+          "contradiction": 2
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "exact_or_near_exact_entailment": {
+      "support": 1,
+      "accuracy": 1.0,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "macro_f1": 0.3333333333333333,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 1,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "natural_paraphrase_entailment": {
+      "support": 7,
+      "accuracy": 0.5714285714285714,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.5714285714285714,
+          "f1": 0.7272727272727273,
+          "support": 7
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "macro_f1": 0.24242424242424243,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 4,
+          "neutral": 1,
+          "contradiction": 2
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 2,
+      "false_contradiction_rate_on_entailments": 0.2857142857142857,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "near_neighbor_concept_contradiction": {
+      "support": 5,
+      "accuracy": 0.8,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.888888888888889,
+          "support": 5
+        }
+      },
+      "macro_f1": 0.29629629629629634,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 4
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "negation_contradiction": {
+      "support": 5,
+      "accuracy": 1.0,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 5
+        }
+      },
+      "macro_f1": 0.3333333333333333,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 5
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "partial_entailment": {
+      "support": 2,
+      "accuracy": 1.0,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 2
+        },
+        "neutral": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "macro_f1": 0.3333333333333333,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 2,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "semantically_adjacent_non_entailing": {
+      "support": 12,
+      "accuracy": 1.0,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "neutral": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 12
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "macro_f1": 0.3333333333333333,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 12,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "unrelated_technical_neutral": {
+      "support": 3,
+      "accuracy": 1.0,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        "neutral": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 3
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      },
+      "macro_f1": 0.3333333333333333,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 3,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    }
+  },
+  "DA017_anchors": [
+    {
+      "case_id": "NLI-EVAL-041",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C01",
+      "premise": "INNER JOIN يعيد الصفوف التي تحقق شرط الربط في كلا الجدولين فقط.",
+      "hypothesis": "ال Inner Join يعيد الصفوف المتطابقة بين الجدولين.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "الادعاء الحقيقي المحفوظ يعبّر عن الصفوف المطابقة.",
+      "provenance": "cp003_preserved_after_artifact_regression",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.00444,
+        "neutral": 0.007463,
+        "contradiction": 0.988097
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-042",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال left join يعيد كل الصفوف من الجدول الايسر حتى اذا لم يكن هناك تطابق.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "الادعاء الحقيقي المحفوظ يحتفظ بكل صفوف اليسار دون اشتراط التطابق.",
+      "provenance": "cp003_preserved_before_artifact_regression",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.002799,
+        "neutral": 0.03213,
+        "contradiction": 0.965071
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-043",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "LEFT JOIN returns only matching rows and removes unmatched left rows.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "rationale": "ينفي الاحتفاظ بصفوف اليسار غير المطابقة.",
+      "provenance": "cp005_user_required_regression_anchor",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": false,
+      "error_direction": "contradiction->neutral",
+      "probabilities": {
+        "entailment": 0.127469,
+        "neutral": 0.672373,
+        "contradiction": 0.200158
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-044",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "Python is commonly used for data analysis.",
+      "expected_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "unrelated_technical_neutral",
+      "rationale": "استخدام Python غير مرتبط بما يثبته تعريف LEFT JOIN.",
+      "provenance": "cp005_user_required_regression_anchor",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.007729,
+        "neutral": 0.978797,
+        "contradiction": 0.013473
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-045",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال LEFT JOIN يعيد كل الصفوف من الجدول الشمال حتى لو لا يوجد تطابق.",
+      "expected_label": "entailment",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "asr_like_lexical_variation",
+      "rationale": "صياغة مصرية واقعية لنفس الاحتفاظ بكل صفوف الجدول الأيسر.",
+      "provenance": "cp003_corrected_lift_to_left_regression_variant",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.000785,
+        "neutral": 0.01561,
+        "contradiction": 0.983605
+      }
+    }
+  ],
+  "acceptance": {
+    "checks": {
+      "overall_correct": {
+        "actual": 37,
+        "target": ">=39/45",
+        "passed": false
+      },
+      "accuracy": {
+        "actual": 0.8222222222222222,
+        "target": ">=0.85",
+        "passed": false
+      },
+      "macro_f1": {
+        "actual": 0.8206391309839584,
+        "target": ">=0.85",
+        "passed": false
+      },
+      "minimum_class_f1": {
+        "actual": 0.7586206896551724,
+        "target": ">=0.8",
+        "passed": false
+      },
+      "false_contradiction_count": {
+        "actual": 3,
+        "target": "<=0",
+        "passed": false
+      },
+      "false_entailment_count": {
+        "actual": 0,
+        "target": "<=1",
+        "passed": true
+      },
+      "neutral_correct": {
+        "actual": 15,
+        "target": ">=14/15",
+        "passed": true
+      },
+      "neutral_f1": {
+        "actual": 0.8571428571428571,
+        "target": ">=0.8",
+        "passed": true
+      },
+      "DA017_anchors": {
+        "actual": 1,
+        "target": "=5/5",
+        "passed": false
+      },
+      "baseline_correct_regressions": {
+        "actual": [
+          "NLI-EVAL-037",
+          "NLI-EVAL-041"
+        ],
+        "target": "<=0",
+        "passed": false
+      },
+      "minimum_supported_slice_accuracy": {
+        "actual": 0.4,
+        "target": ">=0.7",
+        "passed": false
+      },
+      "latency_ms_per_case": {
+        "actual": 82.38579777777777,
+        "target": "<=92.613351",
+        "passed": true
+      },
+      "peak_working_set_bytes": {
+        "actual": 2221363200,
+        "target": "<=2301884006",
+        "passed": true
+      },
+      "adapter_attachment": {
+        "actual": true,
+        "target": "true",
+        "passed": true
+      }
+    },
+    "all_pass": false,
+    "baseline_correct_case_ids": [
+      "NLI-EVAL-001",
+      "NLI-EVAL-002",
+      "NLI-EVAL-003",
+      "NLI-EVAL-004",
+      "NLI-EVAL-005",
+      "NLI-EVAL-006",
+      "NLI-EVAL-008",
+      "NLI-EVAL-010",
+      "NLI-EVAL-011",
+      "NLI-EVAL-012",
+      "NLI-EVAL-013",
+      "NLI-EVAL-014",
+      "NLI-EVAL-015",
+      "NLI-EVAL-016",
+      "NLI-EVAL-017",
+      "NLI-EVAL-019",
+      "NLI-EVAL-020",
+      "NLI-EVAL-021",
+      "NLI-EVAL-022",
+      "NLI-EVAL-024",
+      "NLI-EVAL-025",
+      "NLI-EVAL-026",
+      "NLI-EVAL-027",
+      "NLI-EVAL-028",
+      "NLI-EVAL-029",
+      "NLI-EVAL-030",
+      "NLI-EVAL-031",
+      "NLI-EVAL-032",
+      "NLI-EVAL-033",
+      "NLI-EVAL-034",
+      "NLI-EVAL-036",
+      "NLI-EVAL-037",
+      "NLI-EVAL-038",
+      "NLI-EVAL-039",
+      "NLI-EVAL-040",
+      "NLI-EVAL-041",
+      "NLI-EVAL-044"
+    ],
+    "new_regressions_on_baseline_correct_cases": [
+      "NLI-EVAL-037",
+      "NLI-EVAL-041"
+    ],
+    "supported_slice_accuracies": {
+      "by_language_style.arabic_english_code_switch": 0.75,
+      "by_language_style.arabic_msa": 0.9,
+      "by_language_style.arabic_transliteration_variant": 1.0,
+      "by_language_style.egyptian_arabic": 0.8888888888888888,
+      "by_language_style.english_diagnostic": 0.6666666666666666,
+      "by_difficulty_type.direct_contradiction": 0.4,
+      "by_difficulty_type.natural_paraphrase_entailment": 0.5714285714285714,
+      "by_difficulty_type.near_neighbor_concept_contradiction": 0.8,
+      "by_difficulty_type.negation_contradiction": 1.0,
+      "by_difficulty_type.semantically_adjacent_non_entailing": 1.0
+    },
+    "decision_limit": "Evaluation recommendation only; production promotion remains separately authorized."
+  },
+  "recommendation": "Do not promote the adapter because one or more predeclared gates failed. Preserve it as experiment evidence only.",
+  "scope": {
+    "production_changed": false,
+    "promoted": false,
+    "second_adapter_trained": false
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "dataset_id": "interviewiq-nli-ar-codeswitch-heldout-v1",
+  "validation_phase": "PRE_INFERENCE",
+  "result": "PASS",
+  "dataset_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+  "metrics_contract_sha256": "01F2B3F6A5F8EFEE019C08972854E6D92D8DC53D999957C7B60AC45DB5D2A655",
+  "reference_corpus_sha256": "BA062768EB02C6DBE16D90024C30B075AF98F85D08B9E946BB26862AAB250F07",
+  "checks": {
+    "json_schema_and_required_fields": "PASS",
+    "unique_case_ids": "45/45",
+    "canonical_source_ids_resolved": "45/45",
+    "premises_byte_equal_canonical_chunks": "45/45",
+    "duplicate_normalized_pairs": 0,
+    "duplicate_normalized_hypotheses": 0,
+    "scored_and_reviewed_unambiguous": "45/45",
+    "ambiguous_scored_cases": 0,
+    "regression_anchors": "5 DA-017 anchors, explicitly separated",
+    "heldout_discovery_cases": 40,
+    "do_not_train": true,
+    "metrics_predeclared_before_inference": true,
+    "production_case_specific_references": 0,
+    "production_hard_code_dependency": false,
+    "training_source_or_config_references_to_evaluation_set": 0,
+    "heldout_pairs_present_in_configured_training_data": 0
+  },
+  "label_distribution": {
+    "entailment": 15,
+    "neutral": 15,
+    "contradiction": 15
+  },
+  "language_style_distribution": {
+    "arabic_msa": 10,
+    "egyptian_arabic": 9,
+    "arabic_english_code_switch": 12,
+    "arabic_transliteration_variant": 5,
+    "english_diagnostic": 9
+  },
+  "difficulty_type_distribution": {
+    "exact_or_near_exact_entailment": 1,
+    "natural_paraphrase_entailment": 7,
+    "partial_entailment": 2,
+    "direct_contradiction": 5,
+    "negation_contradiction": 5,
+    "near_neighbor_concept_contradiction": 5,
+    "unrelated_technical_neutral": 3,
+    "semantically_adjacent_non_entailing": 12,
+    "code_switched_technical_terminology": 2,
+    "asr_like_lexical_variation": 3
+  },
+  "concept_coverage": {
+    "question_count": 10,
+    "question_ids": [
+      "DA-001",
+      "DS-001",
+      "DS-003",
+      "CS-001",
+      "CS-005",
+      "SE-010",
+      "SE-014",
+      "SE-034",
+      "SE-039",
+      "DA-017"
+    ]
+  },
+  "semantic_review": {
+    "method": "Pair-by-pair review using only the paired canonical premise; extra-world details labeled neutral; direct oppositions labeled contradiction; claims no stronger than the premise labeled entailment.",
+    "result": "PASS",
+    "reformulated_or_excluded_cases": 0,
+    "review_note": "Rationales are short auditable justifications, not hidden reasoning. Independent sub-agent review was attempted but unavailable because its refresh token was revoked; mechanical/source validation and a separate local semantic pass both completed before inference."
+  },
+  "existing_asset_disposition": {
+    "data/nli/gold_set_48.json": "NOT_REUSED_AS_THE_NEW_SET",
+    "reason": "It is DRAFT, DS-014-only, AI-drafted/not expert-verified, lacks required slices/provenance fields, contains stale corrected labels, and has canonical-premise drift. Existing metric/inference functions are reused instead."
+  },
+  "checkpoint_leakage_and_hardcode_audit": {
+    "result": "PASS",
+    "production_dependency_check": "No NLI-EVAL case ID, heldout dataset ID, or heldout dataset path occurs in src/ or configs/. Inference used the generic current-model path with no case-specific rule.",
+    "training_separation_check": "The evaluation dataset is marked do_not_train=true, is not referenced by the fine-tuning source or config, and the two pilot pair files configured in configs/nli_finetune.yaml are absent from this workspace. No current configured training dataset contains an evaluation pair.",
+    "timing_note": "The evaluation-only separation and generic-inference requirements were part of the pre-inference review. Repository-wide source/config reference searches were repeated during checkpoint finalization without model inference."
+  }
+}

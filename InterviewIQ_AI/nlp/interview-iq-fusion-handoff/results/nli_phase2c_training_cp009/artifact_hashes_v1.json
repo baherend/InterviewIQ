@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_NOT_PROMOTED",
+  "files": {
+    "checkpoints/nli-lora-phase2c-v1/adapter_config.json": {
+      "sha256": "140CE9F7B179826B3D85F616AD41AEE10461091B0EB27991644DD9B4323526C9",
+      "bytes": 698
+    },
+    "checkpoints/nli-lora-phase2c-v1/adapter_model.safetensors": {
+      "sha256": "E5972EF2A75D29FE2FBFACE9B9F0F6F1502006A3C7DD167049969D759BB8AC6A",
+      "bytes": 2375860
+    },
+    "checkpoints/nli-lora-phase2c-v1/README.md": {
+      "sha256": "3DDE9D6887F8D347E4435770DDF8EE37E8EA54EB0F3791CD15265C5E056083DE",
+      "bytes": 5113
+    },
+    "checkpoints/nli-lora-phase2c-v1/special_tokens_map.json": {
+      "sha256": "B70B72BBC44ED96AE896E1B26D2D269D40A58709C9DE1428C9BBFA872FE7F7CE",
+      "bytes": 1021
+    },
+    "checkpoints/nli-lora-phase2c-v1/tokenizer.json": {
+      "sha256": "FAC19EA071EAF45A306B764622C743562E1FD17DFD132B715CE76BB5CAEE26C8",
+      "bytes": 16316224
+    },
+    "checkpoints/nli-lora-phase2c-v1/tokenizer_config.json": {
+      "sha256": "395EB8AAB070D3597FEDF180A87FD9476E561C7A1E2609771B867127F0E1D35C",
+      "bytes": 1314
+    },
+    "checkpoints/nli-lora-phase2c-v1/trainer_state.json": {
+      "sha256": "09B23A463AA01687CB465EB45E963A30B0246133FD42A8D63DC75F0D472A65AA",
+      "bytes": 3949
+    },
+    "results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.json": {
+      "sha256": "207B9AD75416F9B0A77680352D7A96C9D2D8685271C4F6333BCA050D19AC26D1",
+      "bytes": 35915
+    },
+    "results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.md": {
+      "sha256": "7863A12552945B299191E9FBD9349C7686362CAFBD61879AC5C07D7719AC1C69",
+      "bytes": 1545
+    },
+    "results/nli_phase2c_training_cp009/cp005_adapter_evaluation_v1.json": {
+      "sha256": "C05B1FEFDC3160C6D3D2695125B1A3E71A2C6D7462E7844C659D38C9B7C5005F",
+      "bytes": 86612
+    },
+    "results/nli_phase2c_training_cp009/environment_metadata_v1.json": {
+      "sha256": "72E02A43CE8867933149946DA5172DCE1E26572AB4EEADA2F29C7AA9C685822F",
+      "bytes": 1235
+    },
+    "results/nli_phase2c_training_cp009/external_human_review_attestation_v1.json": {
+      "sha256": "408B040F252F2E61252F867C744AB346BB112D8D73190E0B173BC091060CB64D",
+      "bytes": 2233
+    },
+    "results/nli_phase2c_training_cp009/immutable_training_manifest_v1.json": {
+      "sha256": "6E55057D089067CBFEEE26D6EE1E242415CDCE4B89CFEC063C6BB12DFBF37878",
+      "bytes": 5821
+    },
+    "results/nli_phase2c_training_cp009/preflight_validation_v1.json": {
+      "sha256": "E36E75732E0CCE61ED17764BE70A2CF26129B4DE8D4CD3A4245712DA52E6C02F",
+      "bytes": 4119
+    },
+    "results/nli_phase2c_training_cp009/run_phase2c_lora_v1.py": {
+      "sha256": "ED06AEF2E572E5EAC333A8C7A0AD15EC9EDBB9FD6A18297E82876DCBC4204431",
+      "bytes": 42935
+    },
+    "results/nli_phase2c_training_cp009/training_log_v1.jsonl": {
+      "sha256": "E941EA7EDD4F533A6A928C8996929DBA92960829F3A59DDE02F1C286860F7C6A",
+      "bytes": 2482
+    },
+    "results/nli_phase2c_training_cp009/training_metrics_v1.json": {
+      "sha256": "7F751A8CEC937D303FE2B64DFC34720461DD9F9E1FDB894580179BA0E3C3C240",
+      "bytes": 9403
+    }
+  }
+}

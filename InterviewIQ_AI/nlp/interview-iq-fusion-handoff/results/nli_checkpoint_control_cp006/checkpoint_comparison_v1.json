@@ -1,0 +1,612 @@
+{
+  "schema_version": 1,
+  "comparison_id": "cp006-checkpoint-control-comparison-v1",
+  "created_at": "2026-08-23T18:59:04.184246+03:00",
+  "decision_scope": "COMPARISON_ONLY_NO_AUTOMATIC_WINNER_NO_PRODUCTION_CHANGE",
+  "manifest": {
+    "path": "D:/InterviewIQ-final/InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/experiment_manifest_v1.json",
+    "sha256": "9177084603FAAA1B2B6D07B74B3F23E0B1A821A32146AAD9E232AE53D9E6238E"
+  },
+  "dataset_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+  "baseline": {
+    "model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "result_path": "D:/InterviewIQ-final/InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/baseline_checkpoint_control_v1.json",
+    "result_sha256": "78A33E6DE5660227B2A966B389B90133AEF664B3C421054E2A843702360DAC4A"
+  },
+  "candidate": {
+    "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+    "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+    "result_path": "D:/InterviewIQ-final/InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/candidate_checkpoint_control_v1.json",
+    "result_sha256": "462221DFFD6016414186D20301A3497819ABB0BF4EB38C674A2CBE81D6E3D541"
+  },
+  "baseline_reproduction": {
+    "stored_result_path": "results/nli_baseline_cp005/current_model_baseline_v1.json",
+    "stored_result_sha256": "7FAFA2F8EF8B1C5BA70AD2AAED371A7780557F7D05E6690C7E8468234495BFC6",
+    "prediction_labels_exact": true,
+    "metric_parity": {
+      "accuracy": true,
+      "macro_f1": true,
+      "false_contradiction_rate_on_entailments": true,
+      "false_entailment_rate_on_contradictions": true
+    },
+    "maximum_rounded_probability_absolute_delta": 0.0,
+    "passed": true
+  },
+  "metrics": {
+    "accuracy": {
+      "baseline": 0.8222222222222222,
+      "candidate": 0.8666666666666667,
+      "delta": 0.04444444444444451
+    },
+    "macro_f1": {
+      "baseline": 0.8186307519640854,
+      "candidate": 0.8662698412698413,
+      "delta": 0.04763908930575589
+    },
+    "false_contradiction_rate": {
+      "baseline": 0.13333333333333333,
+      "candidate": 0.13333333333333333,
+      "delta": 0.0
+    },
+    "false_entailment_rate": {
+      "baseline": 0.06666666666666667,
+      "candidate": 0.0,
+      "delta": -0.06666666666666667
+    }
+  },
+  "confusion_matrices": {
+    "baseline": {
+      "entailment": {
+        "entailment": 13,
+        "neutral": 0,
+        "contradiction": 2
+      },
+      "neutral": {
+        "entailment": 1,
+        "neutral": 14,
+        "contradiction": 0
+      },
+      "contradiction": {
+        "entailment": 1,
+        "neutral": 4,
+        "contradiction": 10
+      }
+    },
+    "candidate": {
+      "entailment": {
+        "entailment": 12,
+        "neutral": 1,
+        "contradiction": 2
+      },
+      "neutral": {
+        "entailment": 1,
+        "neutral": 14,
+        "contradiction": 0
+      },
+      "contradiction": {
+        "entailment": 0,
+        "neutral": 2,
+        "contradiction": 13
+      }
+    }
+  },
+  "per_class": {
+    "baseline": {
+      "entailment": {
+        "precision": 0.8666666666666667,
+        "recall": 0.8666666666666667,
+        "f1": 0.8666666666666667,
+        "support": 15
+      },
+      "neutral": {
+        "precision": 0.7777777777777778,
+        "recall": 0.9333333333333333,
+        "f1": 0.8484848484848485,
+        "support": 15
+      },
+      "contradiction": {
+        "precision": 0.8333333333333334,
+        "recall": 0.6666666666666666,
+        "f1": 0.7407407407407408,
+        "support": 15
+      }
+    },
+    "candidate": {
+      "entailment": {
+        "precision": 0.9230769230769231,
+        "recall": 0.8,
+        "f1": 0.8571428571428571,
+        "support": 15
+      },
+      "neutral": {
+        "precision": 0.8235294117647058,
+        "recall": 0.9333333333333333,
+        "f1": 0.8749999999999999,
+        "support": 15
+      },
+      "contradiction": {
+        "precision": 0.8666666666666667,
+        "recall": 0.8666666666666667,
+        "f1": 0.8666666666666667,
+        "support": 15
+      }
+    }
+  },
+  "DA017_regression_anchors": {
+    "baseline_metrics": {
+      "support": 5,
+      "accuracy": 0.4,
+      "per_class": {
+        "entailment": {
+          "precision": 0.5,
+          "recall": 0.3333333333333333,
+          "f1": 0.4,
+          "support": 3
+        },
+        "neutral": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 1
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      },
+      "macro_f1": 0.4666666666666666,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 1,
+          "neutral": 0,
+          "contradiction": 2
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 1,
+          "neutral": 0,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 2,
+      "false_contradiction_rate_on_entailments": 0.6666666666666666,
+      "false_entailment_count_on_contradictions": 1,
+      "false_entailment_rate_on_contradictions": 1.0
+    },
+    "candidate_metrics": {
+      "support": 5,
+      "accuracy": 0.4,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "neutral": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 1
+        },
+        "contradiction": {
+          "precision": 0.3333333333333333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "support": 1
+        }
+      },
+      "macro_f1": 0.38888888888888884,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 2
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 1
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 2,
+      "false_contradiction_rate_on_entailments": 0.6666666666666666,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "cases": [
+      {
+        "case_id": "NLI-EVAL-041",
+        "expected_label": "entailment",
+        "baseline_prediction": "entailment",
+        "baseline_probabilities": {
+          "entailment": 0.679402,
+          "neutral": 0.024493,
+          "contradiction": 0.296105
+        },
+        "candidate_prediction": "neutral",
+        "candidate_probabilities": {
+          "entailment": 0.422111,
+          "neutral": 0.467877,
+          "contradiction": 0.110012
+        },
+        "baseline_pass": true,
+        "candidate_pass": false
+      },
+      {
+        "case_id": "NLI-EVAL-042",
+        "expected_label": "entailment",
+        "baseline_prediction": "contradiction",
+        "baseline_probabilities": {
+          "entailment": 0.007968,
+          "neutral": 0.010857,
+          "contradiction": 0.981175
+        },
+        "candidate_prediction": "contradiction",
+        "candidate_probabilities": {
+          "entailment": 0.013753,
+          "neutral": 0.137642,
+          "contradiction": 0.848605
+        },
+        "baseline_pass": false,
+        "candidate_pass": false
+      },
+      {
+        "case_id": "NLI-EVAL-043",
+        "expected_label": "contradiction",
+        "baseline_prediction": "entailment",
+        "baseline_probabilities": {
+          "entailment": 0.446733,
+          "neutral": 0.392953,
+          "contradiction": 0.160314
+        },
+        "candidate_prediction": "contradiction",
+        "candidate_probabilities": {
+          "entailment": 0.083939,
+          "neutral": 0.413021,
+          "contradiction": 0.503041
+        },
+        "baseline_pass": false,
+        "candidate_pass": true
+      },
+      {
+        "case_id": "NLI-EVAL-044",
+        "expected_label": "neutral",
+        "baseline_prediction": "neutral",
+        "baseline_probabilities": {
+          "entailment": 0.007348,
+          "neutral": 0.972105,
+          "contradiction": 0.020547
+        },
+        "candidate_prediction": "neutral",
+        "candidate_probabilities": {
+          "entailment": 0.000705,
+          "neutral": 0.999076,
+          "contradiction": 0.000218
+        },
+        "baseline_pass": true,
+        "candidate_pass": true
+      },
+      {
+        "case_id": "NLI-EVAL-045",
+        "expected_label": "entailment",
+        "baseline_prediction": "contradiction",
+        "baseline_probabilities": {
+          "entailment": 0.002671,
+          "neutral": 0.001515,
+          "contradiction": 0.995815
+        },
+        "candidate_prediction": "contradiction",
+        "candidate_probabilities": {
+          "entailment": 0.002853,
+          "neutral": 0.010693,
+          "contradiction": 0.986455
+        },
+        "baseline_pass": false,
+        "candidate_pass": false
+      }
+    ]
+  },
+  "language_style": {
+    "arabic_english_code_switch": {
+      "support": 12,
+      "baseline_accuracy": 0.8333333333333334,
+      "candidate_accuracy": 0.75,
+      "delta": -0.08333333333333337
+    },
+    "arabic_msa": {
+      "support": 10,
+      "baseline_accuracy": 0.9,
+      "candidate_accuracy": 0.9,
+      "delta": 0.0
+    },
+    "arabic_transliteration_variant": {
+      "support": 5,
+      "baseline_accuracy": 1.0,
+      "candidate_accuracy": 1.0,
+      "delta": 0.0
+    },
+    "egyptian_arabic": {
+      "support": 9,
+      "baseline_accuracy": 0.8888888888888888,
+      "candidate_accuracy": 0.8888888888888888,
+      "delta": 0.0
+    },
+    "english_diagnostic": {
+      "support": 9,
+      "baseline_accuracy": 0.5555555555555556,
+      "candidate_accuracy": 0.8888888888888888,
+      "delta": 0.33333333333333326
+    }
+  },
+  "difficulty_type": {
+    "asr_like_lexical_variation": {
+      "support": 3,
+      "baseline_accuracy": 0.6666666666666666,
+      "candidate_accuracy": 0.6666666666666666,
+      "delta": 0.0
+    },
+    "code_switched_technical_terminology": {
+      "support": 2,
+      "baseline_accuracy": 1.0,
+      "candidate_accuracy": 1.0,
+      "delta": 0.0
+    },
+    "direct_contradiction": {
+      "support": 5,
+      "baseline_accuracy": 0.4,
+      "candidate_accuracy": 0.6,
+      "delta": 0.19999999999999996
+    },
+    "exact_or_near_exact_entailment": {
+      "support": 1,
+      "baseline_accuracy": 1.0,
+      "candidate_accuracy": 1.0,
+      "delta": 0.0
+    },
+    "natural_paraphrase_entailment": {
+      "support": 7,
+      "baseline_accuracy": 0.8571428571428571,
+      "candidate_accuracy": 0.7142857142857143,
+      "delta": -0.1428571428571428
+    },
+    "near_neighbor_concept_contradiction": {
+      "support": 5,
+      "baseline_accuracy": 0.6,
+      "candidate_accuracy": 1.0,
+      "delta": 0.4
+    },
+    "negation_contradiction": {
+      "support": 5,
+      "baseline_accuracy": 1.0,
+      "candidate_accuracy": 1.0,
+      "delta": 0.0
+    },
+    "partial_entailment": {
+      "support": 2,
+      "baseline_accuracy": 1.0,
+      "candidate_accuracy": 1.0,
+      "delta": 0.0
+    },
+    "semantically_adjacent_non_entailing": {
+      "support": 12,
+      "baseline_accuracy": 0.9166666666666666,
+      "candidate_accuracy": 0.9166666666666666,
+      "delta": 0.0
+    },
+    "unrelated_technical_neutral": {
+      "support": 3,
+      "baseline_accuracy": 1.0,
+      "candidate_accuracy": 1.0,
+      "delta": 0.0
+    }
+  },
+  "case_changes": {
+    "fixed_failures": [
+      "NLI-EVAL-023",
+      "NLI-EVAL-035",
+      "NLI-EVAL-043"
+    ],
+    "new_regressions": [
+      "NLI-EVAL-041"
+    ],
+    "changed_but_still_wrong": [],
+    "unchanged_or_same_outcome": [
+      "NLI-EVAL-001",
+      "NLI-EVAL-002",
+      "NLI-EVAL-003",
+      "NLI-EVAL-004",
+      "NLI-EVAL-005",
+      "NLI-EVAL-006",
+      "NLI-EVAL-007",
+      "NLI-EVAL-008",
+      "NLI-EVAL-009",
+      "NLI-EVAL-010",
+      "NLI-EVAL-011",
+      "NLI-EVAL-012",
+      "NLI-EVAL-013",
+      "NLI-EVAL-014",
+      "NLI-EVAL-015",
+      "NLI-EVAL-016",
+      "NLI-EVAL-017",
+      "NLI-EVAL-018",
+      "NLI-EVAL-019",
+      "NLI-EVAL-020",
+      "NLI-EVAL-021",
+      "NLI-EVAL-022",
+      "NLI-EVAL-024",
+      "NLI-EVAL-025",
+      "NLI-EVAL-026",
+      "NLI-EVAL-027",
+      "NLI-EVAL-028",
+      "NLI-EVAL-029",
+      "NLI-EVAL-030",
+      "NLI-EVAL-031",
+      "NLI-EVAL-032",
+      "NLI-EVAL-033",
+      "NLI-EVAL-034",
+      "NLI-EVAL-036",
+      "NLI-EVAL-037",
+      "NLI-EVAL-038",
+      "NLI-EVAL-039",
+      "NLI-EVAL-040",
+      "NLI-EVAL-042",
+      "NLI-EVAL-044",
+      "NLI-EVAL-045"
+    ]
+  },
+  "resources": {
+    "model_load_wall_seconds": {
+      "baseline": 2.1309538,
+      "candidate": 0.7071363,
+      "delta": -1.4238174999999997,
+      "ratio": 0.3318402773443517
+    },
+    "inference_wall_seconds": {
+      "baseline": 3.6240007,
+      "candidate": 3.6769253,
+      "delta": 0.05292460000000032,
+      "ratio": 1.0146039155014512
+    },
+    "milliseconds_per_case": {
+      "baseline": 80.5333488888889,
+      "candidate": 81.70945111111112,
+      "delta": 1.1761022222222266,
+      "ratio": 1.0146039155014512
+    },
+    "sampled_peak_lifecycle_rss_bytes": {
+      "baseline": 2082328576,
+      "candidate": 2090602496,
+      "delta": 8273920.0,
+      "ratio": 1.0039733979043277
+    },
+    "process_peak_working_set_bytes": {
+      "baseline": 2092621824,
+      "candidate": 2092568576,
+      "delta": -53248.0,
+      "ratio": 0.9999745544085465
+    }
+  },
+  "deployment_constraints": {
+    "same_model_class": true,
+    "same_tokenizer_class": true,
+    "same_label_mapping": true,
+    "same_parameter_count": true,
+    "both_cpu_fp32": true
+  },
+  "proposed_acceptance": {
+    "baseline": {
+      "approval_status": "PROPOSED_NOT_YET_APPROVED",
+      "checks": {
+        "overall_accuracy": {
+          "actual": 0.8222222222222222,
+          "target": ">=0.85",
+          "passed": false
+        },
+        "macro_f1": {
+          "actual": 0.8186307519640854,
+          "target": ">=0.85",
+          "passed": false
+        },
+        "minimum_per_class_f1": {
+          "actual": 0.7407407407407408,
+          "target": ">=0.8",
+          "passed": false
+        },
+        "false_contradiction_rate": {
+          "actual": 0.13333333333333333,
+          "target": "<=0.05",
+          "passed": false
+        },
+        "false_entailment_rate": {
+          "actual": 0.06666666666666667,
+          "target": "<=0.1",
+          "passed": true
+        },
+        "DA017_anchors": {
+          "actual": "2/5",
+          "target": "5/5",
+          "passed": false
+        },
+        "minimum_supported_slice_accuracy": {
+          "actual": 0.4,
+          "target": ">=0.7",
+          "passed": false
+        }
+      },
+      "all_pass": false,
+      "decision_limit": "Evaluation evidence only; no automatic model selection or production change."
+    },
+    "candidate": {
+      "approval_status": "PROPOSED_NOT_YET_APPROVED",
+      "checks": {
+        "overall_accuracy": {
+          "actual": 0.8666666666666667,
+          "target": ">=0.85",
+          "passed": true
+        },
+        "macro_f1": {
+          "actual": 0.8662698412698413,
+          "target": ">=0.85",
+          "passed": true
+        },
+        "minimum_per_class_f1": {
+          "actual": 0.8571428571428571,
+          "target": ">=0.8",
+          "passed": true
+        },
+        "false_contradiction_rate": {
+          "actual": 0.13333333333333333,
+          "target": "<=0.05",
+          "passed": false
+        },
+        "false_entailment_rate": {
+          "actual": 0.0,
+          "target": "<=0.1",
+          "passed": true
+        },
+        "DA017_anchors": {
+          "actual": "2/5",
+          "target": "5/5",
+          "passed": false
+        },
+        "minimum_supported_slice_accuracy": {
+          "actual": 0.6,
+          "target": ">=0.7",
+          "passed": false
+        }
+      },
+      "all_pass": false,
+      "decision_limit": "Evaluation evidence only; no automatic model selection or production change."
+    }
+  },
+  "automatic_winner": null,
+  "decision_required": "Human engineering review; this artifact does not change production configuration.",
+  "engineering_assessment": {
+    "status": "MIXED_IMPROVEMENT_NOT_ACCEPTED_AS_REMEDIATION_WINNER",
+    "candidate_improves_overall_metrics": true,
+    "candidate_reduces_false_contradictions": false,
+    "candidate_introduces_regressions": true,
+    "candidate_preserves_deployment_constraints": true,
+    "candidate_clears_all_proposed_acceptance_gates": false,
+    "production_recommendation": "KEEP_CURRENT_PRODUCTION_CHECKPOINT_UNCHANGED",
+    "winner_recommendation": "NO_REMEDIATION_WINNER",
+    "lora_still_recommended": true,
+    "rationale": "The candidate improves accuracy, macro F1, contradiction F1, and false-entailment rate, but leaves the critical false-contradiction rate at 2/15, leaves DA-017 anchors at 2/5, fails the minimum supported-slice gate, and regresses NLI-EVAL-041 from entailment to neutral. It is a useful checkpoint control, not a sufficient KI-001 remediation.",
+    "exact_next_step_if_authorized": "Phase 2B: create an independently reviewed training/dev corpus excluding every CP-005 question ID, premise, hypothesis, and pair; train exactly one targeted LoRA adapter on the pinned current production base; evaluate once against CP-005 plus a separate Coverage/scoring regression gate."
+  }
+}

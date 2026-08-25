@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "run_id": "cp005-current-model-baseline-v1",
+  "result": "PASS",
+  "errors": [],
+  "independent_recomputation": {
+    "prediction_rows": 45,
+    "accuracy": 0.8222222222222222,
+    "confusion_matrix": {
+      "entailment": {
+        "entailment": 13,
+        "neutral": 0,
+        "contradiction": 2
+      },
+      "neutral": {
+        "entailment": 1,
+        "neutral": 14,
+        "contradiction": 0
+      },
+      "contradiction": {
+        "entailment": 1,
+        "neutral": 4,
+        "contradiction": 10
+      }
+    },
+    "failed_case_ids": [
+      "NLI-EVAL-007",
+      "NLI-EVAL-009",
+      "NLI-EVAL-018",
+      "NLI-EVAL-023",
+      "NLI-EVAL-035",
+      "NLI-EVAL-042",
+      "NLI-EVAL-043",
+      "NLI-EVAL-045"
+    ],
+    "probability_sum_tolerance": 2e-06,
+    "argmax_matches": 45
+  },
+  "tokenization_of_new_dataset": {
+    "tokenizer_class": "DebertaV2TokenizerFast",
+    "max_untruncated_pair_tokens": 78,
+    "max_length": 256,
+    "pairs_over_max_length": 0,
+    "total_unk_tokens": 0
+  },
+  "artifact_hashes": {
+    "dataset_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+    "metrics_contract_sha256": "01F2B3F6A5F8EFEE019C08972854E6D92D8DC53D999957C7B60AC45DB5D2A655",
+    "baseline_sha256": "7FAFA2F8EF8B1C5BA70AD2AAED371A7780557F7D05E6690C7E8468234495BFC6",
+    "failure_analysis_sha256": "A2712C3B679D3D0F88BF687503BCC0892EBD775A8F05BADBB071EFCCA3B59472"
+  }
+}

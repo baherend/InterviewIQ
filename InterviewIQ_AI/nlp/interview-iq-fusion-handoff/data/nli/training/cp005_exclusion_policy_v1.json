@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "policy_id": "interviewiq-nli-cp005-exclusion-policy-v1",
+  "status": "ACTIVE_FOR_FUTURE_CORPUS_PREFLIGHT",
+  "protected_evaluation": {
+    "dataset_path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+    "dataset_id": "interviewiq-nli-ar-codeswitch-heldout-v1",
+    "dataset_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+    "case_count": 45,
+    "load_all_cases_from_frozen_dataset": true,
+    "require_do_not_train_true": true
+  },
+  "protected_question_ids": [
+    "CS-001",
+    "CS-005",
+    "DA-001",
+    "DA-017",
+    "DS-001",
+    "DS-003",
+    "SE-010",
+    "SE-014",
+    "SE-034",
+    "SE-039"
+  ],
+  "protected_regression_anchor_case_ids": [
+    "NLI-EVAL-041",
+    "NLI-EVAL-042",
+    "NLI-EVAL-043",
+    "NLI-EVAL-044",
+    "NLI-EVAL-045"
+  ],
+  "normalization": {
+    "implementation_reference": "interview_iq.evaluation.checkpoint_control.normalize_overlap_text",
+    "steps": [
+      "Unicode NFKC",
+      "casefold",
+      "remove Arabic tatweel",
+      "remove Unicode combining marks",
+      "retain Unicode word tokens only",
+      "collapse whitespace"
+    ],
+    "semantic_similarity_is_not_replaced_by_normalization": true
+  },
+  "hard_rejection_checks": {
+    "evaluation_dataset_used_as_training_manifest": true,
+    "evaluation_case_id_overlap": true,
+    "protected_question_id_overlap": true,
+    "normalized_premise_overlap": true,
+    "normalized_hypothesis_overlap": true,
+    "normalized_pair_overlap": true,
+    "duplicate_training_case_id": true,
+    "duplicate_normalized_training_pair": true,
+    "train_dev_question_id_overlap": true,
+    "paired_group_split_across_train_dev": true,
+    "unresolved_or_mutable_source_reference": true
+  },
+  "manual_semantic_family_gate": {
+    "required": true,
+    "reject_if_training_example_is_derived_from_evaluation_case": true,
+    "reject_operations": [
+      "translation",
+      "dialect_conversion",
+      "code_switch_rewrite",
+      "word_order_rewrite",
+      "negation_or_operator_flip",
+      "entity_or_concept_substitution",
+      "synthetic paraphrase",
+      "manual paraphrase"
+    ],
+    "review_evidence_required": "Reviewer must record that premise/hypothesis semantics were authored from an independent non-protected source family."
+  },
+  "future_training_manifest_contract": {
+    "inline_records_required": true,
+    "required_record_fields": [
+      "case_id",
+      "premise",
+      "hypothesis",
+      "label",
+      "language_style",
+      "difficulty_type",
+      "source",
+      "rationale",
+      "split"
+    ],
+    "required_top_level_fields": [
+      "dataset_id",
+      "version",
+      "created_at",
+      "corpus_spec_sha256",
+      "exclusion_policy_sha256",
+      "source_corpus_sha256",
+      "records"
+    ]
+  },
+  "gate_order": [
+    "Verify CP-005 dataset SHA and do_not_train flag.",
+    "Load all 45 protected cases and derive normalized premise, hypothesis, and pair sets.",
+    "Validate future manifest schema and source provenance.",
+    "Reject every hard overlap, duplicate, protected ID, unresolved source, or split-integrity defect.",
+    "Complete independent semantic-family review and adjudication.",
+    "Freeze the accepted corpus and split-manifest SHA-256 values before training is authorized."
+  ],
+  "claim_limit": "This policy is preparation evidence only. No future corpus exists yet, so no claim of training-data cleanliness is made."
+}

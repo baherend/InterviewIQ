@@ -77,3 +77,18 @@ Thumbs.db
 # tracked in Git as of Phase 1B — Alembic is now the authoritative schema
 # source. Do not re-add an ignore rule for them.
 InterviewIQ_AI/fusion/outputs/
+
+# Local artifacts
+InterviewIQ_AI/*.zip
+backend/interviewiq_test.db
+backend/storage/
+test_videos/
+
+# NLP experiment artifacts
+**/__pycache__/
+**/audio_converted/*.wav
+**/trainer_work_v1/
+**/checkpoint-*/
+*.safetensors
+*.pt
+*.pth

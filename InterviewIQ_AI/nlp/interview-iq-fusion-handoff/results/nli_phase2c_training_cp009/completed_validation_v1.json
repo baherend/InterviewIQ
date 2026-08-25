@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "validation_id": "interviewiq-nli-phase2c-completed-artifact-validation-v1",
+  "validated_at": "2026-08-23T20:40:00+03:00",
+  "status": "PASS",
+  "experiment_completed": true,
+  "acceptance_all_pass": false,
+  "decision": "EXPERIMENT_VALID_ADAPTER_NOT_ACCEPTED_DO_NOT_PROMOTE",
+  "checks": {
+    "preflight_status_pass": true,
+    "training_status_complete_not_promoted": true,
+    "evaluation_status_complete_not_promoted": true,
+    "exactly_one_authorized_configuration": true,
+    "adapter_attached_during_evaluation": true,
+    "adapter_config_matches_manifest": true,
+    "training_epochs_logged": 5,
+    "evaluation_logs_present": 6,
+    "global_optimizer_steps": 150,
+    "prediction_count": 45,
+    "prediction_argmax_and_probability_sums_valid": true,
+    "correct_predictions_recomputed": 37,
+    "confusion_matrix_recomputed": {
+      "entailment": {
+        "entailment": 11,
+        "neutral": 1,
+        "contradiction": 3
+      },
+      "neutral": {
+        "entailment": 0,
+        "neutral": 15,
+        "contradiction": 0
+      },
+      "contradiction": {
+        "entailment": 0,
+        "neutral": 4,
+        "contradiction": 11
+      }
+    },
+    "artifact_hash_manifest_verified": true,
+    "staged_files": 0,
+    "production_changed": false,
+    "adapter_promoted": false,
+    "second_adapter_trained": false
+  },
+  "training_summary": {
+    "train_records": 480,
+    "dev_records": 120,
+    "epochs": 5,
+    "global_steps": 150,
+    "train_loss": 0.17881669223308563,
+    "best_dev_macro_f1": 1.0,
+    "training_wall_seconds": 862.211062,
+    "sampled_peak_training_rss_bytes": 2877673472,
+    "process_peak_training_working_set_bytes": 2877677568
+  },
+  "evaluation_summary": {
+    "correct": 37,
+    "total": 45,
+    "accuracy": 0.8222222222222222,
+    "macro_f1": 0.8206391309839584,
+    "false_contradictions": 3,
+    "false_entailments": 0,
+    "neutral_correct": 15,
+    "da017_correct": 1,
+    "da017_total": 5,
+    "new_regressions_on_baseline_correct_cases": [
+      "NLI-EVAL-037",
+      "NLI-EVAL-041"
+    ],
+    "milliseconds_per_case": 82.38579777777777,
+    "process_peak_working_set_bytes": 2221363200
+  },
+  "claim_limit": "PASS validates execution and artifacts, not remediation acceptance. The adapter failed multiple predeclared semantic gates and must not be promoted."
+}

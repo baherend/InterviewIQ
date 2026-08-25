@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "run_id": "interviewiq-nli-phase2c-single-lora-v1",
+  "python": "3.11.5",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "logical_cpu_count": 28,
+  "physical_cpu_count": 20,
+  "torch_num_threads": 20,
+  "torch_num_interop_threads": 1,
+  "cuda_available": false,
+  "device": "cpu",
+  "dtype": "float32",
+  "deterministic_algorithms": true,
+  "packages": {
+    "torch": "2.2.2",
+    "transformers": "4.40.2",
+    "tokenizers": "0.19.1",
+    "huggingface-hub": "0.36.2",
+    "numpy": "1.26.4",
+    "psutil": "7.2.2",
+    "safetensors": "0.8.0",
+    "peft": "0.10.0",
+    "datasets": "2.18.0"
+  },
+  "model_load_wall_seconds": 2.0607493,
+  "training_wall_seconds": 862.211062,
+  "memory_before_load": {
+    "rss_bytes": 406020096,
+    "uss_bytes": 334028800,
+    "private_bytes": 1925951488,
+    "peak_working_set_bytes": 613658624
+  },
+  "memory_after_training": {
+    "rss_bytes": 2575904768,
+    "uss_bytes": 2499022848,
+    "private_bytes": 4553322496,
+    "peak_working_set_bytes": 2877677568
+  },
+  "sampled_peak_lifecycle_rss_bytes": 2877673472,
+  "process_peak_working_set_bytes": 2877677568
+}

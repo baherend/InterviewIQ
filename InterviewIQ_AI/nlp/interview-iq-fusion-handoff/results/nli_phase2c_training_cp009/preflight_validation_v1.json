@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "validation_id": "interviewiq-nli-phase2c-preflight-v1",
+  "status": "PASS",
+  "training_authorized_and_ready": true,
+  "manifest": {
+    "path": "results/nli_phase2c_training_cp009/immutable_training_manifest_v1.json",
+    "sha256": "6E55057D089067CBFEEE26D6EE1E242415CDCE4B89CFEC063C6BB12DFBF37878"
+  },
+  "exactly_one_configuration": true,
+  "controls": {
+    "attestation": {
+      "path": "results/nli_phase2c_training_cp009/external_human_review_attestation_v1.json",
+      "sha256": "408B040F252F2E61252F867C744AB346BB112D8D73190E0B173BC091060CB64D",
+      "approved": true
+    },
+    "corpus": {
+      "path": "data/nli/training/phase2b_lora_corpus_v1.json",
+      "sha256": "3FB523040C9B2482A0FCF0AAC8FDCC13D54E32AC2D9CB75DF5CE970E2E341F33",
+      "records": 600
+    },
+    "split": {
+      "path": "data/nli/training/phase2b_lora_split_manifest_v1.json",
+      "sha256": "157BE9BD9261411A89BA60F46D86DEF56664051AA0B3A2C7F29E18257B85D3F4",
+      "train_records": 480,
+      "dev_records": 120,
+      "train_questions": 40,
+      "dev_questions": 10,
+      "question_overlap": [],
+      "semantic_family_overlap": [],
+      "pair_group_overlap": []
+    },
+    "labels": {
+      "contradiction": 200,
+      "entailment": 200,
+      "neutral": 200
+    },
+    "leakage": {
+      "cp005_path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+      "cp005_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+      "protected_question_hits": [],
+      "premise_hits": [],
+      "hypothesis_hits": [],
+      "pair_hits": []
+    },
+    "duplicates": {
+      "case_id_count": 0,
+      "normalized_pair_count": 0
+    },
+    "model_snapshot": {
+      "config.json": {
+        "sha256": "4E4430C95100D613DF80FA01276F231931E1B535557CF62FBB3CC50323E50CCA",
+        "bytes": 1066
+      },
+      "model.safetensors": {
+        "sha256": "65AF59B1FF4450B09ECBF13CA35C840DBF038B26FF8E10E5EA89CA724828ED1E",
+        "bytes": 557652046
+      },
+      "tokenizer.json": {
+        "sha256": "3ACA3CE69A0A35AEB144A52C4F1D41C4246B8785F8F398315CC8FB6B24057810",
+        "bytes": 16331396
+      },
+      "tokenizer_config.json": {
+        "sha256": "DF9FD3A4482CC4A866788244824573FAB8E74DADD1609D4F0E5997F9E96921DC",
+        "bytes": 1256
+      },
+      "spm.model": {
+        "sha256": "13C8D666D62A7BC4AC8F040AAB68E942C861F93303156CC28F5C7E885D86D6E3",
+        "bytes": 4305025
+      },
+      "special_tokens_map.json": {
+        "sha256": "9463F61E1B109A8EB4688B829260D7C6B1E6DFF04C98FF7269BB89E2B92369B9",
+        "bytes": 286
+      }
+    },
+    "tokenizer": {
+      "requested_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+      "requested_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+      "class": "DebertaV2TokenizerFast",
+      "is_fast": true,
+      "vocab_size": 250101,
+      "effective_vocab_entries": 250102,
+      "vocab_sha256": "B700D1096679B9E6B06E34D5F6F5E1C5C8D94E24CF6EF6EDB31707D145608B12",
+      "special_tokens_map": {
+        "bos_token": "[CLS]",
+        "eos_token": "[SEP]",
+        "unk_token": "[UNK]",
+        "sep_token": "[SEP]",
+        "pad_token": "[PAD]",
+        "cls_token": "[CLS]",
+        "mask_token": "[MASK]"
+      },
+      "all_special_ids": [
+        1,
+        2,
+        3,
+        0,
+        250101
+      ],
+      "model_max_length": 512
+    },
+    "training_tokenization": {
+      "max_untruncated_pair_tokens": 126,
+      "over_max_length_case_ids": [],
+      "unknown_token_case_ids": [],
+      "truncation_occurred": false
+    },
+    "environment_capacity": {
+      "total_memory_bytes": 34050842624,
+      "available_memory_bytes": 8074760192,
+      "disk_free_bytes": 628613951488,
+      "cpu_logical": 28,
+      "cpu_physical": 20
+    },
+    "adapter_output_absent_before_training": true
+  },
+  "scope": {
+    "production_change": false,
+    "scoring_change": false,
+    "threshold_change": false,
+    "retrieval_change": false,
+    "fusion_change": false,
+    "promotion": false
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "experiment_id": "interviewiq-nli-phase2c-single-lora-v1",
+  "created_at": "2026-08-23T20:22:00+03:00",
+  "checkpoint_base": "CP-008",
+  "decision_scope": "EXACTLY_ONE_LORA_TRAINING_AND_CP005_EVALUATION_NO_PROMOTION",
+  "authorization": {
+    "training_authorized": true,
+    "configuration_count": 1,
+    "post_training_cp005_evaluation_authorized": true,
+    "production_promotion_authorized": false,
+    "production_pipeline_change_authorized": false,
+    "scoring_change_authorized": false,
+    "threshold_change_authorized": false,
+    "retrieval_change_authorized": false,
+    "fusion_change_authorized": false
+  },
+  "human_review_attestation": {
+    "path": "results/nli_phase2c_training_cp009/external_human_review_attestation_v1.json",
+    "sha256": "408B040F252F2E61252F867C744AB346BB112D8D73190E0B173BC091060CB64D",
+    "approved_for_training_required": true,
+    "reviewed_records_required": 600,
+    "content_changes_after_cp008_required": false
+  },
+  "training_dataset": {
+    "path": "data/nli/training/phase2b_lora_corpus_v1.json",
+    "sha256": "3FB523040C9B2482A0FCF0AAC8FDCC13D54E32AC2D9CB75DF5CE970E2E341F33",
+    "records": 600,
+    "train_records": 480,
+    "dev_records": 120,
+    "label_distribution": {
+      "entailment": 200,
+      "neutral": 200,
+      "contradiction": 200
+    }
+  },
+  "split_manifest": {
+    "path": "data/nli/training/phase2b_lora_split_manifest_v1.json",
+    "sha256": "157BE9BD9261411A89BA60F46D86DEF56664051AA0B3A2C7F29E18257B85D3F4",
+    "split_level": "question_id",
+    "train_questions": 40,
+    "dev_questions": 10
+  },
+  "cp005_evaluation": {
+    "path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+    "sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+    "cases": 45,
+    "do_not_train_required": true,
+    "baseline_result_path": "results/nli_baseline_cp005/current_model_baseline_v1.json",
+    "baseline_result_sha256": "7FAFA2F8EF8B1C5BA70AD2AAED371A7780557F7D05E6690C7E8468234495BFC6"
+  },
+  "model": {
+    "model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "tokenizer_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "tokenizer_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "expected_id2label": {
+      "0": "entailment",
+      "1": "neutral",
+      "2": "contradiction"
+    },
+    "tokenizer_vocab_sha256": "B700D1096679B9E6B06E34D5F6F5E1C5C8D94E24CF6EF6EDB31707D145608B12",
+    "snapshot_files": {
+      "config.json": "4E4430C95100D613DF80FA01276F231931E1B535557CF62FBB3CC50323E50CCA",
+      "model.safetensors": "65AF59B1FF4450B09ECBF13CA35C840DBF038B26FF8E10E5EA89CA724828ED1E",
+      "tokenizer.json": "3ACA3CE69A0A35AEB144A52C4F1D41C4246B8785F8F398315CC8FB6B24057810",
+      "tokenizer_config.json": "DF9FD3A4482CC4A866788244824573FAB8E74DADD1609D4F0E5997F9E96921DC",
+      "spm.model": "13C8D666D62A7BC4AC8F040AAB68E942C861F93303156CC28F5C7E885D86D6E3",
+      "special_tokens_map.json": "9463F61E1B109A8EB4688B829260D7C6B1E6DFF04C98FF7269BB89E2B92369B9"
+    }
+  },
+  "lora": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+      "query_proj",
+      "value_proj"
+    ],
+    "lora_dropout": 0.1,
+    "bias": "none",
+    "task_type": "SEQ_CLS"
+  },
+  "training": {
+    "learning_rate": 0.0002,
+    "num_train_epochs": 5,
+    "seed": 42,
+    "max_length": 256,
+    "per_device_train_batch_size": 4,
+    "gradient_accumulation_steps": 4,
+    "effective_train_batch_size": 16,
+    "per_device_eval_batch_size": 8,
+    "warmup_ratio": 0.06,
+    "weight_decay": 0.01,
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch",
+    "save_total_limit": 1,
+    "load_best_model_at_end": true,
+    "metric_for_best_model": "eval_f1_macro",
+    "greater_is_better": true,
+    "device": "cpu",
+    "dtype": "float32",
+    "dynamic_padding": true,
+    "torch_num_threads": 20,
+    "torch_num_interop_threads": 1,
+    "cp005_used_for_training_or_selection": false
+  },
+  "evaluation": {
+    "device": "cpu",
+    "dtype": "float32",
+    "batch_size": 8,
+    "max_length": 256,
+    "seed": 42,
+    "torch_num_threads": 20,
+    "torch_num_interop_threads": 1,
+    "thresholds_used": false,
+    "warmup": "one fixed first batch excluded from timed inference",
+    "baseline_reuse": "Frozen CP-005 result; no redundant baseline model run"
+  },
+  "acceptance": {
+    "overall_correct_minimum": 39,
+    "accuracy_minimum": 0.85,
+    "macro_f1_minimum": 0.85,
+    "each_class_f1_minimum": 0.8,
+    "false_contradiction_maximum_count": 0,
+    "false_entailment_maximum_count": 1,
+    "neutral_correct_minimum": 14,
+    "neutral_f1_minimum": 0.8,
+    "da017_correct_required": 5,
+    "baseline_correct_regressions_maximum": 0,
+    "minimum_supported_slice_accuracy": 0.7,
+    "latency_milliseconds_per_case_maximum": 92.613351,
+    "peak_working_set_bytes_maximum": 2301884006,
+    "all_gates_required": true,
+    "decision_limit": "Evaluation recommendation only; production promotion remains separately authorized."
+  },
+  "outputs": {
+    "adapter_dir": "checkpoints/nli-lora-phase2c-v1",
+    "preflight": "results/nli_phase2c_training_cp009/preflight_validation_v1.json",
+    "training_metrics": "results/nli_phase2c_training_cp009/training_metrics_v1.json",
+    "training_log": "results/nli_phase2c_training_cp009/training_log_v1.jsonl",
+    "environment": "results/nli_phase2c_training_cp009/environment_metadata_v1.json",
+    "adapter_evaluation": "results/nli_phase2c_training_cp009/cp005_adapter_evaluation_v1.json",
+    "comparison": "results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.json",
+    "comparison_report": "results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.md",
+    "artifact_hashes": "results/nli_phase2c_training_cp009/artifact_hashes_v1.json"
+  }
+}

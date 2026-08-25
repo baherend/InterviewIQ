@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "validation_id": "cp006-checkpoint-control-validation-v1",
+  "created_at": "2026-08-23T19:00:25.635114+03:00",
+  "status": "PASS",
+  "dataset_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+  "dataset_controls": {
+    "dataset_sha256_verified": true,
+    "dataset_id_verified": true,
+    "do_not_train_verified": true,
+    "scored_cases": 45,
+    "unique_case_ids": 45,
+    "unique_normalized_pairs": 45,
+    "unique_normalized_hypotheses": 45,
+    "protected_question_ids": [
+      "CS-001",
+      "CS-005",
+      "DA-001",
+      "DA-017",
+      "DS-001",
+      "DS-003",
+      "SE-010",
+      "SE-014",
+      "SE-034",
+      "SE-039"
+    ],
+    "intentional_repeated_premise_groups": 14,
+    "intentional_repeated_premise_case_count": 35
+  },
+  "manifest": {
+    "path": "D:/InterviewIQ-final/InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/experiment_manifest_v1.json",
+    "sha256": "9177084603FAAA1B2B6D07B74B3F23E0B1A821A32146AAD9E232AE53D9E6238E"
+  },
+  "models": {
+    "baseline": {
+      "result_sha256": "78A33E6DE5660227B2A966B389B90133AEF664B3C421054E2A843702360DAC4A",
+      "prediction_count": 45,
+      "argmax_mismatches": [],
+      "maximum_probability_sum_error": 1.000000000139778e-06,
+      "metric_checks": {
+        "accuracy": true,
+        "macro_f1": true,
+        "confusion_matrix": true,
+        "anchor_metrics": true,
+        "language_slices": true,
+        "difficulty_slices": true
+      },
+      "runtime_controls_passed": true
+    },
+    "candidate": {
+      "result_sha256": "462221DFFD6016414186D20301A3497819ABB0BF4EB38C674A2CBE81D6E3D541",
+      "prediction_count": 45,
+      "argmax_mismatches": [],
+      "maximum_probability_sum_error": 1.000000000139778e-06,
+      "metric_checks": {
+        "accuracy": true,
+        "macro_f1": true,
+        "confusion_matrix": true,
+        "anchor_metrics": true,
+        "language_slices": true,
+        "difficulty_slices": true
+      },
+      "runtime_controls_passed": true
+    }
+  },
+  "comparison": {
+    "path": "D:/InterviewIQ-final/InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/checkpoint_comparison_v1.json",
+    "sha256": "908A1F72D426BCA7B54F867C823B1AFB9FAD59BC1480C7A9C9770961DF48BB55"
+  },
+  "comparison_recompute_checks": {
+    "baseline_reproduction": true,
+    "metrics": true,
+    "confusion_matrices": true,
+    "per_class": true,
+    "DA017_regression_anchors": true,
+    "language_style": true,
+    "difficulty_type": true,
+    "case_changes": true,
+    "resources": true,
+    "deployment_constraints": true,
+    "proposed_acceptance": true,
+    "automatic_winner": true
+  },
+  "baseline_cp005_reproduction_passed": true,
+  "automatic_winner_is_none": true,
+  "training_performed": false,
+  "production_behavior_changed": false
+}

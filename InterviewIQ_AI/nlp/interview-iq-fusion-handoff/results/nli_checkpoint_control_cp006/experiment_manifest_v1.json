@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "experiment_id": "interviewiq-nli-phase2a-checkpoint-control-v1",
+  "created_at": "2026-08-23T18:50:00+03:00",
+  "checkpoint_base": "CP-005",
+  "decision_scope": "PHASE_2A_EVALUATION_ONLY_NO_TRAINING",
+  "training_authorized": false,
+  "production_change_authorized": false,
+  "automatic_model_selection": false,
+  "dataset": {
+    "path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+    "dataset_id": "interviewiq-nli-ar-codeswitch-heldout-v1",
+    "sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+    "scored_cases": 45,
+    "do_not_train_required": true
+  },
+  "metrics_contract": {
+    "path": "data/nli/evaluation/baseline_metrics_contract_v1.json",
+    "sha256": "01F2B3F6A5F8EFEE019C08972854E6D92D8DC53D999957C7B60AC45DB5D2A655",
+    "status": "PREDECLARED_BEFORE_INFERENCE"
+  },
+  "baseline_reference_result": {
+    "path": "results/nli_baseline_cp005/current_model_baseline_v1.json",
+    "sha256": "7FAFA2F8EF8B1C5BA70AD2AAED371A7780557F7D05E6690C7E8468234495BFC6"
+  },
+  "inference": {
+    "premise": "canonical reference evidence text",
+    "hypothesis": "candidate answer claim",
+    "label_order": [
+      "entailment",
+      "neutral",
+      "contradiction"
+    ],
+    "prediction_rule": "argmax of raw logits",
+    "probability_rule": "softmax over E/N/C logits",
+    "device": "cpu",
+    "dtype": "float32",
+    "max_length": 256,
+    "batch_size": 8,
+    "seed": 42,
+    "torch_num_threads": 20,
+    "torch_num_interop_threads": 1,
+    "deterministic_algorithms": true,
+    "adapter": null,
+    "thresholds_used": false,
+    "local_files_only": true,
+    "warmup": "one fixed first batch, excluded from timed full-set inference"
+  },
+  "models": {
+    "baseline": {
+      "model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+      "revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+      "tokenizer_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+      "tokenizer_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+      "snapshot_files": {
+        "config.json": "4E4430C95100D613DF80FA01276F231931E1B535557CF62FBB3CC50323E50CCA",
+        "model.safetensors": "65AF59B1FF4450B09ECBF13CA35C840DBF038B26FF8E10E5EA89CA724828ED1E",
+        "tokenizer.json": "3ACA3CE69A0A35AEB144A52C4F1D41C4246B8785F8F398315CC8FB6B24057810",
+        "tokenizer_config.json": "DF9FD3A4482CC4A866788244824573FAB8E74DADD1609D4F0E5997F9E96921DC",
+        "spm.model": "13C8D666D62A7BC4AC8F040AAB68E942C861F93303156CC28F5C7E885D86D6E3",
+        "special_tokens_map.json": "9463F61E1B109A8EB4688B829260D7C6B1E6DFF04C98FF7269BB89E2B92369B9"
+      }
+    },
+    "candidate": {
+      "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+      "tokenizer_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "tokenizer_revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+      "snapshot_files": {
+        "config.json": "BC7B85F164A17C1B007D87FB99D3676F4A4D2E6511D2288DD3F5334DC0F34E6B",
+        "model.safetensors": "7C8E29F1115986D032E92B0FBAA0BDEF1062A46F658B08705F237C05014A8541",
+        "tokenizer.json": "E23095EB61BA944C7BE3A5D3E8EC19E37CE7CED0DAA03550BDE03E83C21B3F8A",
+        "tokenizer_config.json": "25E9F84C6B43DA7BFF43A0AEE8EEEE2C8A39D246823D8464B9275EF704EAB42F",
+        "spm.model": "13C8D666D62A7BC4AC8F040AAB68E942C861F93303156CC28F5C7E885D86D6E3",
+        "special_tokens_map.json": "311DE3F4EED9D76A43BF0D71F10E62E086CA65CCCE9F15D5DA0D2098BF519ECC"
+      }
+    }
+  },
+  "leakage_controls": {
+    "protected_question_ids": [
+      "CS-001",
+      "CS-005",
+      "DA-001",
+      "DA-017",
+      "DS-001",
+      "DS-003",
+      "SE-010",
+      "SE-014",
+      "SE-034",
+      "SE-039"
+    ],
+    "normalization": "Unicode NFKC + casefold + Arabic mark/tatweel removal + punctuation removal + whitespace collapse",
+    "reject_question_id_overlap": true,
+    "reject_pair_overlap": true,
+    "reject_premise_overlap": true,
+    "reject_hypothesis_overlap": true,
+    "reject_duplicate_training_pairs": true,
+    "training_manifest_record_format": "inline premise/hypothesis records required",
+    "future_training_manifest_requirement": "Every future manifest must be passed through validate_training_separation before training. No training manifest exists in Phase 2A."
+  },
+  "outputs": {
+    "preflight": "results/nli_checkpoint_control_cp006/preflight_validation_v1.json",
+    "baseline": "results/nli_checkpoint_control_cp006/baseline_checkpoint_control_v1.json",
+    "candidate": "results/nli_checkpoint_control_cp006/candidate_checkpoint_control_v1.json",
+    "comparison_json": "results/nli_checkpoint_control_cp006/checkpoint_comparison_v1.json",
+    "comparison_markdown": "results/nli_checkpoint_control_cp006/checkpoint_comparison_v1.md",
+    "independent_validation": "results/nli_checkpoint_control_cp006/checkpoint_control_validation_v1.json"
+  }
+}

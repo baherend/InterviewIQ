@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "validation_id": "interviewiq-nli-phase2b-preparation-validation-v1",
+  "validated_at": "2026-08-23T19:15:45+03:00",
+  "status": "PASS",
+  "scope": "PREPARATION_ARTIFACTS_ONLY_NO_CORPUS_NO_TRAINING",
+  "checks": {
+    "strict_utf8_json": true,
+    "cp005_dataset_sha256_verified": true,
+    "cp005_do_not_train_verified": true,
+    "cp005_case_count": 45,
+    "protected_question_ids_match_all_cp005_sources": true,
+    "protected_question_id_count": 10,
+    "protected_da017_anchor_ids_match": true,
+    "protected_da017_anchor_count": 5,
+    "label_distribution_total": 600,
+    "language_distribution_total": 600,
+    "difficulty_distribution_total": 600,
+    "all_user_required_record_fields_present": true,
+    "question_level_split_required": true,
+    "training_and_production_authorization_false": true,
+    "cp006_no_winner_inherited": true,
+    "pinned_baseline_revision_inherited": true,
+    "critical_acceptance_gates_predeclared": true,
+    "pipeline_adapter_hook_present": true,
+    "peft_adapter_loader_present": true,
+    "supported_lora_targets_present_in_existing_config": true,
+    "training_examples_created": 0,
+    "adapter_checkpoint_present": false,
+    "staged_files": 0
+  },
+  "artifacts": {
+    "corpus_spec": {
+      "path": "data/nli/training/phase2b_lora_corpus_spec_v1.json",
+      "sha256": "1B8ED30FA4521F6824B321981968E597246924178DF7F7348D7E735036BAD228"
+    },
+    "exclusion_policy": {
+      "path": "data/nli/training/cp005_exclusion_policy_v1.json",
+      "sha256": "5AB2584E8241A7D78351E55D2EED777ABB23702208EDA2DDA85B6E47FF95C112"
+    },
+    "preparation_manifest": {
+      "path": "results/nli_phase2b_preparation_cp007/phase2b_preparation_manifest_v1.json",
+      "sha256": "047297845D7A42B6334A0C8FD98D69727D6F1141B06C51E5217453B44FF96110"
+    },
+    "preparation_report": {
+      "path": "results/nli_phase2b_preparation_cp007/phase2b_preparation_report_v1.md",
+      "sha256": "404EC84CE77F96E0F7990FB891E61E86CE7BF26093B2DF049315F1CD0E5F97A2"
+    }
+  },
+  "readiness_conclusion": "The plan, corpus schema, exclusion boundary, single-run LoRA contract, rollback, and acceptance gates are internally consistent. The existing runtime hook is compatible, but the legacy training path must be hardened and supplied with a reviewed, frozen corpus before any real training authorization.",
+  "claim_limit": "PASS validates preparation only. It does not validate non-existent future training data, adapter quality, model behavior, or production readiness."
+}

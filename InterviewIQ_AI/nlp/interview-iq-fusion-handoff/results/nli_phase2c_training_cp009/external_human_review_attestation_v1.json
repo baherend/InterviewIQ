@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "attestation_id": "interviewiq-nli-phase2b-external-human-review-v1",
+  "recorded_at": "2026-08-23T20:20:00+03:00",
+  "attestation_source": "Explicit user clarification authorizing Phase 2C in the current Codex task",
+  "review_location": "external_to_repository",
+  "review_method": "manual_human_review",
+  "reviewed_records": 600,
+  "review_passes_completed": 2,
+  "label_disagreements_adjudicated": true,
+  "ambiguous_cases_resolved_or_excluded": true,
+  "approved_for_training": true,
+  "content_changes_after_cp008": false,
+  "labels_changed_after_cp008": false,
+  "records_excluded_after_cp008": 0,
+  "repository_review_files_edited_externally": false,
+  "reviewer_identity_recorded_in_repository": false,
+  "evidence_limit": "This artifact records the user's explicit attestation of an external review. It does not invent reviewer identities or per-case comments that were not supplied.",
+  "frozen_inputs": {
+    "corpus": {
+      "path": "data/nli/training/phase2b_lora_corpus_v1.json",
+      "sha256": "3FB523040C9B2482A0FCF0AAC8FDCC13D54E32AC2D9CB75DF5CE970E2E341F33",
+      "records": 600
+    },
+    "review_ledger": {
+      "path": "data/nli/training/phase2b_lora_review_ledger_v1.json",
+      "sha256": "676B20BBA54D7D7DAF3A1DE7386871324137CB28BBAAFFDF93A6B0792828FDA3",
+      "note": "Frozen CP-008 artifact; deliberately not rewritten because the review occurred externally and changed no project files."
+    },
+    "split_manifest": {
+      "path": "data/nli/training/phase2b_lora_split_manifest_v1.json",
+      "sha256": "157BE9BD9261411A89BA60F46D86DEF56664051AA0B3A2C7F29E18257B85D3F4",
+      "train_records": 480,
+      "dev_records": 120
+    },
+    "cp005_evaluation": {
+      "path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+      "sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+      "do_not_train": true
+    }
+  },
+  "authorization": {
+    "single_lora_training_authorized": true,
+    "post_training_evaluation_authorized": true,
+    "production_promotion_authorized": false,
+    "production_pipeline_change_authorized": false,
+    "scoring_or_threshold_change_authorized": false,
+    "retrieval_or_fusion_change_authorized": false
+  }
+}

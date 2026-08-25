@@ -1,0 +1,2209 @@
+{
+  "schema_version": 1,
+  "run_id": "interviewiq-nli-phase2c-cp005-adapter-eval-v1",
+  "status": "EVALUATION_COMPLETE_NOT_PROMOTED",
+  "manifest": {
+    "path": "results/nli_phase2c_training_cp009/immutable_training_manifest_v1.json",
+    "sha256": "6E55057D089067CBFEEE26D6EE1E242415CDCE4B89CFEC063C6BB12DFBF37878"
+  },
+  "dataset": {
+    "path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+    "sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+    "cases": 45
+  },
+  "model": {
+    "base_model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "base_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "adapter_path": "checkpoints/nli-lora-phase2c-v1",
+    "adapter_attached": true,
+    "id2label": {
+      "0": "entailment",
+      "1": "neutral",
+      "2": "contradiction"
+    }
+  },
+  "controls": {
+    "tokenization": {
+      "max_untruncated_pair_tokens": 78,
+      "over_max_length_case_ids": [],
+      "unknown_token_case_ids": [],
+      "truncation_occurred": false
+    },
+    "evaluation": {
+      "device": "cpu",
+      "dtype": "float32",
+      "batch_size": 8,
+      "max_length": 256,
+      "seed": 42,
+      "torch_num_threads": 20,
+      "torch_num_interop_threads": 1,
+      "thresholds_used": false,
+      "warmup": "one fixed first batch excluded from timed inference",
+      "baseline_reuse": "Frozen CP-005 result; no redundant baseline model run"
+    },
+    "thresholds_used": false,
+    "production_changed": false,
+    "promoted": false
+  },
+  "resources": {
+    "method": "Fresh CPU/fp32 process; pinned local base plus adapter; one fixed first-batch warm-up excluded; batch 8; max_length 256; perf_counter_ns/process_time_ns; RSS sampled every 10ms.",
+    "memory_before_load": {
+      "rss_bytes": 374390784,
+      "uss_bytes": 303910912,
+      "private_bytes": 1886195712,
+      "peak_working_set_bytes": 374816768
+    },
+    "memory_after_inference": {
+      "rss_bytes": 1814364160,
+      "uss_bytes": 1739370496,
+      "private_bytes": 3674365952,
+      "peak_working_set_bytes": 2221363200
+    },
+    "sampled_peak_lifecycle_rss_bytes": 2185248768,
+    "process_peak_working_set_bytes": 2221363200,
+    "inference_wall_seconds": 3.7073609,
+    "inference_cpu_seconds": 28.203125,
+    "milliseconds_per_case": 82.38579777777777,
+    "cases_per_second": 12.13801440264421
+  },
+  "metrics": {
+    "all_scored_cases": {
+      "support": 45,
+      "accuracy": 0.8222222222222222,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.7333333333333333,
+          "f1": 0.846153846153846,
+          "support": 15
+        },
+        "neutral": {
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571428571428571,
+          "support": 15
+        },
+        "contradiction": {
+          "precision": 0.7857142857142857,
+          "recall": 0.7333333333333333,
+          "f1": 0.7586206896551724,
+          "support": 15
+        }
+      },
+      "macro_f1": 0.8206391309839584,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 11,
+          "neutral": 1,
+          "contradiction": 3
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 15,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 4,
+          "contradiction": 11
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 3,
+      "false_contradiction_rate_on_entailments": 0.2,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "heldout_discovery_only": {
+      "support": 40,
+      "accuracy": 0.9,
+      "per_class": {
+        "entailment": {
+          "precision": 1.0,
+          "recall": 0.9166666666666666,
+          "f1": 0.9565217391304348,
+          "support": 12
+        },
+        "neutral": {
+          "precision": 0.7777777777777778,
+          "recall": 1.0,
+          "f1": 0.8750000000000001,
+          "support": 14
+        },
+        "contradiction": {
+          "precision": 1.0,
+          "recall": 0.7857142857142857,
+          "f1": 0.88,
+          "support": 14
+        }
+      },
+      "macro_f1": 0.903840579710145,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 11,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 14,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 3,
+          "contradiction": 11
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 0,
+      "false_contradiction_rate_on_entailments": 0.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "DA017_regression_anchors": {
+      "support": 5,
+      "accuracy": 0.2,
+      "per_class": {
+        "entailment": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 3
+        },
+        "neutral": {
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "support": 1
+        },
+        "contradiction": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 1
+        }
+      },
+      "macro_f1": 0.2222222222222222,
+      "confusion_matrix": {
+        "entailment": {
+          "entailment": 0,
+          "neutral": 0,
+          "contradiction": 3
+        },
+        "neutral": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        },
+        "contradiction": {
+          "entailment": 0,
+          "neutral": 1,
+          "contradiction": 0
+        }
+      },
+      "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+      "false_contradiction_count_on_entailments": 3,
+      "false_contradiction_rate_on_entailments": 1.0,
+      "false_entailment_count_on_contradictions": 0,
+      "false_entailment_rate_on_contradictions": 0.0
+    },
+    "by_language_style": {
+      "arabic_english_code_switch": {
+        "support": 12,
+        "accuracy": 0.75,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "support": 6
+          },
+          "neutral": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "support": 3
+          },
+          "contradiction": {
+            "precision": 0.5,
+            "recall": 0.6666666666666666,
+            "f1": 0.5714285714285715,
+            "support": 3
+          }
+        },
+        "macro_f1": 0.7428571428571429,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 4,
+            "neutral": 0,
+            "contradiction": 2
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 3,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 1,
+            "contradiction": 2
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 2,
+        "false_contradiction_rate_on_entailments": 0.3333333333333333,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "arabic_msa": {
+        "support": 10,
+        "accuracy": 0.9,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "support": 3
+          },
+          "neutral": {
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "support": 5
+          },
+          "contradiction": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2
+          }
+        },
+        "macro_f1": 0.903030303030303,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 2,
+            "neutral": 1,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 5,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 2
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "arabic_transliteration_variant": {
+        "support": 5,
+        "accuracy": 1.0,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2
+          },
+          "neutral": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 1
+          },
+          "contradiction": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2
+          }
+        },
+        "macro_f1": 1.0,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 2,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 1,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 2
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "egyptian_arabic": {
+        "support": 9,
+        "accuracy": 0.8888888888888888,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "support": 4
+          },
+          "neutral": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3
+          },
+          "contradiction": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 2
+          }
+        },
+        "macro_f1": 0.8857142857142858,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 3,
+            "neutral": 0,
+            "contradiction": 1
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 3,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 2
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 1,
+        "false_contradiction_rate_on_entailments": 0.25,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "english_diagnostic": {
+        "support": 9,
+        "accuracy": 0.6666666666666666,
+        "per_class": {
+          "entailment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "neutral": {
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "support": 3
+          },
+          "contradiction": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "support": 6
+          }
+        },
+        "macro_f1": 0.4444444444444444,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 3,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 3,
+            "contradiction": 3
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      }
+    },
+    "by_difficulty_type": {
+      "asr_like_lexical_variation": {
+        "support": 3,
+        "accuracy": 0.6666666666666666,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "f1": 0.8,
+            "support": 3
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        },
+        "macro_f1": 0.26666666666666666,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 2,
+            "neutral": 0,
+            "contradiction": 1
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 1,
+        "false_contradiction_rate_on_entailments": 0.3333333333333333,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "code_switched_technical_terminology": {
+        "support": 2,
+        "accuracy": 1.0,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        },
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 2,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "direct_contradiction": {
+        "support": 5,
+        "accuracy": 0.4,
+        "per_class": {
+          "entailment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 1.0,
+            "recall": 0.4,
+            "f1": 0.5714285714285715,
+            "support": 5
+          }
+        },
+        "macro_f1": 0.1904761904761905,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 3,
+            "contradiction": 2
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "exact_or_near_exact_entailment": {
+        "support": 1,
+        "accuracy": 1.0,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 1
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        },
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 1,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "natural_paraphrase_entailment": {
+        "support": 7,
+        "accuracy": 0.5714285714285714,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 0.5714285714285714,
+            "f1": 0.7272727272727273,
+            "support": 7
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        },
+        "macro_f1": 0.24242424242424243,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 4,
+            "neutral": 1,
+            "contradiction": 2
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 2,
+        "false_contradiction_rate_on_entailments": 0.2857142857142857,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "near_neighbor_concept_contradiction": {
+        "support": 5,
+        "accuracy": 0.8,
+        "per_class": {
+          "entailment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.888888888888889,
+            "support": 5
+          }
+        },
+        "macro_f1": 0.29629629629629634,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 1,
+            "contradiction": 4
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "negation_contradiction": {
+        "support": 5,
+        "accuracy": 1.0,
+        "per_class": {
+          "entailment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 5
+          }
+        },
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 5
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "partial_entailment": {
+        "support": 2,
+        "accuracy": 1.0,
+        "per_class": {
+          "entailment": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 2
+          },
+          "neutral": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "contradiction": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        },
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 2,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "semantically_adjacent_non_entailing": {
+        "support": 12,
+        "accuracy": 1.0,
+        "per_class": {
+          "entailment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "neutral": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 12
+          },
+          "contradiction": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        },
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 12,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      },
+      "unrelated_technical_neutral": {
+        "support": 3,
+        "accuracy": 1.0,
+        "per_class": {
+          "entailment": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          },
+          "neutral": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 3
+          },
+          "contradiction": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 0
+          }
+        },
+        "macro_f1": 0.3333333333333333,
+        "confusion_matrix": {
+          "entailment": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          },
+          "neutral": {
+            "entailment": 0,
+            "neutral": 3,
+            "contradiction": 0
+          },
+          "contradiction": {
+            "entailment": 0,
+            "neutral": 0,
+            "contradiction": 0
+          }
+        },
+        "confusion_matrix_orientation": "rows=expected_label, columns=predicted_label",
+        "false_contradiction_count_on_entailments": 0,
+        "false_contradiction_rate_on_entailments": 0.0,
+        "false_entailment_count_on_contradictions": 0,
+        "false_entailment_rate_on_contradictions": 0.0
+      }
+    }
+  },
+  "acceptance": {
+    "checks": {
+      "overall_correct": {
+        "actual": 37,
+        "target": ">=39/45",
+        "passed": false
+      },
+      "accuracy": {
+        "actual": 0.8222222222222222,
+        "target": ">=0.85",
+        "passed": false
+      },
+      "macro_f1": {
+        "actual": 0.8206391309839584,
+        "target": ">=0.85",
+        "passed": false
+      },
+      "minimum_class_f1": {
+        "actual": 0.7586206896551724,
+        "target": ">=0.8",
+        "passed": false
+      },
+      "false_contradiction_count": {
+        "actual": 3,
+        "target": "<=0",
+        "passed": false
+      },
+      "false_entailment_count": {
+        "actual": 0,
+        "target": "<=1",
+        "passed": true
+      },
+      "neutral_correct": {
+        "actual": 15,
+        "target": ">=14/15",
+        "passed": true
+      },
+      "neutral_f1": {
+        "actual": 0.8571428571428571,
+        "target": ">=0.8",
+        "passed": true
+      },
+      "DA017_anchors": {
+        "actual": 1,
+        "target": "=5/5",
+        "passed": false
+      },
+      "baseline_correct_regressions": {
+        "actual": [
+          "NLI-EVAL-037",
+          "NLI-EVAL-041"
+        ],
+        "target": "<=0",
+        "passed": false
+      },
+      "minimum_supported_slice_accuracy": {
+        "actual": 0.4,
+        "target": ">=0.7",
+        "passed": false
+      },
+      "latency_ms_per_case": {
+        "actual": 82.38579777777777,
+        "target": "<=92.613351",
+        "passed": true
+      },
+      "peak_working_set_bytes": {
+        "actual": 2221363200,
+        "target": "<=2301884006",
+        "passed": true
+      },
+      "adapter_attachment": {
+        "actual": true,
+        "target": "true",
+        "passed": true
+      }
+    },
+    "all_pass": false,
+    "baseline_correct_case_ids": [
+      "NLI-EVAL-001",
+      "NLI-EVAL-002",
+      "NLI-EVAL-003",
+      "NLI-EVAL-004",
+      "NLI-EVAL-005",
+      "NLI-EVAL-006",
+      "NLI-EVAL-008",
+      "NLI-EVAL-010",
+      "NLI-EVAL-011",
+      "NLI-EVAL-012",
+      "NLI-EVAL-013",
+      "NLI-EVAL-014",
+      "NLI-EVAL-015",
+      "NLI-EVAL-016",
+      "NLI-EVAL-017",
+      "NLI-EVAL-019",
+      "NLI-EVAL-020",
+      "NLI-EVAL-021",
+      "NLI-EVAL-022",
+      "NLI-EVAL-024",
+      "NLI-EVAL-025",
+      "NLI-EVAL-026",
+      "NLI-EVAL-027",
+      "NLI-EVAL-028",
+      "NLI-EVAL-029",
+      "NLI-EVAL-030",
+      "NLI-EVAL-031",
+      "NLI-EVAL-032",
+      "NLI-EVAL-033",
+      "NLI-EVAL-034",
+      "NLI-EVAL-036",
+      "NLI-EVAL-037",
+      "NLI-EVAL-038",
+      "NLI-EVAL-039",
+      "NLI-EVAL-040",
+      "NLI-EVAL-041",
+      "NLI-EVAL-044"
+    ],
+    "new_regressions_on_baseline_correct_cases": [
+      "NLI-EVAL-037",
+      "NLI-EVAL-041"
+    ],
+    "supported_slice_accuracies": {
+      "by_language_style.arabic_english_code_switch": 0.75,
+      "by_language_style.arabic_msa": 0.9,
+      "by_language_style.arabic_transliteration_variant": 1.0,
+      "by_language_style.egyptian_arabic": 0.8888888888888888,
+      "by_language_style.english_diagnostic": 0.6666666666666666,
+      "by_difficulty_type.direct_contradiction": 0.4,
+      "by_difficulty_type.natural_paraphrase_entailment": 0.5714285714285714,
+      "by_difficulty_type.near_neighbor_concept_contradiction": 0.8,
+      "by_difficulty_type.negation_contradiction": 1.0,
+      "by_difficulty_type.semantically_adjacent_non_entailing": 1.0
+    },
+    "decision_limit": "Evaluation recommendation only; production promotion remains separately authorized."
+  },
+  "DA017_anchors": [
+    {
+      "case_id": "NLI-EVAL-041",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C01",
+      "premise": "INNER JOIN يعيد الصفوف التي تحقق شرط الربط في كلا الجدولين فقط.",
+      "hypothesis": "ال Inner Join يعيد الصفوف المتطابقة بين الجدولين.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "الادعاء الحقيقي المحفوظ يعبّر عن الصفوف المطابقة.",
+      "provenance": "cp003_preserved_after_artifact_regression",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.00444,
+        "neutral": 0.007463,
+        "contradiction": 0.988097
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-042",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال left join يعيد كل الصفوف من الجدول الايسر حتى اذا لم يكن هناك تطابق.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "الادعاء الحقيقي المحفوظ يحتفظ بكل صفوف اليسار دون اشتراط التطابق.",
+      "provenance": "cp003_preserved_before_artifact_regression",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.002799,
+        "neutral": 0.03213,
+        "contradiction": 0.965071
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-043",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "LEFT JOIN returns only matching rows and removes unmatched left rows.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "rationale": "ينفي الاحتفاظ بصفوف اليسار غير المطابقة.",
+      "provenance": "cp005_user_required_regression_anchor",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": false,
+      "error_direction": "contradiction->neutral",
+      "probabilities": {
+        "entailment": 0.127469,
+        "neutral": 0.672373,
+        "contradiction": 0.200158
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-044",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "Python is commonly used for data analysis.",
+      "expected_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "unrelated_technical_neutral",
+      "rationale": "استخدام Python غير مرتبط بما يثبته تعريف LEFT JOIN.",
+      "provenance": "cp005_user_required_regression_anchor",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.007729,
+        "neutral": 0.978797,
+        "contradiction": 0.013473
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-045",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال LEFT JOIN يعيد كل الصفوف من الجدول الشمال حتى لو لا يوجد تطابق.",
+      "expected_label": "entailment",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "asr_like_lexical_variation",
+      "rationale": "صياغة مصرية واقعية لنفس الاحتفاظ بكل صفوف الجدول الأيسر.",
+      "provenance": "cp003_corrected_lift_to_left_regression_variant",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.000785,
+        "neutral": 0.01561,
+        "contradiction": 0.983605
+      }
+    }
+  ],
+  "predictions": [
+    {
+      "case_id": "NLI-EVAL-001",
+      "source_question_id": "DA-001",
+      "source_reference_id": "DA001-C01",
+      "premise": "البيانات المهيكلة Structured Data هي بيانات منظمة في شكل ثابت من صفوف وأعمدة داخل جداول، مثل قواعد البيانات العلائقية Relational Databases.",
+      "hypothesis": "البيانات المهيكلة تكون منظمة في صفوف وأعمدة وفق شكل ثابت داخل جداول.",
+      "expected_label": "entailment",
+      "language_style": "arabic_msa",
+      "difficulty_type": "exact_or_near_exact_entailment",
+      "rationale": "يعيد صياغة التنظيم الثابت في صفوف وأعمدة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.996432,
+        "neutral": 0.001075,
+        "contradiction": 0.002493
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-002",
+      "source_question_id": "DA-001",
+      "source_reference_id": "DA001-C01",
+      "premise": "البيانات المهيكلة Structured Data هي بيانات منظمة في شكل ثابت من صفوف وأعمدة داخل جداول، مثل قواعد البيانات العلائقية Relational Databases.",
+      "hypothesis": "يمكن تخزين بعض البيانات المهيكلة في ملفات CSV.",
+      "expected_label": "neutral",
+      "language_style": "arabic_msa",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "إمكان استخدام CSV غير مذكور في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.00139,
+        "neutral": 0.998326,
+        "contradiction": 0.000284
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-003",
+      "source_question_id": "DA-001",
+      "source_reference_id": "DA001-C01",
+      "premise": "البيانات المهيكلة Structured Data هي بيانات منظمة في شكل ثابت من صفوف وأعمدة داخل جداول، مثل قواعد البيانات العلائقية Relational Databases.",
+      "hypothesis": "Structured Data لا تحتاج إلى صفوف أو أعمدة ولا تلتزم بأي شكل ثابت.",
+      "expected_label": "contradiction",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "negation_contradiction",
+      "rationale": "ينفي مباشرة الشكل الثابت والصفوف والأعمدة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 6.5e-05,
+        "neutral": 0.000679,
+        "contradiction": 0.999256
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-004",
+      "source_question_id": "DA-001",
+      "source_reference_id": "DA001-C02",
+      "premise": "البيانات غير المهيكلة Unstructured Data ليس لها شكل تنظيمي محدد مسبقًا، ومن أمثلتها النصوص الحرة والصور ومقاطع الفيديو والملفات الصوتية.",
+      "hypothesis": "الداتا الـ Unstructured ملهاش شكل ثابت من قبل، وممكن تبقى نصوص أو صور أو فيديو أو صوت.",
+      "expected_label": "entailment",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "صياغة مصرية لنفس التعريف والأمثلة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.996456,
+        "neutral": 0.001058,
+        "contradiction": 0.002486
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-005",
+      "source_question_id": "DA-001",
+      "source_reference_id": "DA001-C02",
+      "premise": "البيانات غير المهيكلة Unstructured Data ليس لها شكل تنظيمي محدد مسبقًا، ومن أمثلتها النصوص الحرة والصور ومقاطع الفيديو والملفات الصوتية.",
+      "hypothesis": "الأنستركشرد داتا لازم يكون لها سكيمة جدولية ثابتة من صفوف وأعمدة.",
+      "expected_label": "contradiction",
+      "language_style": "arabic_transliteration_variant",
+      "difficulty_type": "near_neighbor_concept_contradiction",
+      "rationale": "ينسب للبيانات غير المهيكلة خصائص البيانات المهيكلة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000292,
+        "neutral": 0.060103,
+        "contradiction": 0.939605
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-006",
+      "source_question_id": "DS-001",
+      "source_reference_id": "DS001-C01",
+      "premise": "التعلم الموجه Supervised Learning يتدرب على بيانات موسومة Labeled Data يكون فيها المخرج الصحيح معروفًا لكل مثال.",
+      "hypothesis": "في Supervised Learning تكون الـ labels الصحيحة معروفة لكل training example.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "code_switched_technical_terminology",
+      "rationale": "يحافظ على كون كل مثال موسومًا بمخرجه الصحيح.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.927717,
+        "neutral": 0.018873,
+        "contradiction": 0.05341
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-007",
+      "source_question_id": "DS-001",
+      "source_reference_id": "DS001-C01",
+      "premise": "التعلم الموجه Supervised Learning يتدرب على بيانات موسومة Labeled Data يكون فيها المخرج الصحيح معروفًا لكل مثال.",
+      "hypothesis": "يمكن استخدام أشجار القرار في بعض مسائل التعلم الموجه.",
+      "expected_label": "neutral",
+      "language_style": "arabic_msa",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "نوع الخوارزمية غير مذكور في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.058587,
+        "neutral": 0.940814,
+        "contradiction": 0.000598
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-008",
+      "source_question_id": "DS-001",
+      "source_reference_id": "DS001-C01",
+      "premise": "التعلم الموجه Supervised Learning يتدرب على بيانات موسومة Labeled Data يكون فيها المخرج الصحيح معروفًا لكل مثال.",
+      "hypothesis": "في السوبرفايزد ليرننج الإجابة الصح مش معروفة لأي مثال في التدريب.",
+      "expected_label": "contradiction",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "negation_contradiction",
+      "rationale": "ينفي معرفة المخرج الصحيح لكل مثال.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000158,
+        "neutral": 0.000774,
+        "contradiction": 0.999068
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-009",
+      "source_question_id": "DS-001",
+      "source_reference_id": "DS001-C04",
+      "premise": "التعلم غير الموجه Unsupervised Learning يتدرب على بيانات غير موسومة بهدف اكتشاف الأنماط أو البنية الكامنة فيها.",
+      "hypothesis": "Unsupervised Learning requires a known target label for every training example.",
+      "expected_label": "contradiction",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "direct_contradiction",
+      "rationale": "يشترط labels معروفة بينما المرجع يقرر أنها غير موسومة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": false,
+      "error_direction": "contradiction->neutral",
+      "probabilities": {
+        "entailment": 0.001749,
+        "neutral": 0.99392,
+        "contradiction": 0.004331
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-010",
+      "source_question_id": "DS-001",
+      "source_reference_id": "DS001-C04",
+      "premise": "التعلم غير الموجه Unsupervised Learning يتدرب على بيانات غير موسومة بهدف اكتشاف الأنماط أو البنية الكامنة فيها.",
+      "hypothesis": "في بعض خوارزميات الأنسوبرفايزد بنحدد عدد الكلاسترز قبل التريننج.",
+      "expected_label": "neutral",
+      "language_style": "arabic_transliteration_variant",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "اختيار عدد العناقيد غير مذكور في التعريف.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000824,
+        "neutral": 0.998754,
+        "contradiction": 0.000422
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-011",
+      "source_question_id": "DS-003",
+      "source_reference_id": "DS003-C01",
+      "premise": "التصنيف Classification يتنبأ بقيمة فئوية منفصلة Discrete، مثل تحديد ما إذا كانت رسالة بريد Spam أم لا.",
+      "hypothesis": "مهمة التصنيف تنتج فئة منفصلة، مثل قرار كون الرسالة Spam أو غير Spam.",
+      "expected_label": "entailment",
+      "language_style": "arabic_msa",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "يعيد صياغة المخرج الفئوي ومثال Spam.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.994138,
+        "neutral": 0.001518,
+        "contradiction": 0.004345
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-012",
+      "source_question_id": "DS-003",
+      "source_reference_id": "DS003-C01",
+      "premise": "التصنيف Classification يتنبأ بقيمة فئوية منفصلة Discrete، مثل تحديد ما إذا كانت رسالة بريد Spam أم لا.",
+      "hypothesis": "A classification model can be deployed behind a REST API.",
+      "expected_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "unrelated_technical_neutral",
+      "rationale": "طريقة النشر غير مذكورة ولا تتعارض مع التعريف.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.003615,
+        "neutral": 0.994342,
+        "contradiction": 0.002043
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-013",
+      "source_question_id": "DS-003",
+      "source_reference_id": "DS003-C01",
+      "premise": "التصنيف Classification يتنبأ بقيمة فئوية منفصلة Discrete، مثل تحديد ما إذا كانت رسالة بريد Spam أم لا.",
+      "hypothesis": "الكلاسيفيكيشن بيطلع قيمة رقمية مستمرة زي سعر البيت.",
+      "expected_label": "contradiction",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "near_neighbor_concept_contradiction",
+      "rationale": "يستبدل المخرج الفئوي بمخرج الانحدار المستمر.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000245,
+        "neutral": 0.039214,
+        "contradiction": 0.96054
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-014",
+      "source_question_id": "DS-003",
+      "source_reference_id": "DS003-C02",
+      "premise": "الانحدار Regression يتنبأ بقيمة رقمية مستمرة Continuous، مثل سعر منزل أو درجة حرارة متوقعة.",
+      "hypothesis": "الريجريشن بيتوقع فاليو رقمية كونتينيوس زي تمن بيت أو درجة حرارة.",
+      "expected_label": "entailment",
+      "language_style": "arabic_transliteration_variant",
+      "difficulty_type": "asr_like_lexical_variation",
+      "rationale": "تنويع لفظي واقعي يحافظ على القيمة الرقمية المستمرة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.8723,
+        "neutral": 0.018192,
+        "contradiction": 0.109508
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-015",
+      "source_question_id": "DS-003",
+      "source_reference_id": "DS003-C02",
+      "premise": "الانحدار Regression يتنبأ بقيمة رقمية مستمرة Continuous، مثل سعر منزل أو درجة حرارة متوقعة.",
+      "hypothesis": "Regression models sometimes use regularization during training.",
+      "expected_label": "neutral",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "استخدام regularization غير وارد في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.002355,
+        "neutral": 0.996483,
+        "contradiction": 0.001162
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-016",
+      "source_question_id": "CS-001",
+      "source_reference_id": "CS001-C01",
+      "premise": "مثلث الحماية CIA Triad هو النموذج التأسيسي لأمن المعلومات ويتكون من السرية Confidentiality والسلامة Integrity والتوافر Availability.",
+      "hypothesis": "الـ CIA Triad يجمع Confidentiality و Integrity و Availability.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "partial_entailment",
+      "rationale": "يسرد المكونات الثلاثة الواردة في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.940127,
+        "neutral": 0.007594,
+        "contradiction": 0.052279
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-017",
+      "source_question_id": "CS-001",
+      "source_reference_id": "CS001-C01",
+      "premise": "مثلث الحماية CIA Triad هو النموذج التأسيسي لأمن المعلومات ويتكون من السرية Confidentiality والسلامة Integrity والتوافر Availability.",
+      "hypothesis": "يمكن تقييم تطبيق عناصر CIA ضمن مراجعة مخاطر دورية.",
+      "expected_label": "neutral",
+      "language_style": "arabic_msa",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "أسلوب المراجعة الدورية غير مذكور.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.001079,
+        "neutral": 0.998673,
+        "contradiction": 0.000248
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-018",
+      "source_question_id": "CS-001",
+      "source_reference_id": "CS001-C01",
+      "premise": "مثلث الحماية CIA Triad هو النموذج التأسيسي لأمن المعلومات ويتكون من السرية Confidentiality والسلامة Integrity والتوافر Availability.",
+      "hypothesis": "The CIA Triad consists of authentication, authorization, and accounting.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "rationale": "يستبدل عناصر المثلث الثلاثة بمجموعة مختلفة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": false,
+      "error_direction": "contradiction->neutral",
+      "probabilities": {
+        "entailment": 0.002987,
+        "neutral": 0.566207,
+        "contradiction": 0.430806
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-019",
+      "source_question_id": "CS-001",
+      "source_reference_id": "CS001-C02",
+      "premise": "السرية Confidentiality تعني ضمان عدم اطلاع أي طرف غير مصرح له على المعلومات، وتتحقق بوسائل مثل التشفير Encryption وضوابط الوصول Access Controls.",
+      "hypothesis": "مفتاح AES ممكن يكون بطول 256 بت.",
+      "expected_label": "neutral",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "تفصيل طول مفتاح AES غير وارد في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.00058,
+        "neutral": 0.999248,
+        "contradiction": 0.000172
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-020",
+      "source_question_id": "CS-001",
+      "source_reference_id": "CS001-C02",
+      "premise": "السرية Confidentiality تعني ضمان عدم اطلاع أي طرف غير مصرح له على المعلومات، وتتحقق بوسائل مثل التشفير Encryption وضوابط الوصول Access Controls.",
+      "hypothesis": "الكونفيدنشاليتي معناها إن أي حد غير مصرح له يقدر يشوف المعلومات.",
+      "expected_label": "contradiction",
+      "language_style": "arabic_transliteration_variant",
+      "difficulty_type": "negation_contradiction",
+      "rationale": "يعكس منع الاطلاع غير المصرح به.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000529,
+        "neutral": 0.001314,
+        "contradiction": 0.998157
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-021",
+      "source_question_id": "CS-005",
+      "source_reference_id": "CS005-C02",
+      "premise": "التشفير المتماثل Symmetric Encryption يستخدم نفس المفتاح Key لعمليتي التشفير وفك التشفير.",
+      "hypothesis": "في السيمترك إنكريبشن بنستخدم نفس الـ key للتشفير وفك التشفير.",
+      "expected_label": "entailment",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "صياغة مصرية لنفس خاصية المفتاح الواحد.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.948388,
+        "neutral": 0.008005,
+        "contradiction": 0.043607
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-022",
+      "source_question_id": "CS-005",
+      "source_reference_id": "CS005-C02",
+      "premise": "التشفير المتماثل Symmetric Encryption يستخدم نفس المفتاح Key لعمليتي التشفير وفك التشفير.",
+      "hypothesis": "تستخدم AES حجم كتلة مقداره 128 بت.",
+      "expected_label": "neutral",
+      "language_style": "arabic_msa",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "حجم كتلة AES غير مذكور في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000498,
+        "neutral": 0.999231,
+        "contradiction": 0.000272
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-023",
+      "source_question_id": "CS-005",
+      "source_reference_id": "CS005-C02",
+      "premise": "التشفير المتماثل Symmetric Encryption يستخدم نفس المفتاح Key لعمليتي التشفير وفك التشفير.",
+      "hypothesis": "Symmetric encryption always uses a public key for encryption and a private key for decryption.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "near_neighbor_concept_contradiction",
+      "rationale": "ينسب زوج المفاتيح غير المتماثل للتشفير المتماثل.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": false,
+      "error_direction": "contradiction->neutral",
+      "probabilities": {
+        "entailment": 0.002416,
+        "neutral": 0.873414,
+        "contradiction": 0.124171
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-024",
+      "source_question_id": "CS-005",
+      "source_reference_id": "CS005-C04",
+      "premise": "التشفير غير المتماثل Asymmetric Encryption يستخدم زوج مفاتيح: مفتاح عام Public Key للتشفير ومفتاح خاص Private Key لفك التشفير.",
+      "hypothesis": "Asymmetric Encryption بيستخدم نفس المفتاح بالضبط للتشفير وفك التشفير.",
+      "expected_label": "contradiction",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "near_neighbor_concept_contradiction",
+      "rationale": "يستبدل زوج المفاتيح بمفتاح واحد.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000277,
+        "neutral": 0.002516,
+        "contradiction": 0.997207
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-025",
+      "source_question_id": "SE-010",
+      "source_reference_id": "SE010-C01",
+      "premise": "REST أو Representational State Transfer نمط معماري لتصميم واجهات الويب يعتمد على بروتوكول HTTP وموارد Resources تعرف بعناوين URLs.",
+      "hypothesis": "REST API represents resources through URLs and uses HTTP for web interfaces.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "code_switched_technical_terminology",
+      "rationale": "يحافظ على HTTP والموارد وعناوين URLs.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.827586,
+        "neutral": 0.071488,
+        "contradiction": 0.100926
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-026",
+      "source_question_id": "SE-010",
+      "source_reference_id": "SE010-C01",
+      "premise": "REST أو Representational State Transfer نمط معماري لتصميم واجهات الويب يعتمد على بروتوكول HTTP وموارد Resources تعرف بعناوين URLs.",
+      "hypothesis": "ممكن نكتب REST service بلغة Python أو Java.",
+      "expected_label": "neutral",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "unrelated_technical_neutral",
+      "rationale": "لغة التنفيذ غير محددة في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.00056,
+        "neutral": 0.998407,
+        "contradiction": 0.001032
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-027",
+      "source_question_id": "SE-010",
+      "source_reference_id": "SE010-C03",
+      "premise": "من مبادئ REST انعدام الحالة Statelessness، إذ يحمل كل طلب كامل المعلومات اللازمة لمعالجته دون اعتماد الخادم على جلسات سابقة.",
+      "hypothesis": "يعتمد خادم REST على تفاصيل جلسة الطلب السابق حتى يستطيع معالجة الطلب الحالي.",
+      "expected_label": "contradiction",
+      "language_style": "arabic_msa",
+      "difficulty_type": "negation_contradiction",
+      "rationale": "يناقض صراحة استقلال كل طلب عن الجلسات السابقة.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000551,
+        "neutral": 0.00675,
+        "contradiction": 0.992699
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-028",
+      "source_question_id": "SE-010",
+      "source_reference_id": "SE010-C05",
+      "premise": "تتبادل REST APIs البيانات عادة بصيغة JSON لخفتها وسهولة معالجتها، مع أن REST لا يفرض صيغة محددة.",
+      "hypothesis": "قد تُضغط JSON payloads باستخدام gzip أثناء النقل.",
+      "expected_label": "neutral",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "ضغط gzip غير مذكور ولا يلزم من استخدام JSON.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.001243,
+        "neutral": 0.998234,
+        "contradiction": 0.000524
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-029",
+      "source_question_id": "SE-014",
+      "source_reference_id": "SE014-C02",
+      "premise": "الذرية Atomicity تعني تنفيذ المعاملة بأكملها أو عدم تنفيذ أي جزء منها، فإذا فشلت خطوة تراجع كل ما سبقها Rollback.",
+      "hypothesis": "الأتوميستي معناها الترانزاكشن يا كلها تتنفذ يا كلها تتعمل لها رول باك لو خطوة فشلت.",
+      "expected_label": "entailment",
+      "language_style": "arabic_transliteration_variant",
+      "difficulty_type": "asr_like_lexical_variation",
+      "rationale": "تنويع منطوق يحافظ على مبدأ الكل أو لا شيء.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.871294,
+        "neutral": 0.028042,
+        "contradiction": 0.100664
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-030",
+      "source_question_id": "SE-014",
+      "source_reference_id": "SE014-C02",
+      "premise": "الذرية Atomicity تعني تنفيذ المعاملة بأكملها أو عدم تنفيذ أي جزء منها، فإذا فشلت خطوة تراجع كل ما سبقها Rollback.",
+      "hypothesis": "Atomicity allows a failed transaction to keep the successful half permanently.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "rationale": "يسمح بتنفيذ جزئي بينما الذرية تفرض الكل أو لا شيء.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.002979,
+        "neutral": 0.124276,
+        "contradiction": 0.872746
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-031",
+      "source_question_id": "SE-014",
+      "source_reference_id": "SE014-C05",
+      "premise": "الديمومة Durability تعني بقاء أثر المعاملة المؤكدة Committed حتى عند انقطاع الطاقة أو تعطل النظام.",
+      "hypothesis": "قد تختفي المعاملة التي تم تأكيدها بمجرد انقطاع الطاقة لأن Durability لا تحفظها.",
+      "expected_label": "contradiction",
+      "language_style": "arabic_msa",
+      "difficulty_type": "negation_contradiction",
+      "rationale": "ينفي بقاء المعاملة المؤكدة بعد الانقطاع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000801,
+        "neutral": 0.218467,
+        "contradiction": 0.780732
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-032",
+      "source_question_id": "SE-014",
+      "source_reference_id": "SE014-C04",
+      "premise": "العزل Isolation يعني ألا تتأثر المعاملات المتزامنة ببعضها كما لو نفذت تسلسليًا، وتضبط درجته بمستويات العزل Isolation Levels.",
+      "hypothesis": "PostgreSQL uses Read Committed as its default Isolation Level.",
+      "expected_label": "neutral",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "مستوى PostgreSQL الافتراضي غير مذكور.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000777,
+        "neutral": 0.996843,
+        "contradiction": 0.00238
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-033",
+      "source_question_id": "SE-034",
+      "source_reference_id": "SE034-C01",
+      "premise": "المكدس Stack هيكل بيانات يعمل بمبدأ الداخل أخيرًا يخرج أولًا LIFO.",
+      "hypothesis": "الستاك آخر عنصر بيدخل فيه هو أول عنصر بيطلع منه.",
+      "expected_label": "entailment",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "صياغة مصرية لمبدأ LIFO.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.514415,
+        "neutral": 0.175435,
+        "contradiction": 0.310149
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-034",
+      "source_question_id": "SE-034",
+      "source_reference_id": "SE034-C01",
+      "premise": "المكدس Stack هيكل بيانات يعمل بمبدأ الداخل أخيرًا يخرج أولًا LIFO.",
+      "hypothesis": "يمكن تنفيذ المكدس باستخدام مصفوفة أو قائمة مترابطة.",
+      "expected_label": "neutral",
+      "language_style": "arabic_msa",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "تفاصيل التنفيذ غير موجودة في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.002505,
+        "neutral": 0.996758,
+        "contradiction": 0.000738
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-035",
+      "source_question_id": "SE-034",
+      "source_reference_id": "SE034-C03",
+      "premise": "الطابور Queue هيكل بيانات يعمل بمبدأ الداخل أولًا يخرج أولًا FIFO.",
+      "hypothesis": "A Queue follows LIFO, so the newest item leaves first.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "near_neighbor_concept_contradiction",
+      "rationale": "يستبدل FIFO بمبدأ LIFO الخاص بالمكدس.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.002455,
+        "neutral": 0.077894,
+        "contradiction": 0.919651
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-036",
+      "source_question_id": "SE-034",
+      "source_reference_id": "SE034-C06",
+      "premise": "من تطبيقات الطابور جدولة المهام وطوابير الطباعة ومعالجة الطلبات بالترتيب وخوارزميات البحث بالعرض BFS.",
+      "hypothesis": "Priority queues may order items by priority rather than arrival time.",
+      "expected_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "خصائص Priority Queue غير مذكورة في قائمة التطبيقات.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.046309,
+        "neutral": 0.943064,
+        "contradiction": 0.010627
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-037",
+      "source_question_id": "SE-039",
+      "source_reference_id": "SE039-C01",
+      "premise": "العملية Process برنامج قيد التنفيذ يملك مساحة ذاكرة مستقلة وموارده الخاصة.",
+      "hypothesis": "كل Process قيد التنفيذ تمتلك مساحة ذاكرة مستقلة وموارد خاصة بها.",
+      "expected_label": "entailment",
+      "language_style": "arabic_msa",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "يعيد صياغة استقلال ذاكرة وموارد العملية.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": false,
+      "error_direction": "entailment->neutral",
+      "probabilities": {
+        "entailment": 0.095652,
+        "neutral": 0.895218,
+        "contradiction": 0.00913
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-038",
+      "source_question_id": "SE-039",
+      "source_reference_id": "SE039-C02",
+      "premise": "الخيط Thread وحدة تنفيذ أصغر داخل العملية يشارك بقية خيوط العملية نفس الذاكرة والموارد.",
+      "hypothesis": "Threads inside the same Process share memory and resources.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "partial_entailment",
+      "rationale": "يستخلص خاصية مشاركة الذاكرة والموارد.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "entailment",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.982699,
+        "neutral": 0.007122,
+        "contradiction": 0.010178
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-039",
+      "source_question_id": "SE-039",
+      "source_reference_id": "SE039-C02",
+      "premise": "الخيط Thread وحدة تنفيذ أصغر داخل العملية يشارك بقية خيوط العملية نفس الذاكرة والموارد.",
+      "hypothesis": "عدد الثريدز المناسب بيعتمد على نوع الـ workload وعدد الأنوية.",
+      "expected_label": "neutral",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "rationale": "اختيار العدد المناسب غير وارد في المرجع.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.000646,
+        "neutral": 0.998604,
+        "contradiction": 0.00075
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-040",
+      "source_question_id": "SE-039",
+      "source_reference_id": "SE039-C05",
+      "premise": "إنشاء الخيوط والتبديل بينها Context Switch أخف كلفة من العمليات.",
+      "hypothesis": "Creating threads and switching between them is heavier than creating and switching processes.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "rationale": "يعكس مقارنة الكلفة بين الخيوط والعمليات.",
+      "provenance": "new_heldout_authored_from_canonical_reference_cp005",
+      "regression_anchor": false,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.135076,
+        "neutral": 0.033573,
+        "contradiction": 0.831351
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-041",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C01",
+      "premise": "INNER JOIN يعيد الصفوف التي تحقق شرط الربط في كلا الجدولين فقط.",
+      "hypothesis": "ال Inner Join يعيد الصفوف المتطابقة بين الجدولين.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "الادعاء الحقيقي المحفوظ يعبّر عن الصفوف المطابقة.",
+      "provenance": "cp003_preserved_after_artifact_regression",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.00444,
+        "neutral": 0.007463,
+        "contradiction": 0.988097
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-042",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال left join يعيد كل الصفوف من الجدول الايسر حتى اذا لم يكن هناك تطابق.",
+      "expected_label": "entailment",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "rationale": "الادعاء الحقيقي المحفوظ يحتفظ بكل صفوف اليسار دون اشتراط التطابق.",
+      "provenance": "cp003_preserved_before_artifact_regression",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.002799,
+        "neutral": 0.03213,
+        "contradiction": 0.965071
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-043",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "LEFT JOIN returns only matching rows and removes unmatched left rows.",
+      "expected_label": "contradiction",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "rationale": "ينفي الاحتفاظ بصفوف اليسار غير المطابقة.",
+      "provenance": "cp005_user_required_regression_anchor",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": false,
+      "error_direction": "contradiction->neutral",
+      "probabilities": {
+        "entailment": 0.127469,
+        "neutral": 0.672373,
+        "contradiction": 0.200158
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-044",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "Python is commonly used for data analysis.",
+      "expected_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "unrelated_technical_neutral",
+      "rationale": "استخدام Python غير مرتبط بما يثبته تعريف LEFT JOIN.",
+      "provenance": "cp005_user_required_regression_anchor",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "neutral",
+      "correct": true,
+      "error_direction": null,
+      "probabilities": {
+        "entailment": 0.007729,
+        "neutral": 0.978797,
+        "contradiction": 0.013473
+      }
+    },
+    {
+      "case_id": "NLI-EVAL-045",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "premise": "LEFT JOIN يعيد كل صفوف الجدول الأيسر مع الصفوف المطابقة من الجدول الأيمن، وتملأ مواضع عدم التطابق بقيم NULL.",
+      "hypothesis": "ال LEFT JOIN يعيد كل الصفوف من الجدول الشمال حتى لو لا يوجد تطابق.",
+      "expected_label": "entailment",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "asr_like_lexical_variation",
+      "rationale": "صياغة مصرية واقعية لنفس الاحتفاظ بكل صفوف الجدول الأيسر.",
+      "provenance": "cp003_corrected_lift_to_left_regression_variant",
+      "regression_anchor": true,
+      "scored": true,
+      "label_review_status": "approved_unambiguous",
+      "predicted_label": "contradiction",
+      "correct": false,
+      "error_direction": "entailment->contradiction",
+      "probabilities": {
+        "entailment": 0.000785,
+        "neutral": 0.01561,
+        "contradiction": 0.983605
+      }
+    }
+  ]
+}

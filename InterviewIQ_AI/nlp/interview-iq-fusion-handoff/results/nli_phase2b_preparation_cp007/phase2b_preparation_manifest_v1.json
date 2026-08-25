@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "preparation_id": "interviewiq-nli-phase2b-preparation-v1",
+  "checkpoint": "CP-007",
+  "checkpoint_title": "Phase 2B Preparation Complete",
+  "created_at": "2026-08-23T19:15:45+03:00",
+  "decision_scope": "PREPARATION_ONLY_NO_CORPUS_EXAMPLES_NO_TRAINING",
+  "authorization": {
+    "preparation_authorized": true,
+    "corpus_authoring_authorized": false,
+    "training_authorized": false,
+    "adapter_checkpoint_authorized": false,
+    "production_change_authorized": false,
+    "model_promotion_authorized": false
+  },
+  "inherited_evidence": {
+    "official_evaluation_checkpoint": "CP-005",
+    "checkpoint_control": "CP-006",
+    "evaluation_dataset_path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+    "evaluation_dataset_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+    "baseline_model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "baseline_model_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "baseline_accuracy": 0.8222222222222222,
+    "baseline_macro_f1": 0.8186307519640854,
+    "baseline_false_contradiction_rate": 0.13333333333333333,
+    "baseline_false_entailment_rate": 0.06666666666666667,
+    "baseline_da017_passed": 2,
+    "baseline_da017_total": 5,
+    "cp006_result": "NO_REMEDIATION_WINNER"
+  },
+  "selected_experiment": {
+    "type": "single_targeted_lora_adapter_ab",
+    "base_model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "base_model_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "tokenizer_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "reason": "CP-006 checkpoint replacement improved aggregate metrics but did not reduce false contradictions or improve DA-017. The existing optional adapter hook limits deployment and rollback blast radius while allowing targeted multilingual/domain learning."
+  },
+  "existing_adapter_infrastructure": {
+    "production_injection_point": "src/interview_iq/pipeline.py:evaluate_answer(adapter_path)",
+    "adapter_loader": "src/interview_iq/evaluation/gold_eval.py:load_adapter using PeftModel.from_pretrained",
+    "training_orchestrator": "src/interview_iq/nli/finetune.py:run_finetune",
+    "training_cli": "src/interview_iq/cli/run_nli_finetune.py",
+    "evaluation_cli": "src/interview_iq/cli/run_nli_eval.py --adapter-path",
+    "silent_attachment_guard": true,
+    "optional_adapter_means_base_model_rollback": true
+  },
+  "existing_supported_lora_configuration": {
+    "r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+      "query_proj",
+      "value_proj"
+    ],
+    "lora_dropout": 0.1,
+    "bias": "none",
+    "task_type": "SEQ_CLS"
+  },
+  "proposed_single_run_training_contract": {
+    "configuration_count": 1,
+    "learning_rate": 0.0002,
+    "num_train_epochs": 5,
+    "per_device_train_batch_size": 16,
+    "per_device_eval_batch_size": 32,
+    "warmup_ratio": 0.06,
+    "weight_decay": 0.01,
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch",
+    "load_best_model_at_end": true,
+    "metric_for_best_model": "eval_f1_macro",
+    "seed": 42,
+    "max_length": 256,
+    "split_level": "question_id",
+    "base_model_frozen": true,
+    "threshold_tuning": false,
+    "cp005_used_for_training_or_early_stopping": false
+  },
+  "readiness_gaps_that_block_training": [
+    "No Phase 2B corpus, train/dev manifest, review ledger, or frozen corpus hash exists.",
+    "The configured legacy pilot files are absent and are not authorized substitutes for the new corpus.",
+    "The current config excludes DS-014 only; it does not yet encode all ten CP-005 protected question IDs or premise/hypothesis/pair exclusion.",
+    "The current training loader accepts legacy pair shapes and does not enforce the Phase 2B required fields or semantic-family review gate.",
+    "The current training model loader uses a mutable model ID without an immutable revision or snapshot hash assertion.",
+    "The current training tokenization defaults to max_length=128 rather than the proposed pinned 256 contract.",
+    "No focused LoRA training/preflight test file exists in the current test inventory.",
+    "No Phase 2B output directory or adapter checkpoint exists."
+  ],
+  "required_command_flow_if_later_authorized": [
+    "Create and independently review the 600-case corpus from non-protected source questions.",
+    "Run the CP-005 exclusion policy against inline train/dev records and fail closed on any overlap or provenance defect.",
+    "Freeze corpus, split, source-corpus, exclusion-policy, tokenizer, model, and one-config hashes before model initialization.",
+    "Run focused preflight and tiny synthetic smoke tests; do not load the real base model if any gate fails.",
+    "Invoke one hardened run_nli_finetune flow with the pinned baseline revision and the frozen Phase 2B manifest.",
+    "Persist adapter/trainer artifacts and hashes, then evaluate internal dev once.",
+    "After configuration freeze, run one CP-005 adapter A/B plus the separate Coverage/scoring regression gate.",
+    "Do not promote; issue a measurement checkpoint and request separate production authorization."
+  ],
+  "predeclared_acceptance": {
+    "cp005_total_cases": 45,
+    "overall_accuracy_minimum": 0.85,
+    "overall_correct_minimum": 39,
+    "macro_f1_minimum": 0.85,
+    "each_class_f1_minimum": 0.8,
+    "false_contradiction_maximum_count": 0,
+    "false_contradiction_maximum_rate": 0.05,
+    "false_entailment_maximum_count": 1,
+    "false_entailment_maximum_rate": 0.1,
+    "neutral_correct_minimum": 14,
+    "neutral_f1_minimum": 0.8,
+    "da017_required_passed": 5,
+    "da017_total": 5,
+    "new_regressions_on_cp005_baseline_correct_cases_maximum": 0,
+    "minimum_supported_slice_accuracy": 0.7,
+    "arabic_english_code_switch_correct_minimum": 10,
+    "natural_paraphrase_entailment_correct_minimum": 6,
+    "near_neighbor_contradiction_correct_minimum": 4,
+    "direct_contradiction_correct_minimum": 3,
+    "latency_ratio_to_cp006_baseline_maximum": 1.15,
+    "milliseconds_per_case_maximum": 92.613351,
+    "peak_working_set_ratio_to_cp006_baseline_maximum": 1.1,
+    "peak_working_set_bytes_maximum": 2301884006,
+    "coverage_scoring_regression_gate": "PASS_REQUIRED",
+    "adapter_attachment_verified": true,
+    "all_gates_required": true,
+    "decision_limit": "Passing permits an engineering recommendation only; production promotion remains separately authorized."
+  },
+  "rollback_strategy": {
+    "experiment": "Retain the adapter artifact but omit adapter_path and reload the pinned base model; no production state is changed during the experiment.",
+    "future_promotion_if_ever_authorized": "Remove the adapter-path reference, restart the NLI process on the pinned base revision, and require exact CP-005 baseline parity before closure.",
+    "checkpoint_deletion_required": false
+  },
+  "expected_future_training_artifacts": [
+    "data/nli/training/phase2b_lora_corpus_v1.json",
+    "data/nli/training/phase2b_lora_review_ledger_v1.json",
+    "data/nli/training/phase2b_lora_split_manifest_v1.json",
+    "configs/experiments/nli_lora_phase2b_v1.yaml",
+    "results/nli_phase2b_training/immutable_training_manifest_v1.json",
+    "results/nli_phase2b_training/preflight_validation_v1.json",
+    "results/nli_phase2b_training/training_metrics_v1.json",
+    "checkpoints/nli-lora-phase2b-v1/adapter_config.json",
+    "checkpoints/nli-lora-phase2b-v1/adapter_model.safetensors",
+    "checkpoints/nli-lora-phase2b-v1/tokenizer_config.json",
+    "results/nli_phase2b_training/cp005_adapter_evaluation_v1.json",
+    "results/nli_phase2b_training/coverage_scoring_regression_v1.json",
+    "results/nli_phase2b_training/adapter_comparison_report_v1.md"
+  ],
+  "preparation_artifacts": {
+    "corpus_spec": "data/nli/training/phase2b_lora_corpus_spec_v1.json",
+    "exclusion_policy": "data/nli/training/cp005_exclusion_policy_v1.json",
+    "preparation_report": "results/nli_phase2b_preparation_cp007/phase2b_preparation_report_v1.md",
+    "validation": "results/nli_phase2b_preparation_cp007/preparation_validation_v1.json"
+  },
+  "exact_next_step_if_authorized": "Phase 2B Data Authoring: create and independently review the 600-case train/dev corpus from at least 40 non-protected question IDs, then run the CP-005 exclusion and corpus-quality preflight. Stop before model loading or training and request separate training authorization."
+}

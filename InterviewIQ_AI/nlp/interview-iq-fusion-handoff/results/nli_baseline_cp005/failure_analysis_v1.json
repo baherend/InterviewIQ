@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "run_id": "cp005-current-model-baseline-v1",
+  "baseline_path": "results/nli_baseline_cp005/current_model_baseline_v1.json",
+  "failed_case_count": 8,
+  "error_directions": {
+    "neutral->entailment": 1,
+    "contradiction->neutral": 4,
+    "entailment->contradiction": 2,
+    "contradiction->entailment": 1
+  },
+  "clusters": {
+    "arabic_paraphrase": {
+      "count": 2,
+      "case_ids": [
+        "NLI-EVAL-042",
+        "NLI-EVAL-045"
+      ]
+    },
+    "egyptian_arabic": {
+      "count": 1,
+      "case_ids": [
+        "NLI-EVAL-045"
+      ]
+    },
+    "code_switching": {
+      "count": 2,
+      "case_ids": [
+        "NLI-EVAL-009",
+        "NLI-EVAL-042"
+      ]
+    },
+    "technical_token_confusion": {
+      "count": 3,
+      "case_ids": [
+        "NLI-EVAL-023",
+        "NLI-EVAL-035",
+        "NLI-EVAL-045"
+      ]
+    },
+    "negation": {
+      "count": 0,
+      "case_ids": []
+    },
+    "near_neighbor_concepts": {
+      "count": 2,
+      "case_ids": [
+        "NLI-EVAL-023",
+        "NLI-EVAL-035"
+      ]
+    },
+    "neutral_vs_entailment": {
+      "count": 1,
+      "case_ids": [
+        "NLI-EVAL-007"
+      ]
+    },
+    "contradiction_polarity_errors": {
+      "count": 3,
+      "case_ids": [
+        "NLI-EVAL-042",
+        "NLI-EVAL-043",
+        "NLI-EVAL-045"
+      ]
+    }
+  },
+  "cp003_pattern_assessment": "NOT_REPRODUCED_OUTSIDE_DA017_IN_THIS_SET",
+  "cp003_pattern_reason": "No heldout-discovery entailment was predicted contradiction; broader isolation remains uncertain because the set is small.",
+  "failed_cases": [
+    {
+      "case_id": "NLI-EVAL-007",
+      "source_question_id": "DS-001",
+      "source_reference_id": "DS001-C01",
+      "expected_label": "neutral",
+      "predicted_label": "entailment",
+      "language_style": "arabic_msa",
+      "difficulty_type": "semantically_adjacent_non_entailing",
+      "entailment_probability": 0.98488,
+      "neutral_probability": 0.015044,
+      "contradiction_probability": 7.6e-05,
+      "regression_anchor": false,
+      "rationale": "نوع الخوارزمية غير مذكور في المرجع."
+    },
+    {
+      "case_id": "NLI-EVAL-009",
+      "source_question_id": "DS-001",
+      "source_reference_id": "DS001-C04",
+      "expected_label": "contradiction",
+      "predicted_label": "neutral",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "direct_contradiction",
+      "entailment_probability": 0.001893,
+      "neutral_probability": 0.991015,
+      "contradiction_probability": 0.007091,
+      "regression_anchor": false,
+      "rationale": "يشترط labels معروفة بينما المرجع يقرر أنها غير موسومة."
+    },
+    {
+      "case_id": "NLI-EVAL-018",
+      "source_question_id": "CS-001",
+      "source_reference_id": "CS001-C01",
+      "expected_label": "contradiction",
+      "predicted_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "entailment_probability": 0.010912,
+      "neutral_probability": 0.781225,
+      "contradiction_probability": 0.207863,
+      "regression_anchor": false,
+      "rationale": "يستبدل عناصر المثلث الثلاثة بمجموعة مختلفة."
+    },
+    {
+      "case_id": "NLI-EVAL-023",
+      "source_question_id": "CS-005",
+      "source_reference_id": "CS005-C02",
+      "expected_label": "contradiction",
+      "predicted_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "near_neighbor_concept_contradiction",
+      "entailment_probability": 0.004422,
+      "neutral_probability": 0.934163,
+      "contradiction_probability": 0.061415,
+      "regression_anchor": false,
+      "rationale": "ينسب زوج المفاتيح غير المتماثل للتشفير المتماثل."
+    },
+    {
+      "case_id": "NLI-EVAL-035",
+      "source_question_id": "SE-034",
+      "source_reference_id": "SE034-C03",
+      "expected_label": "contradiction",
+      "predicted_label": "neutral",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "near_neighbor_concept_contradiction",
+      "entailment_probability": 0.039526,
+      "neutral_probability": 0.531816,
+      "contradiction_probability": 0.428657,
+      "regression_anchor": false,
+      "rationale": "يستبدل FIFO بمبدأ LIFO الخاص بالمكدس."
+    },
+    {
+      "case_id": "NLI-EVAL-042",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "expected_label": "entailment",
+      "predicted_label": "contradiction",
+      "language_style": "arabic_english_code_switch",
+      "difficulty_type": "natural_paraphrase_entailment",
+      "entailment_probability": 0.007968,
+      "neutral_probability": 0.010857,
+      "contradiction_probability": 0.981175,
+      "regression_anchor": true,
+      "rationale": "الادعاء الحقيقي المحفوظ يحتفظ بكل صفوف اليسار دون اشتراط التطابق."
+    },
+    {
+      "case_id": "NLI-EVAL-043",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "expected_label": "contradiction",
+      "predicted_label": "entailment",
+      "language_style": "english_diagnostic",
+      "difficulty_type": "direct_contradiction",
+      "entailment_probability": 0.446733,
+      "neutral_probability": 0.392953,
+      "contradiction_probability": 0.160314,
+      "regression_anchor": true,
+      "rationale": "ينفي الاحتفاظ بصفوف اليسار غير المطابقة."
+    },
+    {
+      "case_id": "NLI-EVAL-045",
+      "source_question_id": "DA-017",
+      "source_reference_id": "DA017-C02",
+      "expected_label": "entailment",
+      "predicted_label": "contradiction",
+      "language_style": "egyptian_arabic",
+      "difficulty_type": "asr_like_lexical_variation",
+      "entailment_probability": 0.002671,
+      "neutral_probability": 0.001515,
+      "contradiction_probability": 0.995815,
+      "regression_anchor": true,
+      "rationale": "صياغة مصرية واقعية لنفس الاحتفاظ بكل صفوف الجدول الأيسر."
+    }
+  ]
+}

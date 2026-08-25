@@ -1,0 +1,797 @@
+{
+  "schema_version": 1,
+  "project": "InterviewIQ",
+  "active_task": "TASK-AUTH-INPUT-ICON-ALIGNMENT-001",
+  "task_status": "VERIFIED_COMPLETE_FRONTEND_ONLY",
+  "last_verified_checkpoint": "CP-020",
+  "technical_checkpoint": "CP-020",
+  "active_permanent_protocols": [
+    "FAST EXECUTION PROTOCOL"
+  ],
+  "completed_steps": [
+    {
+      "step_id": "STEP-MEM-001",
+      "description": "Read the complete master project and external-execution-memory instructions.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Both supplied instruction files were read completely in bounded line ranges and their rules were incorporated into AGENT_RULES.md."
+    },
+    {
+      "step_id": "STEP-MEM-002",
+      "description": "Inspect current memory inventory, actual architecture, Git state, and latest DA-017 evidence without modifying product files.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Root/ignored-file inventory found no existing requested memory files; source/artifact inspection established the three runtime paths and CP-001 PARTIAL PASS baseline."
+    },
+    {
+      "step_id": "STEP-MEM-003",
+      "description": "Create the root external-memory files and AGENTS.md discovery pointer without changing product code.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "All nine governance/memory files exist and are the only paths added by TASK-MEM-001."
+    },
+    {
+      "step_id": "STEP-MEM-004",
+      "description": "Validate the memory system and confirm preservation of the pre-existing working tree.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "PowerShell ConvertFrom-Json and Python json.loads both parsed EXECUTION_STATE.json; required-file and pointer checks passed; Git still shows the same 12 pre-existing modified and 14 pre-existing untracked entries plus the nine new memory files; cached/staged diff is empty."
+    },
+    {
+      "step_id": "STEP-NLI-001",
+      "description": "Accept and scope the read-only NLI forensic task from CP-002 without invalidating verified retrieval work.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "CURRENT_TASK.md defines the forensic-only scope, nine observable acceptance criteria, protected boundaries, and real-model diagnostic plan."
+    },
+    {
+      "step_id": "STEP-NLI-002",
+      "description": "Trace exact canonical/reference/claim strings through preprocessing, Unicode order, tokenizer inputs, and the current NLI implementation.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Canonical DA017-C01/C02 and both preserved claim artifacts were inspected byte-for-string. The JSON is valid UTF-8 in correct logical order with no bidi controls or mojibake; production normalization made only documented diacritic, tatweel, and alef changes and no glossary substitution. Premise=evidence and hypothesis=claim is proven in the live source path."
+    },
+    {
+      "step_id": "STEP-NLI-003",
+      "description": "Run the configured real NLI model on exact production-shaped pairs and controlled entailment, contradiction, neutral, Arabic, normalized, corrected-token, and English diagnostics.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The local cached mDeBERTa checkpoint reproduced the after-run INNER E/N/C as 0.679402/0.024493/0.296105 and LEFT as 0.000967/0.000717/0.998316. Token traces showed 40 and 65 pair tokens, no truncation, no UNK, and preserved SQL terms. Direct logits and independent softmax agree with production mapping."
+    },
+    {
+      "step_id": "STEP-NLI-004",
+      "description": "Classify the NLI defect owner and rank candidate fixes without implementing one.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Root cause is class D: NLI model multilingual/domain behavior. Exact/near-exact and monolingual controls pass, while the semantic Arabic/code-switched LEFT paraphrases remain falsely contradictory after correcting Lift to LEFT, normalizing the reference, lowercasing SQL terms, and reversing direction. Classes A, B, C, E, and F are directly ruled out as the primary cause."
+    },
+    {
+      "step_id": "STEP-NLI-005",
+      "description": "Persist the verified forensic result as checkpoint CP-003 without changing product files.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "CURRENT_TASK.md, EXECUTION_STATE.json, EVIDENCE_LEDGER.md, KNOWN_ISSUES.md, and PROJECT_MEMORY.md record the same result, exact next action, and resume instruction; DECISIONS.md is unchanged because no remediation architecture was selected."
+    },
+    {
+      "step_id": "STEP-RULES-FAST-001",
+      "description": "Add and activate the permanent generic FAST EXECUTION PROTOCOL without changing the current technical task.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "AGENT_RULES.md contains the requested 14-part protocol and explicitly integrates it with the existing resume-first, no-repeat, engineering, memory, checkpoint, authorization, safety, evidence, and acceptance rules. CP-004 is workflow-only; CP-003 remains the verified technical checkpoint and NLI remediation remains unauthorized."
+    },
+    {
+      "step_id": "STEP-NLI-EVAL-000",
+      "description": "Accept and scope the explicitly authorized Phase-1 NLI evaluation task without authorizing remediation.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "CURRENT_TASK.md defines the 30-60 case held-out/regression-anchor dataset, metrics-before-inference contract, unchanged current-model baseline, failure analysis, protected CP-003 findings, and explicit prohibition on training/model/config/threshold/production changes."
+    },
+    {
+      "step_id": "STEP-NLI-EVAL-001",
+      "description": "Inventory the bounded NLP-only reference, NLI schema, adapter/training hook, configs, tests, and evaluation utilities.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The canonical corpus, current NLI runtime/evaluation functions, optional adapter hook, LoRA configuration, and missing configured pilot/checkpoint prerequisites were inspected. The stale DRAFT DS-014-only gold_set_48.json was rejected as the new evaluation set."
+    },
+    {
+      "step_id": "STEP-NLI-EVAL-002",
+      "description": "Create and semantically/structurally validate the held-out and regression-anchor dataset plus the pre-inference metrics contract.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "heldout_ar_codeswitch_v1 contains 45 reviewed scored cases (40 discovery plus 5 DA-017 anchors), balanced 15/15/15 across ten questions. IDs/pairs are unique, premises match canonical chunks, styles/difficulties are represented, anchors are explicit, no production/config reference or current training leakage exists, and metrics were predeclared before inference."
+    },
+    {
+      "step_id": "STEP-NLI-EVAL-003",
+      "description": "Run one batched baseline with the unchanged current production NLI model and persist per-case probabilities and deterministic metrics.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Cached model revision 8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c ran once on CPU/fp32 with DebertaV2TokenizerFast, batch 8, max_length 256, production direction/mapping, no adapter, and no threshold/config/code change. Accuracy is 37/45 and macro F1 is 0.818631."
+    },
+    {
+      "step_id": "STEP-NLI-EVAL-004",
+      "description": "Recompute metrics, report every DA-017 anchor, cluster supported failures, and assess whether CP-003 is isolated or systemic.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Independent artifact recomputation matched all 45 argmax predictions and the 8 failure IDs. DA-017 anchors score 2/5; the exact false-contradiction pattern is JOIN-localized in the 40-case discovery set, while broader cross-language/direct and near-neighbor contradiction weakness spans four non-DA-017 concepts."
+    },
+    {
+      "step_id": "STEP-NLI-EVAL-005",
+      "description": "Persist and validate technical checkpoint CP-005 without beginning remediation.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Evaluation artifacts and the five changed external-memory files are internally consistent; JSON/UTF-8, hashes, metrics, checkpoint markers, task boundaries, and empty staged diff pass. No product source/config/model/threshold/scoring file was changed by TASK-NLI-BASELINE-001."
+    },
+    {
+      "step_id": "STEP-NLI-P2A-000",
+      "description": "Accept and scope Phase 2A as experiment preparation and checkpoint-control evaluation only.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The authorized boundary permitted immutable experiment controls and evaluation of exactly the current checkpoint plus the 2mil7 candidate, while prohibiting training, adapters, production behavior, scoring, thresholds, retrieval, and Fusion changes."
+    },
+    {
+      "step_id": "STEP-NLI-P2A-001",
+      "description": "Create and verify the immutable experiment manifest, CP-005 evaluator, resource controls, and leakage gates.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Offline preflight PASS verified the frozen CP-005 SHA, both exact model/tokenizer revisions and snapshot hashes, E/N/C mapping, CPU/fp32/eval/no-adapter, deterministic settings, max_length 256, protected ten-question boundary, unique pairs, and NO_TRAINING_MANIFEST_PRESENT. Sixteen focused tests passed."
+    },
+    {
+      "step_id": "STEP-NLI-P2A-002",
+      "description": "Evaluate the pinned baseline and pinned 2mil7 checkpoint once each in separate CPU/fp32 worker processes.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The baseline exactly reproduced CP-005; candidate revision b5113eb38ab63efdd7f280f8c144ea8b13f978ce completed the same 45-case evaluation. Both runs used identical tokenizer direction, batch 8, max_length 256, seed/thread settings, warm-up method, and no adapter or thresholds."
+    },
+    {
+      "step_id": "STEP-NLI-P2A-003",
+      "description": "Compare semantic, regression, slice, CPU-latency, and memory evidence without automatically selecting a winner.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Candidate improved accuracy to 39/45 and macro F1 to 0.866270, but false contradiction remained 2/15, DA-017 remained 2/5, NLI-EVAL-041 regressed, and three proposed gates failed. Recommendation is no remediation winner, keep production unchanged, and retain targeted LoRA as the next authorized experiment."
+    },
+    {
+      "step_id": "STEP-NLI-P2A-004",
+      "description": "Persist, independently audit, test, hash, and checkpoint the Phase 2A control evaluation.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Completed-artifact audit PASS recomputed both metric trees and comparison sections, verified exact hashes/argmax/probability sums/runtime controls and baseline parity; the complete current NLP test suite passed 25/25; nothing is staged and no production behavior changed."
+    },
+    {
+      "step_id": "STEP-NLI-P2B-PREP-000",
+      "description": "Accept Phase 2B preparation-only authorization without authorizing corpus examples, training, checkpoints, inference changes, or promotion.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The task boundary permits only a corpus specification, CP-005 leakage policy, adapter/training design, evaluation gates, rollback, and checkpoint memory. No model was loaded and no training or production mutation occurred."
+    },
+    {
+      "step_id": "STEP-NLI-P2B-PREP-001",
+      "description": "Inspect the existing NLI adapter, training, configuration, and evaluation hooks against CP-005/CP-006 evidence.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The optional pipeline adapter_path, fail-loud PEFT loader, LoRA orchestrator/CLI, evaluation CLI, data checks, and current r16 query/value configuration were confirmed. Training blockers are absent legacy pilot files, incomplete CP-005 exclusions, mutable base loading, legacy schema, max_length 128, and missing focused training tests."
+    },
+    {
+      "step_id": "STEP-NLI-P2B-PREP-002",
+      "description": "Freeze the 600-case training-corpus specification, CP-005 exclusion policy, single-run LoRA contract, evaluation gates, and rollback plan.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The preparation artifacts define balanced 200/200/200 labels, evidence-driven language/difficulty targets, question-level train/dev splitting, two-reviewer adjudication, exact and semantic-family leakage gates, pinned baseline revision, one LoRA configuration, conjunctive CP-005/DA-017/latency/coverage acceptance, and optional-adapter rollback."
+    },
+    {
+      "step_id": "STEP-NLI-P2B-PREP-003",
+      "description": "Validate and checkpoint Phase 2B preparation without creating data examples or an adapter.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Strict JSON and cross-artifact validation PASS verified CP-005 SHA/do_not_train/case count, all ten protected question IDs, all five anchors, 600-example distribution sums, required fields, hook/config presence, authorization=false boundaries, zero training examples, absent adapter checkpoint, and empty staged diff."
+    },
+    {
+      "step_id": "STEP-NLI-P2B-DATA-000",
+      "description": "Accept Phase 2B Data Authoring authorization while preserving the prohibition on model loading, inference, training, adapter creation, production changes, and promotion.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The task used only approved reference-document questions/chunks/key points and data-quality tooling. No ML library was imported by the authoring script and the validation artifact records every prohibited model/training/production action as false."
+    },
+    {
+      "step_id": "STEP-NLI-P2B-DATA-001",
+      "description": "Author the deterministic 600-case Phase 2B candidate corpus and question-level train/dev split from independent non-protected source families.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Exactly 600 unique cases were created from 50 non-protected reference questions: 480 train from 40 complete question IDs and 120 dev from 10 complete question IDs. Required label, language, difficulty, technical-domain, provenance, and rationale fields are present and all declared distributions match the CP-007 contract exactly."
+    },
+    {
+      "step_id": "STEP-NLI-P2B-DATA-002",
+      "description": "Run structural, provenance, leakage, duplicate, split-integrity, distribution, determinism, and review-gate validation; freeze the CP-008 data artifacts.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Independent audit PASS verified 600 unique IDs and normalized pairs, zero CP-005 ID/premise/hypothesis/pair hits, zero token-Jaccard >=0.8 hits, zero train/dev question/semantic-family/pair-group overlap, exact 200/200/200 labels and all style/difficulty targets, stable hashes across two generations, and no staged files. Human semantic review is deliberately not claimed: 0/600 are accepted for training, 600 require two independent reviewers, and 190 are ambiguity-flagged."
+    },
+    {
+      "step_id": "STEP-NLI-P2C-REVIEW-000",
+      "description": "Record the user's explicit attestation that the frozen 600-case CP-008 corpus completed external two-pass human review and is approved for training without any content, label, split, or hash change.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "External review attestation 408B040F252F2E61252F867C744AB346BB112D8D73190E0B173BC091060CB64D records 600/600 reviewed, two passes, adjudication complete, approved_for_training=true, and unchanged CP-008 corpus/review-ledger/split hashes. Reviewer identities or per-case comments were not supplied and were not invented."
+    },
+    {
+      "step_id": "STEP-NLI-P2C-PREFLIGHT-001",
+      "description": "Validate the frozen reviewed corpus, split, CP-005 exclusion, pinned local model/tokenizer snapshot, environment capacity, and exactly-one-adapter controls before training.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Preflight PASS matched corpus/split/evaluation/attestation hashes, 600/480/120 counts, 200/200/200 labels, zero CP-005 question/premise/hypothesis/pair hits, zero train/dev question/family/group overlap, pinned snapshot and tokenizer fingerprint, max 126/256 tokens with zero truncation/UNK, and absent adapter output."
+    },
+    {
+      "step_id": "STEP-NLI-P2C-TRAIN-001",
+      "description": "Train exactly one LoRA adapter on the pinned base and frozen 480/120 Phase 2B split using the authorized single configuration.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "One CPU/fp32 deterministic run completed five epochs and 150 optimizer steps with r16/alpha32/query+value/dropout0.1/bias-none/SEQ_CLS, lr 2e-4, effective batch 16, seed 42, max_length 256. Train loss was 0.178817; best dev macro F1 was 1.0; 592,131/279,403,782 parameters were trainable; adapter_model SHA is E5972EF2A75D29FE2FBFACE9B9F0F6F1502006A3C7DD167049969D759BB8AC6A."
+    },
+    {
+      "step_id": "STEP-NLI-P2C-EVAL-001",
+      "description": "Evaluate the attached adapter once on frozen CP-005 and compare it with the frozen production baseline without promotion.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Fresh CPU/fp32 adapter evaluation completed 45/45 cases with attachment verified. Accuracy remained 37/45, macro F1 was 0.820639, false contradictions worsened 2->3, false entailments improved 1->0, DA-017 worsened 2/5->1/5, and baseline-correct cases 037 and 041 regressed. Latency and memory passed, but semantic acceptance failed."
+    },
+    {
+      "step_id": "STEP-NLI-P2C-CHECKPOINT-001",
+      "description": "Independently validate, hash, and checkpoint the completed single-adapter experiment as CP-009 without promotion.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Independent audit PASS recomputed 45 argmax predictions, probability sums, 37 correct labels, confusion [[11,1,3],[0,15,0],[0,4,11]], five epoch logs, LoRA config, artifact hashes, adapter attachment, and acceptance=false; staged diff is empty. Execution is valid but remediation acceptance is FAIL_DO_NOT_PROMOTE."
+    },
+    {
+      "step_id": "STEP-NLI-P2D-FORENSIC-001",
+      "description": "Compare the frozen 600-record corpus with CP-005 and compute every baseline-to-LoRA transition without loading a model or modifying any dependency.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Model-free analysis verified all frozen hashes and zero evaluation-question overlap; recomputed 2 fixed, 2 regressed, 6 unchanged failures, 35 unchanged correct, E/N/C prediction shift 15/18/12->11/20/14, and all five DA-017 probability transitions."
+    },
+    {
+      "step_id": "STEP-NLI-P2D-CORPUS-DIAGNOSIS-001",
+      "description": "Diagnose corpus difficulty, representativeness, template reuse, class-boundary shift, and root causes of the perfect-dev/failed-heldout gap.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Evidence shows shared 12-slot generation across splits, label markers in 170/200 E, 150/200 C, 180/200 N, 153/180 copy-containing paraphrase entailments, all 90 direct contradictions explicitly negated, 180/200 marked neutrals, and zero JOIN records. Root cause is template/distribution shortcut learning, not imbalance/leakage/optimizer failure."
+    },
+    {
+      "step_id": "STEP-NLI-P2D-CHECKPOINT-001",
+      "description": "Persist the analysis-only diagnosis as CP-010, independently validate it, and stop before remediation.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Independent validation PASS (SHA E9D17F553004847AA92E33B8994D1871B750A397CB83C39889423C440EF48880) recomputed frozen hashes, corpus shortcuts, all transitions/class shifts, report sections, and external-memory markers while preserving the no-model/no-training/no-data/no-production boundary. The adapter remains evaluation-only; no architecture is promoted."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-001",
+      "description": "Redesign the standalone Fusion Analysis result view as a concise interviewer-facing assessment using the unchanged result payload.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "AIReportSummary now receives result dynamically and renders a dominant overall assessment, strengths, improvements, and exactly three evaluation cards. FusionTest retains warnings, mismatch messaging, transcript, and limitations while removing raw model/debug score sections."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-VERIFY-001",
+      "description": "Build, run the unchanged DA-017 analysis path with the existing test video, and visually validate the redesigned report with the real response.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Vite production build PASS; unchanged /api/interviews/analyze returned HTTP 200 in 180.46s for the existing DA-017 video; browser route and real-payload render PASS; raw/debug labels and numeric score-wall strings are absent. No backend/API/model/scoring change occurred."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-REFINE-001",
+      "description": "Refine the CP-011 report identity, candidate-only strengths, evidence-dependent development areas, and technical/communication/visual interpretation branches.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "AIReportSummary now uses getTechnicalNarrative, getCommunicationNarrative, getVisualEvidenceNarrative, getRecommendations, and a dynamic overall interpretation. Needs Improvement, system-process strengths, unconditional camera/lighting advice, and debug language are absent; short visual samples produce neutral Limited Evidence wording."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-REFINE-VERIFY-001",
+      "description": "Validate the refined report with the preserved real DA-017 response and controlled strong, fast-delivery, and unstable-delivery result variations.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Final Vite build PASS; four in-memory SSR profiles produce four distinct narratives and recommendations; browser QA confirms DA-017 Developing with candidate strengths/development areas, fast input Moderate with pace-specific advice, strong input Strong Performance, and the FusionTest upload route remains intact with no browser errors."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-FINAL-SEMANTIC-001",
+      "description": "Finalize the report-first hierarchy and explicit semantic color outputs for overall, technical, communication, visual-evidence, and development assessment helpers.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "The hero contains only the large report title and immediate verdict; all five required helpers return level/color/summary/recommendation; Strong, Moderate, Developing, and Limited Evidence map to green, amber, blue, and slate without exposing raw model output."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-FINAL-VERIFY-001",
+      "description": "Validate the final report using live DA-004 inference, controlled semantic-color profiles, projector-style browser QA, final build, and repository-boundary checks.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Unchanged DA-004 endpoint returned HTTP 200/status success; actual result renders amber Moderate Performance; Strong/Moderate/Developing SSR profiles vary colors and recommendations; 1440x900 browser QA and final Vite build pass with no console errors or retained preview hook."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-TERMINOLOGY-001",
+      "description": "Rename the Technical Answer card and unify the existing recommendation-label presentation across all three detailed evaluation cards.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Content Answer, Communication, and Visual Evidence Analysis render with DEVELOPMENT FOCUS; old UI labels are absent; production build and actual-component SSR pass; no dynamic assessment function or non-frontend behavior changed."
+    },
+    {
+      "step_id": "STEP-FUSION-UI-STATUS-COLORS-001",
+      "description": "Apply dimension-aware status text colors to the three detailed evaluation cards without changing labels, narratives, thresholds, icons, or card styling.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Dynamic SSR proves Content Developing/Limited rose, Content and Communication Moderate amber, Content Strong green, and Visual Limited Evidence blue; existing icon colors remain unchanged; production build and scoped repository checks pass."
+    },
+    {
+      "step_id": "STEP-FUSION-EVALUATION-NOTES-COLLAPSE-001",
+      "description": "Replace the dominant dynamic warnings block with a quieter, collapsed-by-default Evaluation Notes disclosure while preserving warning content and source.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Browser validation proves closed/open/closed state transitions and dynamic warning visibility with zero console errors; final build passes; old label and validation fixture are absent; no non-frontend behavior changed."
+    },
+    {
+      "step_id": "STEP-FRONTEND-BRANDING-THEQA-001",
+      "description": "Replace all user-facing frontend InterviewIQ branding with THEQA and introduce the official AI Interview Assessment Platform subtitle at appropriate global and landing-page identity surfaces.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Frontend source and built-bundle audits find zero old-brand UI occurrences; browser QA confirms the navbar, landing, footer, loading copy, report route, and document title; final Vite build passes with no backend or internal-identifier changes."
+    },
+    {
+      "step_id": "STEP-LANDING-STATS-REMOVE-SCORE-DIMENSIONS-001",
+      "description": "Remove the complete 10+ Score Dimensions landing statistic and rebalance the unchanged remaining statistics in a centered three-column layout.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Source and browser DOM audits show only 3 AI Modules, 30+ Questions Bank, and 6 Interview Tracks; desktop cell centers are equally spaced; visual QA and the final Vite build pass with zero console errors and no non-frontend changes."
+    },
+    {
+      "step_id": "STEP-LANDING-CTA-BEHAVIOR-001",
+      "description": "Rename the guest navbar account-creation CTA to Sign Up and route the guest hero Direct Assessment CTA to the existing standalone Fusion assessment page.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "Desktop and mobile navbar CTA source contracts retain /register with the Sign Up label; live browser clicks open the Create Account form at /register and the Fusion Analysis workspace at /fusion-test; focused source checks and the Vite production build pass with zero console errors."
+    },
+    {
+      "step_id": "STEP-AUTH-INPUT-ICON-ALIGNMENT-001",
+      "description": "Correct icon-bearing input padding in the Sign In and Create Account forms while preserving icon presentation, theme, authentication behavior, APIs, and routes.",
+      "status": "VERIFIED",
+      "verified": true,
+      "verification": "All six auth inputs compute to 44px left padding and a 14px post-icon text gap instead of the measured 14px overlap; unchanged 16px icons remain vertically centered within 0.01px; placeholder and entered-value states, zero console errors, exact six-line source diff, and the Vite production build pass."
+    }
+  ],
+  "current_step": {
+    "step_id": "STEP-AUTH-INPUT-ICON-ALIGNMENT-COMPLETE-001",
+    "description": "The frontend-only authentication input icon alignment fix is complete and verified as CP-020; authentication logic, APIs, routes, backend behavior, and CP-010 NLI diagnosis remain unchanged.",
+    "status": "VERIFIED_COMPLETE"
+  },
+  "next_step": {
+    "step_id": "STEP-AWAIT-NEXT-EXPLICIT-TASK-001",
+    "description": "Await human review or the next explicit task. Do not repeat CP-020 authentication-form browser/build validation unless Login.jsx, Register.jsx, shared input styling, or a rendering dependency changes. If returning to KI-001, resume CP-010 and require explicit Phase 2E design authorization before any NLI remediation work."
+  },
+  "blocked_by": [],
+  "awaiting_input": [
+    "CP-020 authentication input icon alignment fix is complete. Await human review or the next explicit task. KI-001 remains at CP-010; Phase 2E design, new data, training, adapter modification/promotion, architecture experiments, and production changes still require explicit authorization."
+  ],
+  "modified_files": [
+    "CURRENT_TASK.md",
+    "EXECUTION_STATE.json",
+    "PROJECT_MEMORY.md",
+    "DECISIONS.md",
+    "KNOWN_ISSUES.md",
+    "EVIDENCE_LEDGER.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/nli/evaluation/baseline_metrics_contract_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/dataset_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/current_model_baseline_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/failure_analysis_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/baseline_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/baseline_summary_v1.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/requirements.txt",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/src/interview_iq/evaluation/checkpoint_control.py",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/src/interview_iq/cli/run_nli_checkpoint_control.py",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/test_nli_checkpoint_control.py",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/experiment_manifest_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/preflight_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/baseline_checkpoint_control_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/candidate_checkpoint_control_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/checkpoint_comparison_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/checkpoint_comparison_v1.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/checkpoint_control_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/nli/training/phase2b_lora_corpus_spec_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/nli/training/cp005_exclusion_policy_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_preparation_cp007/phase2b_preparation_manifest_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_preparation_cp007/phase2b_preparation_report_v1.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_preparation_cp007/preparation_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/nli/training/phase2b_lora_corpus_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/nli/training/phase2b_lora_review_ledger_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/nli/training/phase2b_lora_split_manifest_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_data/author_phase2b_corpus_v1.py",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_data/corpus_preflight_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_data/corpus_quality_report_v1.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/external_human_review_attestation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/immutable_training_manifest_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/run_phase2c_lora_v1.py",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/preflight_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/training_metrics_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/training_log_v1.jsonl",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/environment_metadata_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/cp005_adapter_evaluation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/artifact_hashes_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/completed_validation_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/checkpoints/nli-lora-phase2c-v1/adapter_config.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/checkpoints/nli-lora-phase2c-v1/adapter_model.safetensors",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/checkpoints/nli-lora-phase2c-v1/tokenizer_config.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/checkpoints/nli-lora-phase2c-v1/tokenizer.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/checkpoints/nli-lora-phase2c-v1/special_tokens_map.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/checkpoints/nli-lora-phase2c-v1/trainer_state.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/checkpoints/nli-lora-phase2c-v1/README.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2d_diagnosis_cp010/analyze_lora_failure_v1.py",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2d_diagnosis_cp010/lora_failure_diagnosis_v1.json",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2d_diagnosis_cp010/lora_failure_diagnosis_v1.md",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2d_diagnosis_cp010/validate_diagnosis_v1.py",
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2d_diagnosis_cp010/diagnosis_validation_v1.json",
+    "frontend/src/pages/FusionTest.jsx",
+    "frontend/src/components/AIReportSummary.jsx",
+    "frontend/index.html",
+    "frontend/src/components/Navbar.jsx",
+    "frontend/src/pages/Landing.jsx",
+    "frontend/src/routes/guards.jsx"
+  ],
+  "product_files_modified_by_task": [
+    "frontend/src/pages/Login.jsx",
+    "frontend/src/pages/Register.jsx"
+  ],
+  "tests_completed": [
+    {
+      "scope": "CP-001 focused retrieval/evidence tests",
+      "result": "9 passed",
+      "evidence_quality": "reported by the immediately preceding execution; no durable stdout log exists"
+    },
+    {
+      "scope": "CP-001 full NLP pytest suite",
+      "result": "9 passed",
+      "evidence_quality": "reported by the immediately preceding execution; no durable stdout log exists"
+    },
+    {
+      "scope": "CP-001 focused backend regressions",
+      "result": "16 passed",
+      "evidence_quality": "reported by the immediately preceding execution; no durable stdout log exists"
+    },
+    {
+      "scope": "CP-001 full backend pytest suite",
+      "result": "71 passed, 1 intentional real-model skip",
+      "evidence_quality": "reported by the immediately preceding execution; no durable stdout log exists"
+    },
+    {
+      "scope": "CP-001 Fusion pytest suite",
+      "result": "15 passed",
+      "evidence_quality": "reported by the immediately preceding execution; no durable stdout log exists"
+    },
+    {
+      "scope": "CP-001 same-video real Vision/ffmpeg/Audio/NLP Fusion run",
+      "result": "all components returned code 0; overall success; retrieval fixed but semantic outcome PARTIAL PASS",
+      "artifact": "test_videos/da017_after_fix/fusion_after.json"
+    },
+    {
+      "scope": "CP-002 external memory validation",
+      "result": "PASS: two JSON parsers, nine required files, discovery pointer, and Git preservation checks passed; nothing staged",
+      "evidence_quality": "current local command results recorded in EVIDENCE_LEDGER.md EV-008"
+    },
+    {
+      "scope": "CP-003 canonical string, Unicode, and preprocessing forensic trace",
+      "result": "PASS: DA017-C01/C02 and preserved claims are strict UTF-8 in correct logical order; no bidi controls, mojibake, semantic preprocessing change, or glossary substitution was found",
+      "evidence_quality": "direct source/artifact byte, codepoint, hash, and production-function replay recorded in EVIDENCE_LEDGER.md EV-009"
+    },
+    {
+      "scope": "CP-003 exact real-model production-shaped NLI replay",
+      "result": "PASS as a reproduction: INNER E/N/C 0.679402/0.024493/0.296105 and failing LEFT E/N/C 0.000967/0.000717/0.998316 reproduced from preserved strings",
+      "evidence_quality": "local cached real model, CPU/fp32, raw logits plus independent softmax recorded in EV-009"
+    },
+    {
+      "scope": "CP-003 tokenizer/runtime and controlled NLI diagnostic matrix",
+      "result": "PASS as a diagnosis: no truncation/UNK/token loss; exact/near-exact Arabic and monolingual English controls establish correct labels while real Arabic/code-switched LEFT paraphrases expose model behavior",
+      "evidence_quality": "23 bounded real-model controls plus exact token/count/special-token traces recorded in EV-009"
+    },
+    {
+      "scope": "CP-003 external-memory checkpoint validation",
+      "result": "PASS: PowerShell and Python parsed the state; strict UTF-8 and cross-file invariants passed; staged diff is empty; pre-existing dirty product tree is preserved",
+      "evidence_quality": "current local validation commands recorded in EVIDENCE_LEDGER.md EV-010"
+    },
+    {
+      "scope": "CP-004 FAST EXECUTION PROTOCOL governance validation",
+      "result": "PASS: all 14 required headings and integration language are present; JSON parses; CP-003 technical state and exact remediation gate remain unchanged; no production/test/model operation was performed",
+      "evidence_quality": "direct validation of AGENT_RULES.md and EXECUTION_STATE.json; workflow-only checkpoint"
+    },
+    {
+      "scope": "CP-005 pre-inference dataset and metrics-contract validation",
+      "result": "PASS: 45/45 scored cases are reviewed and source-resolved; 45 unique IDs and normalized pairs; 40 discovery plus 5 explicit anchors; balanced 15/15/15; ten questions and all required styles/difficulties; no production hard-code reference or current training leakage",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/dataset_validation_v1.json"
+    },
+    {
+      "scope": "CP-005 unchanged current-model real baseline",
+      "result": "PASS as measurement: 45 pairs, accuracy 0.822222, macro F1 0.818631, false-contradiction rate 0.133333, false-entailment rate 0.066667; current model fails the proposed remediation gate",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/current_model_baseline_v1.json"
+    },
+    {
+      "scope": "CP-005 deterministic baseline and tokenizer validation",
+      "result": "PASS: 45/45 argmax labels, accuracy, confusion matrix, and eight failure IDs independently recomputed; probabilities within 2e-6 sum tolerance; max pair length 78/256; zero UNK/truncation",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_baseline_cp005/baseline_validation_v1.json"
+    },
+    {
+      "scope": "CP-005 external-memory and repository-boundary validation",
+      "result": "PASS: state JSON parses, strict UTF-8 and cross-file CP-005 markers agree, artifact hashes and metrics agree, staged diff is empty, and the pre-existing dirty product tree is preserved",
+      "evidence_quality": "recorded in EVIDENCE_LEDGER.md EV-012"
+    },
+    {
+      "scope": "CP-006 immutable manifest, leakage controls, metric parity, fake inference, and comparison tests",
+      "result": "16 passed",
+      "evidence_quality": "Current local pytest run; includes the exact frozen CP-005 metric tree, duplicate/overlap gates, immutable identity controls, inference direction, and no-automatic-winner comparison behavior"
+    },
+    {
+      "scope": "CP-006 real pinned baseline and candidate checkpoint evaluations",
+      "result": "PASS as measurement: baseline exactly reproduced CP-005; candidate completed all 45 cases on CPU/fp32 with no adapter",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/checkpoint_comparison_v1.json"
+    },
+    {
+      "scope": "CP-006 complete current NLP pytest suite",
+      "result": "25 passed",
+      "evidence_quality": "Current local command over all four test files after final evaluator/reporting changes"
+    },
+    {
+      "scope": "CP-006 completed-artifact audit",
+      "result": "PASS: strict JSON, frozen hashes, 45/45 IDs/order/expected labels, argmax/probability sums, full metric/slice/anchor recomputation, comparison-section recomputation, baseline parity, runtime controls, and no automatic winner",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_checkpoint_control_cp006/checkpoint_control_validation_v1.json"
+    },
+    {
+      "scope": "CP-007 Phase 2B preparation artifact and authorization-boundary validation",
+      "result": "PASS: CP-005 frozen SHA/do_not_train/45 cases, ten protected question IDs, five DA-017 anchors, 600-example label/language/difficulty totals, required schema fields, existing adapter/config hooks, no corpus examples, no adapter checkpoint, and no staged files",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_preparation_cp007/preparation_validation_v1.json"
+    },
+    {
+      "scope": "CP-008 deterministic corpus authoring and integrated preflight",
+      "result": "PARTIAL PASS: 600/600 structurally valid candidates; exact target distributions and 480/120 question split; zero protected/exact/high-similarity leakage hits, duplicate IDs/pairs, or cross-split question/family/group overlap; hashes stable across two consecutive generations; human semantic review remains pending",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2b_data/corpus_preflight_validation_v1.json"
+    },
+    {
+      "scope": "CP-008 independent PowerShell corpus audit and authorization-boundary check",
+      "result": "PASS for data structure and exact leakage controls: 600 unique IDs, 600 unique normalized pairs, exact labels/styles/difficulties, 480 train and 120 dev across 50 question IDs, training_ready=false, 0/600 human approved, 600/600 pending, 190 ambiguity-flagged, 0/600 accepted for training, and no model/training/adapter/production action",
+      "evidence_quality": "Current local read-only audit independently parsed the final frozen JSON artifacts and recomputed counts, uniqueness, distributions, split totals, hashes, and review gate."
+    },
+    {
+      "scope": "CP-009 immutable pre-training corpus/model/environment preflight",
+      "result": "PASS: external review attestation, frozen corpus/split/CP-005/baseline hashes, exact counts/distributions, zero leakage and cross-split overlaps, local pinned snapshot hashes, tokenizer fingerprint, E/N/C mapping, token lengths, capacity, and exactly-one-output controls",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/preflight_validation_v1.json"
+    },
+    {
+      "scope": "CP-009 one real LoRA training run",
+      "result": "PASS as execution: five epochs, 150 optimizer steps, train loss 0.178817, best internal-dev macro F1 1.0, 592131 trainable parameters, CPU/fp32 deterministic runtime 862.211 s, sampled peak RSS 2.878 GB; one final adapter saved and not promoted",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/training_metrics_v1.json"
+    },
+    {
+      "scope": "CP-009 frozen CP-005 adapter evaluation",
+      "result": "FAIL remediation acceptance: 37/45 accuracy 0.822222, macro F1 0.820639, class F1 E/N/C 0.846154/0.857143/0.758621, false contradiction 3/15, false entailment 0/15, neutral 15/15, DA-017 1/5, and two regressions on baseline-correct cases; latency 82.386 ms/case and peak working set 2.221 GB pass",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/baseline_vs_lora_comparison_v1.json"
+    },
+    {
+      "scope": "CP-009 completed-artifact independent audit",
+      "result": "PASS as validation: all 45 argmax/probability rows, 37 correct count, confusion matrix, five epoch logs, 150 steps, LoRA config, adapter attachment, frozen hashes, acceptance=false, no second adapter, no promotion, and empty staged diff independently verified",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2c_training_cp009/completed_validation_v1.json"
+    },
+    {
+      "scope": "CP-010 deterministic artifact-only failure analysis",
+      "result": "PASS: all frozen hashes, 600 corpus records, label/style/difficulty distributions, surface markers, premise containment, zero JOIN coverage, all 45 transitions, probability/class shifts, error confidence, and five DA-017 outcomes computed without model loading or mutation",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2d_diagnosis_cp010/lora_failure_diagnosis_v1.json"
+    },
+    {
+      "scope": "CP-010 independent diagnosis and external-memory checkpoint audit",
+      "result": "PASS: eight frozen dependency hashes, strict JSON/UTF-8, no-action scope, 600 balanced records, marker counts 170/150/180, paraphrase containment 153/180, zero JOIN coverage, all 45 transitions/class counts, required report sections, and five CP-010 memory markers independently verified",
+      "artifact": "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/results/nli_phase2d_diagnosis_cp010/diagnosis_validation_v1.json"
+    },
+    {
+      "scope": "CP-011 frontend production build",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules and produced the production bundle; only the existing chunk-size advisory remains",
+      "evidence_quality": "Current local npm.cmd run build output after the final frontend changes"
+    },
+    {
+      "scope": "CP-011 unchanged same-video Fusion analysis",
+      "result": "PASS: existing DA-017 MP4 returned HTTP 200 in 180.46 seconds with status success, transcript, warnings, and all existing response sections",
+      "evidence_quality": "Current local POST to the unchanged /api/interviews/analyze contract; response retained only in the system temp validation directory"
+    },
+    {
+      "scope": "CP-011 browser and real-payload visual hierarchy",
+      "result": "PASS: /fusion-test loads; overall assessment dominates the initial viewport; official section headings are large; exactly three detail cards render; raw/debug labels and /100 strings are absent",
+      "evidence_quality": "Current in-app browser DOM snapshot and visual screenshot using the real DA-017 response"
+    },
+    {
+      "scope": "CP-011 checkpoint and repository-boundary audit",
+      "result": "PASS: PowerShell and Python parsed strict UTF-8 state, CP-011 markers agree, completed step IDs are unique, tests_remaining is empty, scoped git diff check passes, staged diff is empty, and the temporary render script is absent",
+      "evidence_quality": "Current local checkpoint validation; source SHA-256 values are recorded in EV-025"
+    },
+    {
+      "scope": "CP-012 refined frontend production build",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules and emitted the final bundle; only the existing large-chunk advisory remains",
+      "evidence_quality": "Current local npm.cmd run build after all refinement source changes"
+    },
+    {
+      "scope": "CP-012 dynamic narrative branch validation",
+      "result": "PASS: real DA-017, strong, fast-delivery, and unstable-delivery payloads render four distinct overall narratives and evidence-specific recommendations; forbidden fixed/system/debug phrases remain absent",
+      "evidence_quality": "Current in-memory SSR execution of the actual AIReportSummary component with the preserved DA-017 response and controlled result variations"
+    },
+    {
+      "scope": "CP-012 browser visual and FusionTest route validation",
+      "result": "PASS: real DA-017 first viewport shows title, Developing verdict, candidate strengths, and development areas; alternate Moderate and Strong profiles render correctly; /fusion-test upload/record/analyze controls load with no browser errors",
+      "evidence_quality": "Current in-app browser DOM snapshots, projector-style screenshot, scoped text checks, and console-error audit"
+    },
+    {
+      "scope": "CP-012 checkpoint and repository-boundary audit",
+      "result": "PASS: state parses, CP-012 markers agree, completed step IDs are unique, source hashes match EV-026, scoped diff check passes, staged diff is empty, and temporary script/server cleanup is complete",
+      "evidence_quality": "Current local PowerShell and Git validation"
+    },
+    {
+      "scope": "CP-013 dynamic semantic-color and recommendation validation",
+      "result": "PASS: Strong, Moderate, and Developing profiles render green, amber, and blue overall states; three development-output variants are distinct; duplicate hero text and raw/debug terminology are absent",
+      "evidence_quality": "Current in-memory SSR execution of the actual AIReportSummary component"
+    },
+    {
+      "scope": "CP-013 unchanged DA-004 live analysis and real-payload rendering",
+      "result": "PASS: preserved ten-second source SHA 091EE35B8FACC49062422970B926F1EC95FDF426EF1EC2ECC8D94A11E73B1A9A returned HTTP 200/status success in 199.86s with valid alignment and all result sections; report renders amber Moderate Performance",
+      "evidence_quality": "Current local POST to unchanged endpoint plus actual-payload SSR; response retained only in system temp"
+    },
+    {
+      "scope": "CP-013 projector browser and final route validation",
+      "result": "PASS: 1440x900 view renders a 48px report title, 30px amber verdict, then strengths and development; clean route has one selector/upload/analyze control and zero console errors",
+      "evidence_quality": "Current in-app browser DOM measurement, screenshot, route controls, and console audit"
+    },
+    {
+      "scope": "CP-013 final production build and repository boundary",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules; only existing chunk advisory remains; 25-check state/source audit and scoped diff check pass; staged diff is empty; source hashes match EV-029; duplicate upload and preview hook are absent",
+      "evidence_quality": "Current local build, strict JSON checkpoint audit, hashing, source audit, and Git checks"
+    },
+    {
+      "scope": "CP-014 presentation terminology SSR validation",
+      "result": "PASS: Content Answer, Communication, and Visual Evidence Analysis render; DEVELOPMENT FOCUS appears exactly three times; Technical Answer, Suggested focus, and Evidence note are absent",
+      "evidence_quality": "Current in-memory SSR execution of the actual AIReportSummary component plus focused source audit"
+    },
+    {
+      "scope": "CP-014 frontend production build and repository boundary",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules with only the existing chunk advisory; scoped diff check passes; staged diff is empty; product source hash matches EV-030",
+      "evidence_quality": "Current local build, hashing, and Git checks"
+    },
+    {
+      "scope": "CP-015 dynamic status text color validation",
+      "result": "PASS: Content Developing/Limited are rose, Content and Communication Moderate are amber, Content Strong is green, and Visual Limited Evidence is blue; icon classes remain their existing colors",
+      "evidence_quality": "Current in-memory SSR execution of the actual AIReportSummary component across six status/dimension branches"
+    },
+    {
+      "scope": "CP-015 frontend production build and repository boundary",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules with only the existing chunk advisory; scoped diff check passes; staged diff is empty; product source hash matches EV-031",
+      "evidence_quality": "Current local build, hashing, source audit, and Git checks"
+    },
+    {
+      "scope": "CP-016 Evaluation Notes browser interaction",
+      "result": "PASS: notes are hidden by default, visible after one disclosure click, hidden after the second click, and both dynamic warning strings remain intact; console errors are empty",
+      "evidence_quality": "Current in-app browser DOM snapshots, native details open-attribute checks, scoped visibility checks, and console audit"
+    },
+    {
+      "scope": "CP-016 frontend production build and repository boundary",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules with only the existing chunk advisory; old label and preview fixture are absent; clean route and scoped diff checks pass; staged diff is empty; product source hash matches EV-032",
+      "evidence_quality": "Current local build, browser clean-route check, hashing, source audit, and Git checks"
+    },
+    {
+      "scope": "CP-017 THEQA browser branding validation",
+      "result": "PASS: landing navigation, hero, CTA, and footer render THEQA; the exact subtitle appears in the global identity and landing page; /fusion-test inherits the new brand; document title is updated; console errors are empty",
+      "evidence_quality": "Current in-app browser DOM snapshots, screenshot, document-title read, and console audit"
+    },
+    {
+      "scope": "CP-017 frontend production build and old-brand audit",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules with only the existing chunk advisory; no old brand remains in UI source or built dist; internal package names remain intentionally unchanged; product hashes match EV-033",
+      "evidence_quality": "Current local build, source/bundle search, hashing, and scoped Git checks"
+    },
+    {
+      "scope": "CP-018 landing statistics browser validation",
+      "result": "PASS: exactly 3 AI Modules, 30+ Questions Bank, and 6 Interview Tracks render; Score Dimensions and 10+ are absent; three 240px cells have equal 264px center spacing at 1280x720; console errors are empty",
+      "evidence_quality": "Current in-app browser DOM snapshot, geometry measurement, screenshot review, and console audit"
+    },
+    {
+      "scope": "CP-018 frontend production build and scoped source audit",
+      "result": "PASS: Vite 5.4.21 transformed 2534 modules with only the existing chunk advisory; required statistics remain unchanged; removed statistic is absent; Landing.jsx hash matches EV-034",
+      "evidence_quality": "Current local build, focused source search, hashing, and scoped Git checks"
+    },
+    {
+      "scope": "CP-019 landing CTA browser navigation",
+      "result": "PASS: Sign Up renders with href /register and opens the Create Account form; Direct Assessment renders with href /fusion-test and opens the Fusion Analysis workspace; old CTA labels are absent and console errors are empty",
+      "evidence_quality": "Current in-app browser DOM snapshots, exact link clicks, resulting URL checks, and destination-content checks"
+    },
+    {
+      "scope": "CP-019 frontend production build and scoped source audit",
+      "result": "PASS: desktop and mobile navbar variants retain /register with Sign Up; the guest hero uses /fusion-test with Direct Assessment; authenticated dashboard and lower Create Free Account CTAs remain unchanged; Vite 5.4.21 transformed 2534 modules with only the existing chunk advisory",
+      "evidence_quality": "Current focused source assertions, production build, source hashes, and scoped Git checks"
+    },
+    {
+      "scope": "CP-020 authentication input geometry and entered-value validation",
+      "result": "PASS: all two Sign In and four Create Account icon-bearing inputs compute to 44px left padding, 14px clear post-icon spacing, unchanged 16x16 icons, and less than 0.01px vertical-center delta in placeholder and entered-value states; console errors are empty",
+      "evidence_quality": "Current in-app browser computed-style and bounding-box measurements plus entered-value state checks on both authentication routes"
+    },
+    {
+      "scope": "CP-020 frontend production build and scoped source audit",
+      "result": "PASS: the diff contains exactly six input class-token changes in Login.jsx and Register.jsx; icon size/alignment/color classes, form handlers, API calls, navigation, routes, and theme classes are unchanged; Vite 5.4.21 transformed 2534 modules with only the existing chunk advisory",
+      "evidence_quality": "Current focused source assertions, zero-context diff, production build, source hashes, and scoped Git checks"
+    }
+  ],
+  "tests_remaining": [],
+  "known_failures": [
+    {
+      "issue_id": "KI-001",
+      "summary": "Zero-shot NLI strongly contradicts the factually correct LEFT JOIN claim against the correct DA017-C02 evidence.",
+      "status": "LORA_FAILURE_DIAGNOSED_REMEDIATION_DESIGN_PENDING"
+    }
+  ],
+  "important_findings": [
+    "The candidate path has real Audio/ASR/content persistence but no real Vision or real Late Fusion.",
+    "The standalone /fusion-test path runs real Vision/Audio/NLP but is unauthenticated and not database-persisted.",
+    "A legacy authenticated endpoint still persists randomly generated module scores using a different fusion formula.",
+    "CP-001 corrected BGE evidence selection to DA017-C01/C02; downstream NLI/scoring remains an open boundary.",
+    "The full real-run artifact predates the latest retrieval hardening edits by approximately five minutes.",
+    "CP-003 proved canonical Arabic is stored correctly; apparent reversal is terminal bidi rendering only.",
+    "The exact runtime uses reference evidence as premise, candidate claim as hypothesis, id2label 0=entailment/1=neutral/2=contradiction, CPU/fp32, and max_length=256 with no target-pair truncation or unknown tokens.",
+    "The primary LEFT defect is class D model multilingual/domain behavior: correcting Lift to LEFT still yields contradiction 0.997247, and symmetric reference normalization still yields contradiction 0.996897.",
+    "No product, config, model, threshold, scoring, retrieval, or reference-data change was made during CP-003.",
+    "CP-004 activated the permanent generic FAST EXECUTION PROTOCOL in AGENT_RULES.md; it is a workflow-only checkpoint and does not alter CP-003 or KI-001.",
+    "The user explicitly authorized only Phase 1 of NLI remediation work: held-out dataset design, acceptance metrics, unchanged current-model baseline, and failure analysis; training/model/config/threshold/scoring/production changes remain unauthorized.",
+    "CP-005 froze interviewiq-nli-ar-codeswitch-heldout-v1 at SHA-256 5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18: 45 scored cases, 40 discovery plus 5 DA-017 anchors, balanced 15 entailment/15 neutral/15 contradiction across ten questions.",
+    "The unchanged current model revision 8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c achieved accuracy 0.822222 and macro F1 0.818631; false contradiction on true entailments is 2/15 and false entailment on true contradictions is 1/15.",
+    "DA-017 anchors pass 2/5. The CP-003 E-to-C signature did not occur in the 40 new discovery cases, but cross-language/direct and near-neighbor contradiction errors across four non-DA-017 concepts establish broader systemic multilingual/domain weakness.",
+    "The evidence-ranked next experiment is a separate-data one-adapter LoRA A/B through the existing optional hook, but it remains unselected for production and unauthorized until Phase 2B is explicitly approved.",
+    "CP-006 pinned and evaluated candidate revision b5113eb38ab63efdd7f280f8c144ea8b13f978ce against the unchanged CP-005 baseline with identical CPU/fp32/max_length 256/deterministic controls and exact tokenizer/snapshot provenance.",
+    "The candidate improved accuracy from 37/45 to 39/45 and macro F1 from 0.818631 to 0.866270, fixed three failures, and reduced false entailment from 1/15 to 0/15, but false contradiction stayed 2/15 and DA-017 stayed 2/5.",
+    "The candidate introduced NLI-EVAL-041 entailment-to-neutral, reduced Arabic-English code-switch accuracy to 75%, and failed the false-contradiction, DA-017, and supported-slice gates; it is not recommended as a production replacement.",
+    "No remediation winner was selected. Production remains unchanged, no adapter exists, and targeted separate-data LoRA remains the evidence-ranked Phase 2B experiment pending explicit authorization.",
+    "CP-007 freezes a preparation-only 600-example corpus specification, CP-005 exclusion policy, one-config LoRA plan, rollback, and conjunctive acceptance gates; it creates no training examples and authorizes no model loading or training.",
+    "The existing adapter hook is compatible, but the legacy training flow is blocked until a new reviewed corpus exists and the loader is hardened for all CP-005 exclusions, immutable base provenance, the Phase 2B schema, max_length 256, and focused tests.",
+    "At CP-007, the exact next step was Phase 2B Data Authoring only; CP-008 has now completed that step and supersedes this historical workflow position.",
+    "CP-008 created 600 deterministic candidate records from 50 independent non-protected reference questions, split 480/120 by complete question ID, with exact CP-007 label/language/difficulty targets and 600 technical-domain cases.",
+    "CP-008 exact/provenance/split gates pass: no CP-005 question, premise, hypothesis, or pair overlap; no token-Jaccard >=0.8 evaluation similarity; no duplicate IDs or pairs; and no train/dev question, semantic-family, or pair-group overlap.",
+    "At CP-008 the repository ledger remained a fail-closed AI-first-pass artifact; the user subsequently attested that all 600 unchanged records completed external two-pass human review and adjudication and explicitly approved the frozen corpus for one Phase 2C training run.",
+    "The external review did not edit corpus, labels, split, or project review files. CP-008 corpus SHA 3FB523040C9B2482A0FCF0AAC8FDCC13D54E32AC2D9CB75DF5CE970E2E341F33 and split SHA 157BE9BD9261411A89BA60F46D86DEF56664051AA0B3A2C7F29E18257B85D3F4 remain frozen; reviewer identities/per-case comments were not supplied and are not claimed.",
+    "CP-009 trained exactly one adapter: five epochs/150 steps, train loss 0.178817, best internal-dev macro F1 1.0, 592131 trainable parameters, adapter weights SHA E5972EF2A75D29FE2FBFACE9B9F0F6F1502006A3C7DD167049969D759BB8AC6A; production remained unchanged.",
+    "CP-009 held-out performance did not improve: accuracy stayed 37/45, macro F1 moved 0.818631->0.820639, false contradictions worsened 2->3, false entailments improved 1->0, neutral improved 14/15->15/15, and DA-017 worsened 2/5->1/5.",
+    "The adapter fixed NLI-EVAL-007 and NLI-EVAL-035 but newly regressed baseline-correct NLI-EVAL-037 and NLI-EVAL-041; NLI-EVAL-043 changed from false entailment to false neutral. Perfect internal dev versus failed frozen held-out evidence indicates a generalization/data-authoring-template gap, not an optimization failure.",
+    "CP-009 acceptance is FAIL_DO_NOT_PROMOTE. CPU latency 82.386 ms/case and evaluation peak working set 2.221 GB pass deployment constraints, but semantic gates fail. No second adapter, tuning, promotion, or production change is authorized or recommended.",
+    "CP-010 proves the internal-dev split is question-independent but not authoring-template-independent: the same deterministic 12-slot generator operates in both splits and current semantic_family_ids do not encode template/transformation families.",
+    "Label-correlated surface markers cover 170/200 entailments, 150/200 contradictions, and 180/200 neutrals; 153/180 nominal paraphrase entailments retain the full premise, all 90 direct contradictions are explicitly negated, and 180/200 neutrals announce independence.",
+    "The frozen corpus contains zero JOIN-term records. Numeric language quotas therefore did not provide the natural relational/dialectal paraphrase coverage needed by DA-017.",
+    "The adapter shifts predicted E/N/C 15/18/12->11/20/14, fixes cases 007/035, regresses 037/041, leaves six failures, reduces entailment recall 13/15->11/15, and worsens false contradictions 2->3. Its contradiction boundary is broader, not reliably better.",
+    "CP-010 root cause is template/distribution shortcut learning plus missing natural relational reasoning, not label imbalance, exact CP-005 leakage, or optimizer failure. The current adapter remains rejected; LoRA is paused conditionally and must not be repeated on the current corpus.",
+    "CP-011 redesigned only the standalone Fusion Analysis frontend report. The unchanged result object is translated into a dominant overall assessment, strengths, actionable improvements, and three detailed evaluation cards; raw model classifications, modality output cards, and numeric score walls are no longer shown in the demo result view.",
+    "CP-011 live validation reused the existing DA-017 video and unchanged API contract successfully. No backend source, model, NLP pipeline, database schema, scoring, threshold, retrieval, or Fusion behavior changed, and CP-010/KI-001 remain independently preserved.",
+    "CP-012 replaces the remaining generic report narratives with metric-specific interpretation functions. Candidate Strengths contains candidate evidence only; Development Areas is driven by actual technical and vocal gaps; visual limitations distinguish short samples, face visibility, frame coverage, and sufficient behavioral evidence without default camera/lighting blame.",
+    "CP-012 real DA-017 presentation is Developing overall, with balanced pace and effective pause use as strengths, technical structure/depth and smoother transitions as development priorities, and Limited Evidence for the three-window visual sample. Controlled strong, fast, and unstable inputs produce different verdicts and recommendations.",
+    "CP-013 removes duplicate/generic hero copy and makes semantic color an explicit dynamic assessment output: green Strong, amber Moderate, blue Developing, and slate Limited Evidence.",
+    "CP-013 live DA-004 validation returns success through the unchanged contract and renders Moderate Performance with candidate-specific strengths/development; projector QA confirms title/verdict hierarchy and the upload route remains intact.",
+    "CP-014 is terminology-only: Technical Answer becomes Content Answer, and all three detailed cards use DEVELOPMENT FOCUS without changing dynamic narratives, recommendations, thresholds, scoring, or contracts.",
+    "CP-015 changes only detailed-card status text colors using evaluation dimension plus dynamic level: Content insufficiency is rose/critical, Communication Moderate is amber, and Visual Limited Evidence is blue; labels, narratives, thresholds, icons, and card styling remain unchanged.",
+    "CP-016 presents dynamic result warnings as a neutral Evaluation Notes disclosure collapsed by default; native expand/collapse keeps every warning available without competing visually with the main assessment.",
+    "CP-017 changes only user-facing frontend branding to THEQA with the official AI Interview Assessment Platform subtitle; internal package identifiers remain unchanged and CP-010/KI-001 is unaffected.",
+    "CP-018 removes 10+ Score Dimensions without replacement and keeps the other three landing statistics unchanged in an evenly spaced centered three-column layout.",
+    "CP-019 changes only landing CTA presentation/navigation: guest navbar Sign Up continues to /register on desktop and mobile, while guest hero Direct Assessment goes to the existing /fusion-test route; authentication and all assessment/report behavior remain unchanged.",
+    "CP-020 fixes the shared-CSS padding override locally in the two authentication form components by making 44px left padding authoritative on all six icon-bearing inputs; unchanged icons remain vertically centered and authentication logic/API/routes are unaffected."
+  ],
+  "repository": {
+    "branch": "main",
+    "head": "e0da106534bac20fed7f0ce39185b0194f8557f4",
+    "upstream": "origin/main",
+    "ahead": 5,
+    "behind": 0,
+    "staged_entries_before_memory_bootstrap": 0,
+    "unstaged_modified_entries_before_memory_bootstrap": 12,
+    "untracked_entries_before_memory_bootstrap": 14,
+    "working_tree_expected": "DIRTY; preserve all pre-existing modified/untracked work and generated evidence"
+  },
+  "protected_preexisting_paths": [
+    "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/**",
+    "InterviewIQ_AI/nlp.zip",
+    "backend/interviewiq_test.db",
+    "backend/storage/**",
+    "frontend/src/pages/FusionTest.jsx",
+    "PROJECT_STATUS_AUDIT_2026-08-04.md",
+    "test_videos/**"
+  ],
+  "resume_instruction": "Resume after verified checkpoint CP-020 — authentication input icon alignment fixed. Read AGENT_RULES.md, EXECUTION_STATE.json, and CURRENT_TASK.md first. Do not repeat CP-020 browser or build validation unless frontend/src/pages/Login.jsx, frontend/src/pages/Register.jsx, shared input styling, or a rendering dependency changes. If the next task returns to KI-001, retrieve CP-010 plus EV-022/EV-023 and preserve the rejected evaluation-only CP-009 adapter; Phase 2E design still requires explicit authorization.",
+  "last_updated": "2026-08-25T09:41:49+03:00"
+}

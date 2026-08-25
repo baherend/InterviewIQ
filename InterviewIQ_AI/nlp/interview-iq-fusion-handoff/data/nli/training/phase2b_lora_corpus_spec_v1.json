@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "spec_id": "interviewiq-nli-phase2b-lora-corpus-spec-v1",
+  "status": "PREPARATION_ONLY_NO_EXAMPLES_CREATED",
+  "purpose": "Training-only corpus specification for a leakage-controlled KI-001 LoRA experiment.",
+  "examples_created": 0,
+  "target": {
+    "total_examples": 600,
+    "train_examples_target": 480,
+    "dev_examples_target": 120,
+    "split_level": "source.question_id",
+    "minimum_distinct_source_question_ids": 40,
+    "minimum_distinct_dev_question_ids": 8,
+    "maximum_share_from_one_question": 0.04,
+    "split_rule": "Assign complete question IDs to exactly one split; never split examples or paired groups across train/dev. Exact train/dev counts may vary only to preserve question-level integrity."
+  },
+  "label_distribution": {
+    "entailment": {
+      "count": 200,
+      "share": 0.333333
+    },
+    "contradiction": {
+      "count": 200,
+      "share": 0.333333
+    },
+    "neutral": {
+      "count": 200,
+      "share": 0.333333
+    }
+  },
+  "language_distribution": {
+    "primary_styles_are_mutually_exclusive": true,
+    "primary_styles": {
+      "arabic_msa": 150,
+      "egyptian_arabic": 150,
+      "arabic_english_code_switch": 180,
+      "arabic_transliteration_variant": 60,
+      "english_diagnostic": 60
+    },
+    "cross_cutting_requirements": {
+      "technical_terminology_minimum": 360,
+      "code_switched_technical_terminology_minimum": 120,
+      "egyptian_technical_terminology_minimum": 90,
+      "technical_domains": [
+        "data_analysis",
+        "data_science",
+        "software_engineering",
+        "cybersecurity"
+      ]
+    }
+  },
+  "difficulty_distribution": {
+    "paraphrase_entailment": 180,
+    "domain_entailment_preservation": 20,
+    "near_neighbor_contradiction": 110,
+    "direct_contradiction": 90,
+    "neutral_technical": 120,
+    "semantically_adjacent_neutral": 80
+  },
+  "required_fields": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^NLI-TRAIN-P2B-[0-9]{4}$",
+      "unique": true
+    },
+    "premise": {
+      "type": "string",
+      "minimum_non_whitespace_characters": 1
+    },
+    "hypothesis": {
+      "type": "string",
+      "minimum_non_whitespace_characters": 1
+    },
+    "label": {
+      "type": "string",
+      "allowed": [
+        "entailment",
+        "neutral",
+        "contradiction"
+      ]
+    },
+    "language_style": {
+      "type": "string",
+      "allowed": [
+        "arabic_msa",
+        "egyptian_arabic",
+        "arabic_english_code_switch",
+        "arabic_transliteration_variant",
+        "english_diagnostic"
+      ]
+    },
+    "difficulty_type": {
+      "type": "string",
+      "allowed": [
+        "paraphrase_entailment",
+        "domain_entailment_preservation",
+        "near_neighbor_contradiction",
+        "direct_contradiction",
+        "neutral_technical",
+        "semantically_adjacent_neutral"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required_subfields": [
+        "question_id",
+        "reference_id",
+        "reference_corpus_path",
+        "reference_corpus_sha256",
+        "authoring_method",
+        "review_status"
+      ]
+    },
+    "rationale": {
+      "type": "string",
+      "requirement": "Concise semantic justification that distinguishes the gold label from plausible alternatives."
+    }
+  },
+  "additional_required_controls": {
+    "split": {
+      "allowed": [
+        "train",
+        "dev"
+      ]
+    },
+    "pair_group_id": "Required for paired entailment/neutral or contrastive families; every group must remain within one question and one split.",
+    "technical_domain": "Required and restricted to the declared technical_domains vocabulary.",
+    "label_review": {
+      "minimum_independent_reviewers": 2,
+      "required_status": "approved_unambiguous",
+      "adjudication_required_on_disagreement": true,
+      "ai_only_label_is_accepted": false
+    }
+  },
+  "construction_rules": [
+    "Premises must resolve to a pinned canonical InterviewIQ reference chunk from a non-protected question ID.",
+    "Entailments must preserve all material semantic constraints and may vary dialect, word order, or code-switching without becoming partial or broader claims.",
+    "Near-neighbor contradictions must change a material technical relation, operator, condition, direction, or scope without relying only on superficial negation.",
+    "Neutral examples must be topically plausible but neither entailed nor contradicted by the premise.",
+    "Do not copy, translate, paraphrase, mutate, or derive examples from CP-005 cases or DA-017 anchors.",
+    "Avoid lexical-label shortcuts by balancing terminology and high-overlap wording across all three labels.",
+    "Every example must pass the CP-005 exclusion policy before it can enter train or dev."
+  ],
+  "frozen_dependencies": {
+    "base_model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+    "base_model_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "tokenizer_revision": "8adb042d524ecd5c26d3e3ba0e3fbcf7e2d0864c",
+    "evaluation_dataset_path": "data/nli/evaluation/heldout_ar_codeswitch_v1.json",
+    "evaluation_dataset_sha256": "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18",
+    "exclusion_policy_path": "data/nli/training/cp005_exclusion_policy_v1.json"
+  },
+  "authorization_boundary": {
+    "corpus_authoring_authorized": false,
+    "training_authorized": false,
+    "adapter_checkpoint_authorized": false,
+    "production_change_authorized": false
+  }
+}

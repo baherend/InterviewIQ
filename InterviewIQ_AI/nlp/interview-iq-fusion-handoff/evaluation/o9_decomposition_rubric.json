@@ -1,0 +1,43 @@
+{
+  "rubric_name": "O9 Decomposition Baseline Rubric",
+  "purpose": "Evaluate production decomposition without changing architecture or prompt.",
+  "production_prompt_sha256": "437c532acf756f0ccae2fc60a3d6d41a1791607b9c638a151bb5545238781c7e",
+  "primary_metrics": {
+    "execution_success": "Did decompose_via_llm complete successfully?",
+    "manual_claim_coverage": "Are the substantive propositions represented by O9 manual claims preserved in model output?",
+    "meaning_preservation": "Does model output preserve the substance of the candidate answer?",
+    "candidate_error_preservation": "Are candidate technical mistakes preserved rather than corrected?",
+    "unsupported_additions": "Did the model introduce factual content not stated by the candidate?",
+    "retraction_handling": "Are false starts, abandoned propositions, corrections, and retractions handled without turning rejected content into final assertions?"
+  },
+  "prompt_compliance_metrics": {
+    "technical_term_normalization": "English technical terms should use appropriate Latin-script spelling.",
+    "self_containment": "Each claim should be understandable independently.",
+    "simplified_msa": "Claim prose should be simplified MSA Arabic except technical terms."
+  },
+  "diagnostic_metrics": {
+    "manual_claim_count": "Number of O9 manual claims.",
+    "model_claim_count": "Number of production model claims.",
+    "claim_count_delta": "model_claim_count - manual_claim_count; diagnostic only.",
+    "over_splitting": "Model splits a proposition more finely than the O9 annotation.",
+    "under_splitting": "Model merges propositions that should remain separate.",
+    "meta_content_extraction": "Model outputs candidate-experience or conversational/meta statements not useful for technical scoring."
+  },
+  "performance_metrics": {
+    "latency_ms": "Wall-clock decomposition latency per case.",
+    "error_type": "Runtime/API/parser error when execution fails."
+  },
+  "scoring_policy": {
+    "exact_claim_count_is_primary_metric": false,
+    "manual_claims_are_semantic_reference": true,
+    "automatic_semantic_judge_is_primary_metric": false,
+    "human_review_required_for_semantic_alignment": true
+  },
+  "known_baseline_limitations": [
+    "O9 self-reports stratified sampling with seed 20260711, but its referenced selection manifest and annotation guide are unavailable.",
+    "decisions.md entries D74-D87 are referenced by code/documentation but are unavailable.",
+    "scripts/llm_decomposition_sanity_gate.py is referenced by client.py but is unavailable.",
+    "Production prompt contains tension between removing false starts and preserving confused/incomplete candidate content.",
+    "README documentation references an older Groq model while runtime .env currently selects openai/gpt-oss-120b."
+  ]
+}

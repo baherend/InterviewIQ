@@ -1,0 +1,314 @@
+{
+  "evaluation_name": "O9 Decomposition Stability Test",
+  "model": "openai/gpt-oss-120b",
+  "runs_per_case": 3,
+  "targets": [
+    "DA-002",
+    "DS-030",
+    "GN-042",
+    "CS-048"
+  ],
+  "created_at_utc": "2026-08-30T09:29:04.377178+00:00",
+  "results": [
+    {
+      "question_id": "DA-002",
+      "manual_claim_count": 6,
+      "runs": [
+        {
+          "run": 1,
+          "status": "SUCCESS",
+          "claim_count": 6,
+          "claims": [
+            "Data Collection هو تجميع البيانات من مصادرها.",
+            "Data Cleaning هو إزالة القيم الناقصة والـ duplicates والأخطاء.",
+            "Data Exploration أو EDA هو استكشاف البيانات باستخدام الرسم البياني والإحصاء الوصفي.",
+            "Data Transformation أو Feature Engineering هو تجهيز البيانات.",
+            "Analysis أو Modeling هو تحليل البيانات.",
+            "Interpretation والـ Visualization هو عرض النتائج لصانع القرار."
+          ],
+          "latency_ms": 1659.8
+        },
+        {
+          "run": 2,
+          "status": "SUCCESS",
+          "claim_count": 6,
+          "claims": [
+            "Data Collection هو تجميع البيانات من مصادرها.",
+            "Data Cleaning هو إزالة القيم الناقصة والـ duplicates والأخطاء.",
+            "Data Exploration أو EDA هو استكشاف البيانات باستخدام الرسم البياني والإحصاء الوصفي.",
+            "Data Transformation أو Feature Engineering هو تجهيز البيانات.",
+            "Analysis أو Modeling هو تحليل البيانات.",
+            "Interpretation والـ Visualization هو عرض النتائج لصانع القرار."
+          ],
+          "latency_ms": 1554.9
+        },
+        {
+          "run": 3,
+          "status": "SUCCESS",
+          "claim_count": 6,
+          "claims": [
+            "Data Collection هو تجميع البيانات من مصادرها.",
+            "Data Cleaning هو إزالة القيم الناقصة والـ duplicates والأخطاء.",
+            "Data Exploration أو EDA هو استكشاف البيانات باستخدام الرسم البياني والإحصاء الوصفي.",
+            "Data Transformation أو Feature Engineering هو تجهيز البيانات.",
+            "Analysis أو Modeling هو تحليل البيانات أو بناء نموذج.",
+            "Interpretation والـ Visualization هو عرض النتائج لصانع القرار."
+          ],
+          "latency_ms": 1468.7
+        }
+      ],
+      "summary": {
+        "claim_counts": [
+          6,
+          6,
+          6
+        ],
+        "claim_count_stable": true,
+        "exact_output_identical": false
+      }
+    },
+    {
+      "question_id": "DS-030",
+      "manual_claim_count": 8,
+      "runs": [
+        {
+          "run": 1,
+          "status": "SUCCESS",
+          "claim_count": 16,
+          "claims": [
+            "استخدمت XGBoost في مشروع.",
+            "أظهر XGBoost نتيجة أفضل من أي شيء آخر جربته.",
+            "لا تسألني كيف يعمل XGBoost داخلًا.",
+            "ما فهمته هو أن XGBoost يبني عدة أشجار.",
+            "الأشجار التي يبنيها XGBoost تشبه الـ Random Forest.",
+            "الأشجار التي يبنيها XGBoost كثيرة ومستقلة عن بعضها.",
+            "يجمع XGBoost نتائج الأشجار في النهاية.",
+            "قد يستخدم XGBoost المتوسط أو طريقة أخرى لتجميع النتائج.",
+            "ظننت أن كل شجرة في XGBoost تصحح خطأ الشجرة السابقة.",
+            "قلت إن هذا الاعتقاد غير صحيح وأنه شيء آخر.",
+            "وصفت أن الأشجار في XGBoost مستقلة وتُجمع ناتجها في النهاية.",
+            "XGBoost سريع.",
+            "XGBoost يدعم الـ GPU.",
+            "XGBoost يتعامل مع الـ missing values بنفسه دون الحاجة إلى تنظيف البيانات.",
+            "XGBoost يحتوي على regularization يمنع الـ overfitting.",
+            "جميع الأشخاص في Kaggle يستخدمون XGBoost."
+          ],
+          "latency_ms": 3859.6
+        },
+        {
+          "run": 2,
+          "status": "SUCCESS",
+          "claim_count": 16,
+          "claims": [
+            "المتحدث استخدم XGBoost في مشروع.",
+            "XGBoost أظهر نتيجة أفضل من أي شيء آخر جربه المتحدث.",
+            "المتحدث يطلب عدم سؤاله عن كيفية عمل XGBoost داخلًا.",
+            "المتحدث يفهم أن XGBoost يبني عدة أشجار.",
+            "المتحدث يعتقد أن الأشجار التي يبنيها XGBoost تشبه الـ Random Forest بالضبط.",
+            "المتحدث يعتقد أن الأشجار التي يبنيها XGBoost كثيرة ومستقلة عن بعضها.",
+            "المتحدث يعتقد أن XGBoost يجمع ناتج الأشجار في النهاية.",
+            "المتحدث يعتقد أن XGBoost قد يأخذ المتوسط أو لا.",
+            "المتحدث ظن أن كل شجرة في XGBoost تصحح خطأ الشجرة السابقة.",
+            "المتحدث يرفض فكرة أن كل شجرة تصحح خطأ الشجرة السابقة ويظن أن ذلك شيء آخر.",
+            "المتحدث يصف أن الأشجار في XGBoost مستقلة وتُجمع نتائجها في النهاية.",
+            "المتحدث يصف أن XGBoost سريع.",
+            "المتحدث يذكر أن XGBoost يدعم الـ GPU.",
+            "المتحدث يذكر أن XGBoost يتعامل مع الـ missing values بنفسه دون الحاجة إلى تنظيف.",
+            "المتحدث يذكر أن XGBoost يحتوي على regularization يمنع الـ overfitting.",
+            "المتحدث يذكر أن كل الناس في Kaggle يستخدمون XGBoost."
+          ],
+          "latency_ms": 4397.9
+        },
+        {
+          "run": 3,
+          "status": "SUCCESS",
+          "claim_count": 16,
+          "claims": [
+            "المتحدث استخدم XGBoost في مشروع.",
+            "XGBoost أظهر نتيجة أفضل من أي شيء آخر جربه المتحدث.",
+            "المتحدث يطلب عدم سؤاله عن كيفية عمل XGBoost داخلًا.",
+            "المتحدث يعتقد أن XGBoost يبني عدة أشجار.",
+            "المتحدث يعتقد أن XGBoost يشبه الـ Random Forest بالضبط.",
+            "المتحدث يعتقد أن الأشجار التي يبنيها XGBoost كثيرة ومستقلة عن بعضها.",
+            "المتحدث يعتقد أن XGBoost قد يأخذ المتوسط في النهاية.",
+            "المتحدث يظن أن كل شجرة في XGBoost تصحح خطأ الشجرة السابقة.",
+            "المتحدث يرفض فكرة أن كل شجرة تصحح خطأ الشجرة السابقة.",
+            "المتحدث يعتقد أن هناك شيء آخر غير تصحيح الأخطاء.",
+            "المتحدث يصف أن الأشجار في XGBoost مستقلة وتُجمع نتائجها في النهاية.",
+            "المتحدث يصف أن XGBoost سريع.",
+            "المتحدث يذكر أن XGBoost يدعم الـ GPU.",
+            "المتحدث يذكر أن XGBoost يتعامل مع الـ missing values بنفسه دون الحاجة إلى تنظيف.",
+            "المتحدث يذكر أن XGBoost يحتوي على regularization يمنع الـ overfitting.",
+            "المتحدث يذكر أن كل الناس في Kaggle يستخدمون XGBoost."
+          ],
+          "latency_ms": 23367.1
+        }
+      ],
+      "summary": {
+        "claim_counts": [
+          16,
+          16,
+          16
+        ],
+        "claim_count_stable": true,
+        "exact_output_identical": false
+      }
+    },
+    {
+      "question_id": "GN-042",
+      "manual_claim_count": 8,
+      "runs": [
+        {
+          "run": 1,
+          "status": "SUCCESS",
+          "claim_count": 12,
+          "claims": [
+            "الـ Syntax Error هو كتابة خطأ مثل نسيان قوس أو نسيان فاصلة منقوطة أو كتابة كلمة خاطئة.",
+            "الكود الذي يحتوي على Syntax Error لن يعمل أصلاً.",
+            "الـ compiler سيرفض الكود الذي يحتوي على Syntax Error ويخبرك أن السطر يحتوي على خطأ.",
+            "في اللغات المفسَّرة مثل Python لا توجد syntax errors أصلاً لأن لا يوجد compiler.",
+            "Python ترفض الكود إذا كان الـ syntax خاطئًا.",
+            "Python ترفض الكود وقت التشغيل.",
+            "الـ Logical Error هو أسوأ بكثير من Syntax Error.",
+            "الكود الذي يحتوي على Logical Error يعمل بشكل صحيح ولا يظهر أي رسالة خطأ.",
+            "النتيجة التي ينتجها الكود الذي يحتوي على Logical Error تكون خاطئة.",
+            "مثال على Logical Error هو كتابة `if x > 5` بينما كان المقصود `if x >= 5`.",
+            "لا شيء سيخبرك بوجود Logical Error.",
+            "يجب اكتشاف الـ Logical Error بنفسك إما عبر الـ testing أو عندما يشتكي أحد."
+          ],
+          "latency_ms": 31862.8
+        },
+        {
+          "run": 2,
+          "status": "SUCCESS",
+          "claim_count": 10,
+          "claims": [
+            "الـ Syntax Error يعني وجود خطأ في كتابة الكود مثل نسيان قوس أو فاصلة منقوطة أو كتابة كلمة خاطئة.",
+            "الكود الذي يحتوي على Syntax Error لن يعمل أصلاً.",
+            "الـ compiler سيرفض الكود الذي يحتوي على Syntax Error ويخبرك بما في السطر.",
+            "في اللغات المفسرة مثل Python لا توجد syntax errors أصلاً لأنه لا يوجد compiler.",
+            "Python ترفض الكود إذا كان الـ syntax خطأ، لكنها ترفضه وقت التشغيل.",
+            "الـ Logical Error أسوأ بكثير من Syntax Error.",
+            "الـ Logical Error يحدث عندما يكون الكود يعمل دون أي رسالة خطأ لكن النتيجة خاطئة.",
+            "مثال على Logical Error هو كتابة `if x > 5` بينما القصد هو `if x >= 5`.",
+            "لا شيء سيخبرك بوجود Logical Error.",
+            "يجب اكتشاف Logical Error بنفسك إما عبر الـ testing أو عندما يشتكي أحد."
+          ],
+          "latency_ms": 11015.8
+        },
+        {
+          "run": 3,
+          "status": "SUCCESS",
+          "claim_count": 13,
+          "claims": [
+            "الـ Syntax Error هو أنك كتبت خطأ مثل نسيان قوس أو فاصلة منقوطة أو كتابة كلمة خاطئة.",
+            "الكود الذي يحتوي على Syntax Error لن يعمل أصلاً.",
+            "الـ compiler سيرفض الكود الذي يحتوي على Syntax Error ويخبرك بما في السطر.",
+            "في اللغات المفسرة مثل Python لا توجد syntax errors أصلاً لأنه لا يوجد compiler.",
+            "Python ترفض الكود إذا كان الـ syntax خطأ.",
+            "Python ترفض الكود وقت التشغيل.",
+            "الـ Logical Error أسوأ بكثير.",
+            "الكود الذي يحتوي على Logical Error يعمل بشكل صحيح ولا يظهر أي رسالة خطأ.",
+            "النتيجة التي ينتجها الكود الذي يحتوي على Logical Error تكون خاطئة.",
+            "مثال على Logical Error هو كتابة `if x > 5` بينما كان المقصود `if x >= 5`.",
+            "لا شيء سيخبرك بوجود Logical Error.",
+            "يمكن اكتشاف الـ Logical Error عبر الـ testing.",
+            "يمكن اكتشاف الـ Logical Error عندما يشتكي أحد."
+          ],
+          "latency_ms": 10925.5
+        }
+      ],
+      "summary": {
+        "claim_counts": [
+          12,
+          10,
+          13
+        ],
+        "claim_count_stable": false,
+        "exact_output_identical": false
+      }
+    },
+    {
+      "question_id": "CS-048",
+      "manual_claim_count": 7,
+      "runs": [
+        {
+          "run": 1,
+          "status": "SUCCESS",
+          "claim_count": 15,
+          "claims": [
+            "الـ Firewall العادي يعمل على مستوى الشبكة.",
+            "الـ Firewall العادي يحدد ما إذا كان الـ IP مسموحًا.",
+            "الـ Firewall العادي يحدد ما إذا كان الـ port مقفول.",
+            "الـ Firewall العادي لا يفهم محتوى الـ packet.",
+            "إذا أرسل أحد هجوم SQL Injection عبر الـ port 80، فإن الـ Firewall يمرره.",
+            "الـ port 80 مفتوح ومفترض أن يكون مفتوحًا.",
+            "الـ WAF هو Firewall مخصص للويب.",
+            "الـ WAF يقرأ الـ requests الواردة إلى الموقع.",
+            "الـ WAF يتحقق مما إذا كانت الـ requests تحتوي على شيء مريب.",
+            "الـ WAF يلتقط هجمات الـ SQL Injection.",
+            "الـ WAF يلتقط هجمات الـ XSS.",
+            "الـ WAF يعمل على الـ layer 7.",
+            "الـ layer 7 هو الـ application layer.",
+            "الـ WAF لا يحدد بالضبط كيف يميز الطلب الخبيث.",
+            "الـ WAF ربما يستخدم قواعد أو patterns جاهزة."
+          ],
+          "latency_ms": 20213.9
+        },
+        {
+          "run": 2,
+          "status": "SUCCESS",
+          "claim_count": 13,
+          "claims": [
+            "الـ Firewall العادي يعمل على مستوى الشبكة.",
+            "الـ Firewall العادي يحدد ما إذا كان الـ IP مسموحًا والـ port مقفول.",
+            "الـ Firewall العادي لا يفهم محتوى الـ packet.",
+            "إذا أرسل أحد هجوم SQL Injection عبر الـ port 80، فإن الـ Firewall يمرره لأن الـ port مفتوح ومفترض أن يكون مفتوحًا.",
+            "الـ WAF هو Firewall مخصص للويب.",
+            "الـ WAF يقرأ الـ requests الواردة إلى الموقع.",
+            "الـ WAF يتحقق مما إذا كانت الـ requests تحتوي على شيء مريب.",
+            "الـ WAF يلتقط هجمات مثل الـ SQL Injection.",
+            "الـ WAF يلتقط هجمات مثل الـ XSS.",
+            "الـ WAF يعمل على الـ layer 7.",
+            "الـ layer 7 هو الـ application layer.",
+            "الـ WAF لا يستطيع تحديد بالضبط كيف يميز الطلب الخبيث.",
+            "الـ WAF يعتقد أنه يستخدم قواعد أو patterns جاهزة."
+          ],
+          "latency_ms": 3245.8
+        },
+        {
+          "run": 3,
+          "status": "SUCCESS",
+          "claim_count": 15,
+          "claims": [
+            "الـ Firewall العادي يعمل على مستوى الشبكة.",
+            "الـ Firewall العادي يحدد ما إذا كان الـ IP مسموحًا.",
+            "الـ Firewall العادي يحدد ما إذا كان الـ port مقفول.",
+            "الـ Firewall العادي لا يفهم محتوى الـ packet.",
+            "إذا أرسل أحد هجوم SQL Injection عبر الـ port 80، فإن الـ Firewall يمرره.",
+            "الـ port 80 مفتوح ومفترض أن يكون مفتوحًا.",
+            "الـ WAF هو Firewall مخصص للويب.",
+            "الـ WAF يقرأ الـ requests الواردة إلى الموقع.",
+            "الـ WAF يتحقق مما إذا كانت الـ requests تحتوي على شيء مريب.",
+            "الـ WAF يلتقط هجمات SQL Injection.",
+            "الـ WAF يلتقط هجمات XSS.",
+            "الـ WAF يعمل على الـ layer 7.",
+            "الـ layer 7 هو الـ application layer.",
+            "الـ WAF لا يحدد بالضبط كيف يميز الطلب الخبيث.",
+            "الـ WAF ربما يستخدم قواعد أو patterns جاهزة."
+          ],
+          "latency_ms": 29624.8
+        }
+      ],
+      "summary": {
+        "claim_counts": [
+          15,
+          13,
+          15
+        ],
+        "claim_count_stable": false,
+        "exact_output_identical": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,1344 @@
+{
+    "evaluation_name":  "InterviewIQ NLP Pilot 25 Baseline",
+    "baseline_commit":  "177d9a46b5123069499505480951b365509ddca5",
+    "random_seed":  42,
+    "selection_method":  "5 stratified random questions per track using Python random.Random(42) over question_id-sorted track subsets",
+    "ground_truth_path":  "InterviewIQ_AI/nlp/interview-iq-fusion-handoff/data/refdocs/reference_docs_250_FINAL_v1.json",
+    "ground_truth_sha256":  "BA062768EB02C6DBE16D90024C30B075AF98F85D08B9E946BB26862AAB250F07",
+    "ground_truth_total":  250,
+    "tracks":  [
+                   "CS",
+                   "DA",
+                   "DS",
+                   "GN",
+                   "SE"
+               ],
+    "questions_per_track":  5,
+    "pilot_total":  25,
+    "selected_questions":  [
+                               {
+                                   "question_id":  "CS-041",
+                                   "track":  "CS",
+                                   "question":  "ما هي الشهادات الرقمية Digital Certificates ومنظومة PKI؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "CS041-C01",
+                                                      "text":  "الشهادة الرقمية Digital Certificate وثيقة إلكترونية تربط مفتاحًا عامًا بهوية مالكه وتوقعها جهة إصدار موثوقة Certificate Authority."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS041-C02",
+                                                      "text":  "البنية التحتية للمفاتيح العامة PKI هي منظومة الأدوار والسياسات والتقنيات لإصدار الشهادات وإدارتها وإبطالها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS041-C03",
+                                                      "text":  "تتحقق صحة الشهادة عبر سلسلة ثقة Chain of Trust تمتد من شهادة الخادم إلى جهة إصدار جذرية Root CA موثوقة مسبقًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS041-C04",
+                                                      "text":  "المعيار الشائع للشهادات هو X.509 ويتضمن الهوية والمفتاح العام وفترة الصلاحية وتوقيع جهة الإصدار."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS041-C05",
+                                                      "text":  "تبطل الشهادات المخترقة قبل انتهاء صلاحيتها عبر قوائم الإبطال CRL أو بروتوكول OCSP."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS041-C06",
+                                                      "text":  "تقوم على PKI تطبيقات واسعة مثل HTTPS وتوقيع الكود والبريد المشفر والتوقيعات الرقمية."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "CS041-C01",
+                                                      "CS041-C02",
+                                                      "CS041-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "full_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "CS-008",
+                                   "track":  "CS",
+                                   "question":  "ما هو الـ Hashing وما الفرق بينه وبين التشفير؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "CS008-C01",
+                                                      "text":  "الـ Hashing هو تحويل مدخل بأي طول إلى بصمة رقمية ثابتة الطول تعرف بالـ Hash أو Digest."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS008-C02",
+                                                      "text":  "دوال الـ Hash أحادية الاتجاه One-way، إذ لا يمكن عمليًا استرجاع المدخل الأصلي من البصمة الناتجة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS008-C03",
+                                                      "text":  "أي تغيير طفيف في المدخل ينتج بصمة مختلفة تمامًا، وهي خاصية تعرف بالـ Avalanche Effect."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS008-C04",
+                                                      "text":  "الفرق الجوهري عن التشفير أن التشفير عملية قابلة للعكس بالمفتاح لاسترجاع الأصل، بينما الـ Hashing غير قابل للعكس بطبيعته."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS008-C05",
+                                                      "text":  "يستخدم الـ Hashing للتحقق من سلامة الملفات Integrity وتخزين كلمات المرور ودعم التوقيعات الرقمية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS008-C06",
+                                                      "text":  "من أشهر دوال الـ Hash الآمنة عائلة SHA-2 مثل SHA-256، بينما تعد MD5 و SHA-1 مكسورتين ولا ينصح باستخدامهما أمنيًا."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "CS008-C01",
+                                                      "CS008-C02",
+                                                      "CS008-C04"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "partial_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "CS-002",
+                                   "track":  "CS",
+                                   "question":  "ما الفرق بين Threat و Vulnerability و Risk؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "CS002-C01",
+                                                      "text":  "الثغرة Vulnerability هي ضعف أو خلل في نظام أو تطبيق أو إجراء يمكن استغلاله للإضرار بالنظام."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS002-C02",
+                                                      "text":  "التهديد Threat هو أي جهة أو حدث محتمل يمكن أن يستغل ثغرة لإحداث ضرر، مثل مهاجم بشري أو برمجية خبيثة Malware."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS002-C03",
+                                                      "text":  "الخطر Risk هو الأثر المحتمل الناتج عن استغلال تهديد لثغرة ما، ويقدر عادة بدمج احتمالية الحدوث مع حجم الأثر."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS002-C04",
+                                                      "text":  "تلخص العلاقة بين المفاهيم الثلاثة بأن الخطر ينشأ من تقاطع التهديد مع الثغرة مع قيمة الأصل Asset المعرض."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS002-C05",
+                                                      "text":  "يمكن خفض الخطر بإزالة الثغرة أو تقليل احتمالية التهديد أو تقليل قيمة التعرض للأصل."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS002-C06",
+                                                      "text":  "تشمل عملية إدارة المخاطر Risk Management تحديد الأصول والتهديدات والثغرات ثم تقييم المخاطر واختيار أسلوب معالجتها."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "CS002-C01",
+                                                      "CS002-C02",
+                                                      "CS002-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "contradictory"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "CS-048",
+                                   "track":  "CS",
+                                   "question":  "ما هو الـ WAF وما الفرق بينه وبين الـ Firewall التقليدي؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "CS048-C01",
+                                                      "text":  "جدار حماية تطبيقات الويب WAF يفحص حركة HTTP/HTTPS لحماية تطبيقات الويب من هجمات طبقة التطبيقات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS048-C02",
+                                                      "text":  "يصد هجمات شائعة مثل SQL Injection و XSS بفحص محتوى الطلبات وليس مجرد عناوينها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS048-C03",
+                                                      "text":  "الجدار الناري التقليدي يعمل على طبقات الشبكة والنقل ويتحكم بالمرور حسب عناوين IP والمنافذ والبروتوكولات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS048-C04",
+                                                      "text":  "لا يفهم الجدار التقليدي منطق تطبيقات الويب فيمرر هجمات تختبئ داخل حركة HTTP مشروعة الظاهر."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS048-C05",
+                                                      "text":  "يعمل WAF عادة بنماذج قوائم سلبية للأنماط الخبيثة المعروفة أو قوائم إيجابية تسمح فقط بالمعروف الآمن."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS048-C06",
+                                                      "text":  "الاثنان متكاملان لا بديلان، إذ يعمل WAF كطبقة إضافية متخصصة فوق الجدار الناري ضمن الدفاع في العمق."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "CS048-C01",
+                                                      "CS048-C02",
+                                                      "CS048-C03",
+                                                      "CS048-C06"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "neutral_irrelevant"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "CS-018",
+                                   "track":  "CS",
+                                   "question":  "ما هو هجوم Brute Force وكيف يواجه؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "CS018-C01",
+                                                      "text":  "هجوم Brute Force يجرب فيه المهاجم بشكل منهجي كل التركيبات الممكنة لكلمة مرور أو مفتاح حتى يصادف الصحيح."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS018-C02",
+                                                      "text":  "هجوم القاموس Dictionary Attack نسخة أذكى تجرب قوائم كلمات مرور شائعة ومسربة بدلًا من كل التركيبات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS018-C03",
+                                                      "text":  "أسلوب Credential Stuffing يجرب أزواج بريد وكلمات مرور مسربة من اختراقات مواقع أخرى استغلالًا لإعادة استخدام كلمات المرور."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS018-C04",
+                                                      "text":  "يزداد زمن كسر كلمة المرور أضعافًا مضاعفة مع زيادة طولها وتنوع محارفها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS018-C05",
+                                                      "text":  "من الدفاعات قفل الحساب المؤقت بعد محاولات فاشلة وتحديد معدل المحاولات Rate Limiting وإضافة CAPTCHA."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "CS018-C06",
+                                                      "text":  "تحد المصادقة متعددة العوامل MFA من أثر نجاح التخمين، وتبطئ دوال الـ Hash المتعمدة البطء مثل bcrypt هجمات التخمين دون اتصال Offline."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "CS018-C01",
+                                                      "CS018-C05"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "mixed"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DA-016",
+                                   "track":  "DA",
+                                   "question":  "ما الفرق بين WHERE و HAVING في SQL؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DA016-C01",
+                                                      "text":  "جملة WHERE تصفي الصفوف الفردية قبل تنفيذ أي تجميع Aggregation في الاستعلام."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA016-C02",
+                                                      "text":  "جملة HAVING تصفي المجموعات الناتجة بعد تنفيذ GROUP BY ودوال التجميع."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA016-C03",
+                                                      "text":  "لا يمكن استخدام دوال التجميع مثل SUM و COUNT داخل شرط WHERE، بينما صممت HAVING خصيصًا للشروط عليها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA016-C04",
+                                                      "text":  "ترتيب التنفيذ المنطقي في SQL يمر بـ WHERE ثم GROUP BY ثم HAVING ثم SELECT ثم ORDER BY."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA016-C05",
+                                                      "text":  "مثال شائع: تستبعد WHERE طلبات سنة معينة، بينما تستبقي HAVING العملاء الذين تجاوز إجمالي طلباتهم حدًا معينًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA016-C06",
+                                                      "text":  "استخدام WHERE للتصفية المبكرة أفضل أداءً من ترك التصفية كلها لـ HAVING لأنها تقلل عدد الصفوف قبل التجميع."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DA016-C01",
+                                                      "DA016-C02",
+                                                      "DA016-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "full_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DA-015",
+                                   "track":  "DA",
+                                   "question":  "اشرح دالة VLOOKUP في Excel وحدودها.",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DA015-C01",
+                                                      "text":  "دالة VLOOKUP في Excel تبحث عن قيمة في العمود الأول من نطاق وتعيد قيمة مقابلة لها من عمود آخر في نفس الصف."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA015-C02",
+                                                      "text":  "صيغة الدالة هي VLOOKUP(lookup_value, table_array, col_index_num, range_lookup) حيث يحدد المعامل الأخير نوع المطابقة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA015-C03",
+                                                      "text":  "القيمة FALSE في المعامل الأخير تطلب مطابقة تامة Exact Match وهي الاستخدام الأكثر أمانًا وشيوعًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA015-C04",
+                                                      "text":  "من حدود الدالة أنها تبحث في العمود الأول من النطاق فقط ولا تستطيع البحث في اتجاه اليسار."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA015-C05",
+                                                      "text":  "اعتماد الدالة على رقم عمود ثابت col_index_num يجعلها عرضة للكسر عند إدراج أو حذف أعمدة داخل النطاق."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA015-C06",
+                                                      "text":  "تعالج دالة XLOOKUP الأحدث هذه القيود بدعم البحث في أي اتجاه وتوفير قيمة افتراضية عند عدم العثور على نتيجة."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DA015-C01",
+                                                      "DA015-C04"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "partial_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DA-009",
+                                   "track":  "DA",
+                                   "question":  "ما الفرق بين الارتباط Correlation والسببية Causation؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DA009-C01",
+                                                      "text":  "الارتباط Correlation يعني وجود علاقة إحصائية بين متغيرين بحيث يتغيران معًا بنمط ملحوظ."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA009-C02",
+                                                      "text":  "السببية Causation تعني أن التغير في أحد المتغيرين يسبب فعليًا التغير في المتغير الآخر."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA009-C03",
+                                                      "text":  "وجود ارتباط بين متغيرين لا يثبت وحده وجود علاقة سببية بينهما، وهو المبدأ المعروف بعبارة Correlation does not imply Causation."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA009-C04",
+                                                      "text":  "قد ينشأ ارتباط زائف بين متغيرين بسبب متغير ثالث خفي يؤثر عليهما معًا يعرف بالـ Confounding Variable."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA009-C05",
+                                                      "text":  "مثال كلاسيكي على الارتباط الزائف هو العلاقة بين مبيعات المثلجات وحوادث الغرق، وسببهما المشترك ارتفاع درجة الحرارة صيفًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA009-C06",
+                                                      "text":  "يتطلب إثبات السببية عادة تجارب محكومة مثل Randomized Controlled Trials أو أساليب استدلال سببي Causal Inference متخصصة."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DA009-C01",
+                                                      "DA009-C02",
+                                                      "DA009-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "contradictory"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DA-048",
+                                   "track":  "DA",
+                                   "question":  "ما هو الـ Data Governance؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DA048-C01",
+                                                      "text":  "حوكمة البيانات Data Governance إطار من السياسات والأدوار والعمليات لإدارة بيانات المؤسسة كأصل استراتيجي."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA048-C02",
+                                                      "text":  "تحدد من يملك البيانات ومن يصل إليها وكيف تعرف مقاييسها ومصطلحاتها بشكل موحد."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA048-C03",
+                                                      "text":  "تضمن جودة البيانات ودقتها واتساقها عبر المؤسسة لدعم قرارات موثوقة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA048-C04",
+                                                      "text":  "تعالج الامتثال للأنظمة والخصوصية مثل حماية البيانات الشخصية وضبط الوصول للبيانات الحساسة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA048-C05",
+                                                      "text":  "من أدوارها المسؤول عن مجال البيانات Data Owner والمشرف التشغيلي Data Steward."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA048-C06",
+                                                      "text":  "تقلل الحوكمة الجيدة جزر البيانات المنعزلة وتعارض التعريفات وتبني ثقة أوسع في التحليلات."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DA048-C01",
+                                                      "DA048-C02",
+                                                      "DA048-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "neutral_irrelevant"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DA-007",
+                                   "track":  "DA",
+                                   "question":  "ما الفرق بين Mean و Median و Mode ومتى تستخدم كلًا منها؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DA007-C01",
+                                                      "text":  "المتوسط الحسابي Mean هو مجموع القيم مقسومًا على عددها، ويدخل في حسابه كل قيمة في البيانات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA007-C02",
+                                                      "text":  "الوسيط Median هو القيمة الواقعة في منتصف البيانات بعد ترتيبها تصاعديًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA007-C03",
+                                                      "text":  "المنوال Mode هو القيمة الأكثر تكرارًا في البيانات، وقد يوجد أكثر من منوال واحد أو لا يوجد إطلاقًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA007-C04",
+                                                      "text":  "المتوسط الحسابي حساس للقيم المتطرفة Outliers، بينما الوسيط مقاوم لتأثيرها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA007-C05",
+                                                      "text":  "يفضل الوسيط للبيانات الملتوية Skewed مثل توزيع الدخول، بينما يناسب المتوسط التوزيعات المتماثلة تقريبًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DA007-C06",
+                                                      "text":  "المنوال هو المقياس الوحيد الصالح للبيانات الفئوية Categorical التي لا يمكن إجراء عمليات حسابية أو ترتيب عليها."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DA007-C01",
+                                                      "DA007-C02",
+                                                      "DA007-C03",
+                                                      "DA007-C04"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "mixed"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DS-044",
+                                   "track":  "DS",
+                                   "question":  "ما الفرق بين النماذج Parametric و Non-parametric؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DS044-C01",
+                                                      "text":  "النماذج البارامترية Parametric تفترض شكلًا داليًا محددًا مسبقًا وتلخص البيانات في عدد ثابت من المعاملات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS044-C02",
+                                                      "text":  "من أمثلة النماذج البارامترية الانحدار الخطي واللوجستي و Naive Bayes."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS044-C03",
+                                                      "text":  "تمتاز بالبساطة وسرعة التدريب وقلة احتياجها للبيانات وسهولة تفسيرها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS044-C04",
+                                                      "text":  "عيبها أن الافتراض الخاطئ لشكل العلاقة يحدها بسقف أداء منخفض مهما زادت البيانات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS044-C05",
+                                                      "text":  "النماذج اللابارامترية Non-parametric لا تفترض شكلًا مسبقًا وينمو تعقيدها مع حجم البيانات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS044-C06",
+                                                      "text":  "من أمثلتها KNN وأشجار القرار، وتمتاز بالمرونة مقابل حاجة أكبر للبيانات وخطر أعلى للـ Overfitting."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DS044-C01",
+                                                      "DS044-C05"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "full_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DS-048",
+                                   "track":  "DS",
+                                   "question":  "ما هو الـ Data Leakage وكيف تتجنبه؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DS048-C01",
+                                                      "text":  "تسرب البيانات Data Leakage هو تسلل معلومات من خارج بيانات التدريب المشروعة إلى النموذج فيبالغ في تقدير أدائه زيفًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS048-C02",
+                                                      "text":  "نتيجته أداء ممتاز مخادع أثناء التطوير ينهار عند مواجهة بيانات حقيقية في الإنتاج."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS048-C03",
+                                                      "text":  "من أشكاله الشائعة إجراء المعالجة المسبقة مثل الـ Scaling على كامل البيانات قبل تقسيمها إلى تدريب واختبار."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS048-C04",
+                                                      "text":  "من أشكاله أيضًا تضمين ميزة تحمل معلومة عن الهدف لا تتوفر وقت التنبؤ الفعلي مثل بيانات مستقبلية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS048-C05",
+                                                      "text":  "يتجنب بتقسيم البيانات أولًا ثم ملاءمة كل خطوات المعالجة على مجموعة التدريب فقط وتطبيقها على الباقي."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS048-C06",
+                                                      "text":  "في البيانات الزمنية يجب التقسيم زمنيًا لمنع تسرب المستقبل، ويفيد استخدام Pipelines لضمان عزل سليم للمراحل."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DS048-C01",
+                                                      "DS048-C02",
+                                                      "DS048-C05"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "partial_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DS-035",
+                                   "track":  "DS",
+                                   "question":  "ما هي شبكات CNN وفيمَ تتفوق؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DS035-C01",
+                                                      "text":  "الشبكات الالتفافية CNN معمارية عصبية مصممة للبيانات ذات البنية الشبكية مثل الصور."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS035-C02",
+                                                      "text":  "طبقة الالتفاف Convolution تمرر مرشحات Filters صغيرة على المدخل لاستخراج خرائط ملامح Feature Maps محلية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS035-C03",
+                                                      "text":  "مشاركة الأوزان في المرشحات تقلص عدد المعاملات بشدة مقارنة بالطبقات كاملة الاتصال Fully Connected."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS035-C04",
+                                                      "text":  "طبقات التجميع Pooling مثل Max Pooling تقلص الأبعاد المكانية وتمنح ثباتًا نسبيًا أمام الإزاحات الصغيرة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS035-C05",
+                                                      "text":  "تتعلم الطبقات المبكرة ملامح بسيطة كالحواف وتركبها الطبقات الأعمق في أنماط وأجزاء وكائنات كاملة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS035-C06",
+                                                      "text":  "تتفوق CNN في مهام الرؤية الحاسوبية مثل تصنيف الصور واكتشاف الكائنات والتقطيع الدلالي Segmentation."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DS035-C01",
+                                                      "DS035-C02",
+                                                      "DS035-C06"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "contradictory"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DS-006",
+                                   "track":  "DS",
+                                   "question":  "ما هي شجرة القرار Decision Tree وكيف تعمل؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DS006-C01",
+                                                      "text":  "شجرة القرار Decision Tree نموذج تنبؤي يقسم البيانات عبر سلسلة من الأسئلة الشرطية على قيم الـ Features."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS006-C02",
+                                                      "text":  "تتكون الشجرة من عقدة جذر Root Node وعقد داخلية تمثل شروط التقسيم وأوراق Leaves تمثل التنبؤ النهائي."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS006-C03",
+                                                      "text":  "يختار التقسيم الأفضل عند كل عقدة بمعايير نقاء مثل Gini Impurity أو الـ Entropy مع Information Gain."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS006-C04",
+                                                      "text":  "تتميز أشجار القرار بسهولة التفسير Interpretability إذ يمكن تتبع مسار أي قرار من الجذر إلى الورقة خطوة بخطوة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS006-C05",
+                                                      "text":  "تميل الشجرة العميقة غير المقيدة إلى الـ Overfitting بحفظها تفاصيل بيانات التدريب الدقيقة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS006-C06",
+                                                      "text":  "يعالج إفراط النمو بتقنيات مثل التقليم Pruning أو تحديد عمق أقصى Max Depth أو حد أدنى لعدد العينات في الورقة."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DS006-C01",
+                                                      "DS006-C02",
+                                                      "DS006-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "neutral_irrelevant"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "DS-038",
+                                   "track":  "DS",
+                                   "question":  "ما هو الـ Transformer وما فكرة الـ Attention؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "DS038-C01",
+                                                      "text":  "الـ Transformer معمارية عصبية قدمت عام 2017 وتعتمد كليًا على آلية الانتباه Attention دون تكرار أو التفاف."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS038-C02",
+                                                      "text":  "تتيح آلية الانتباه لكل عنصر في التسلسل أن يزن أهمية كل العناصر الأخرى عند بناء تمثيله."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS038-C03",
+                                                      "text":  "الانتباه الذاتي Self-Attention يربط المواضع داخل نفس التسلسل ليلتقط الاعتماديات بعيدة المدى مباشرة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS038-C04",
+                                                      "text":  "يعالج الـ Transformer عناصر التسلسل بالتوازي بدل التتابع، مما يسرع التدريب كثيرًا مقارنة بالشبكات المتكررة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS038-C05",
+                                                      "text":  "يضاف ترميز موضعي Positional Encoding لأن الآلية بطبيعتها لا تدرك ترتيب العناصر."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "DS038-C06",
+                                                      "text":  "أصبح الـ Transformer أساس النماذج اللغوية الكبيرة الحديثة مثل عائلتي BERT و GPT."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "DS038-C01",
+                                                      "DS038-C02",
+                                                      "DS038-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "mixed"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "GN-028",
+                                   "track":  "GN",
+                                   "question":  "ما هو الـ Terminal/Command Line ولماذا يفضله المطورون؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "GN028-C01",
+                                                      "text":  "الطرفية Terminal واجهة نصية تتيح التفاعل مع نظام التشغيل بكتابة أوامر بدل النقر على عناصر رسومية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN028-C02",
+                                                      "text":  "الـ Shell هو البرنامج الذي يفسر الأوامر المكتوبة وينفذها، ومن أمثلته Bash و Zsh."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN028-C03",
+                                                      "text":  "يفضلها المطورون لسرعتها في تنفيذ المهام المتكررة مقارنة بالواجهة الرسومية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN028-C04",
+                                                      "text":  "تتيح الأتمتة عبر كتابة سكربتات Scripts تنفذ سلسلة أوامر دفعة واحدة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN028-C05",
+                                                      "text":  "تتيح ربط الأوامر ببعضها عبر الأنابيب Pipes وإعادة توجيه المخرجات لبناء عمليات مركبة قوية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN028-C06",
+                                                      "text":  "هي غالبًا الوسيلة الوحيدة للتحكم في الخوادم البعيدة التي تدار عبر SSH دون واجهة رسومية."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "GN028-C01",
+                                                      "GN028-C03",
+                                                      "GN028-C04"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "full_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "GN-003",
+                                   "track":  "GN",
+                                   "question":  "ما الفرق بين RAM و ROM؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "GN003-C01",
+                                                      "text":  "ذاكرة الوصول العشوائي RAM هي ذاكرة مؤقتة متطايرة Volatile تفقد محتواها بالكامل عند انقطاع الطاقة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN003-C02",
+                                                      "text":  "تخزن RAM البيانات والبرامج قيد التشغيل حاليًا ليتمكن المعالج من الوصول إليها بسرعة عالية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN003-C03",
+                                                      "text":  "ذاكرة القراءة فقط ROM هي ذاكرة دائمة غير متطايرة Non-volatile تحتفظ بمحتواها حتى بدون طاقة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN003-C04",
+                                                      "text":  "تخزن ROM عادة البرمجيات الثابتة Firmware مثل الـ BIOS المسؤول عن عملية إقلاع الجهاز Booting."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN003-C05",
+                                                      "text":  "RAM قابلة للقراءة والكتابة المتكررة السريعة، بينما ROM مخصصة أساسًا للقراءة ويصعب تعديل محتواها في الاستخدام العادي."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN003-C06",
+                                                      "text":  "زيادة سعة RAM تحسن قدرة الجهاز على تشغيل برامج متعددة في وقت واحد، بينما لا ترتبط سعة ROM بهذا الأداء."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "GN003-C01",
+                                                      "GN003-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "partial_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "GN-002",
+                                   "track":  "GN",
+                                   "question":  "ما هو نظام التشغيل وما وظائفه الأساسية؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "GN002-C01",
+                                                      "text":  "نظام التشغيل Operating System هو البرنامج الوسيط الذي يدير موارد الحاسوب المادية ويتيح للتطبيقات والمستخدمين التعامل معها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN002-C02",
+                                                      "text":  "من وظائفه الأساسية إدارة العمليات Process Management بجدولة تنفيذ البرامج وتوزيع وقت المعالج بينها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN002-C03",
+                                                      "text":  "يدير نظام التشغيل الذاكرة Memory Management بتخصيصها للعمليات وتحريرها، ويستخدم تقنيات مثل الذاكرة الافتراضية Virtual Memory."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN002-C04",
+                                                      "text":  "يدير نظام الملفات File System بتنظيم تخزين البيانات واسترجاعها وضبط صلاحيات الوصول إليها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN002-C05",
+                                                      "text":  "يدير الأجهزة الملحقة عبر برامج التعريف Device Drivers التي تترجم أوامر النظام إلى تعليمات يفهمها كل جهاز."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN002-C06",
+                                                      "text":  "يوفر نظام التشغيل واجهة مستخدم رسومية GUI أو سطرية CLI، ومن أشهر الأنظمة Windows و Linux و macOS و Android."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "GN002-C01",
+                                                      "GN002-C02",
+                                                      "GN002-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "contradictory"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "GN-006",
+                                   "track":  "GN",
+                                   "question":  "ما هو الـ IP Address والفرق بين IPv4 و IPv6؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "GN006-C01",
+                                                      "text":  "عنوان الـ IP هو معرف رقمي فريد يخصص لكل جهاز متصل بشبكة تعمل ببروتوكول الإنترنت لتحديد هويته وتوجيه البيانات إليه."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN006-C02",
+                                                      "text":  "يتكون عنوان IPv4 من 32 bit ويكتب عادة بأربعة أرقام عشرية تفصل بينها نقاط مثل 192.168.1.1."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN006-C03",
+                                                      "text":  "يوفر IPv4 نحو 4.3 مليار عنوان فقط، وهو عدد استنفد عمليًا مع الانتشار الهائل للأجهزة المتصلة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN006-C04",
+                                                      "text":  "يتكون عنوان IPv6 من 128 bit ويكتب بصيغة سداسية عشرية Hexadecimal تفصلها نقطتان رأسيتان، ويوفر فضاء عناوين ضخمًا يحل مشكلة النفاد."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN006-C05",
+                                                      "text":  "ساهمت تقنيات مثل NAT في إطالة عمر IPv4 عبر مشاركة عنوان عام واحد بين أجهزة شبكة خاصة كاملة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN006-C06",
+                                                      "text":  "تنقسم العناوين إلى عامة Public قابلة للوصول عبر الإنترنت وخاصة Private تستخدم داخل الشبكات المحلية فقط."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "GN006-C01",
+                                                      "GN006-C02",
+                                                      "GN006-C04"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "neutral_irrelevant"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "GN-014",
+                                   "track":  "GN",
+                                   "question":  "ما الفرق بين IaaS و PaaS و SaaS؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "GN014-C01",
+                                                      "text":  "IaaS أو Infrastructure as a Service يوفر البنية التحتية الخام من خوادم افتراضية وتخزين وشبكات، ويدير العميل ما فوقها من نظام تشغيل وتطبيقات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN014-C02",
+                                                      "text":  "من أمثلة IaaS خدمتا Amazon EC2 و Google Compute Engine."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN014-C03",
+                                                      "text":  "PaaS أو Platform as a Service يوفر منصة جاهزة للتطوير والنشر تدير نظام التشغيل وبيئة التشغيل Runtime، فيركز المطور على الكود فقط."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN014-C04",
+                                                      "text":  "من أمثلة PaaS منصتا Heroku و Google App Engine."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN014-C05",
+                                                      "text":  "SaaS أو Software as a Service يقدم تطبيقات جاهزة كاملة تستخدم عبر المتصفح دون أي إدارة تقنية من العميل، مثل Gmail و Microsoft 365."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "GN014-C06",
+                                                      "text":  "تتدرج مسؤولية العميل تنازليًا من IaaS حيث يدير الأكثر إلى SaaS حيث لا يدير شيئًا تقريبًا سوى بياناته وطريقة استخدامه."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "GN014-C01",
+                                                      "GN014-C03",
+                                                      "GN014-C05"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "mixed"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "SE-015",
+                                   "track":  "SE",
+                                   "question":  "ما هو الـ Indexing في قواعد البيانات وما تكلفته؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "SE015-C01",
+                                                      "text":  "الـ Index بنية بيانات مساعدة تبنيها قاعدة البيانات لتسريع البحث عن الصفوف دون مسح الجدول كاملًا Full Table Scan."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE015-C02",
+                                                      "text":  "تعتمد أغلب الفهارس على بنية B-Tree التي تتيح البحث والإدراج بكفاءة لوغاريتمية تقريبًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE015-C03",
+                                                      "text":  "ينشأ فهرس فريد Unique Index تلقائيًا على المفتاح الأساسي Primary Key في معظم أنظمة قواعد البيانات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE015-C04",
+                                                      "text":  "تكلفة الفهارس أنها تبطئ عمليات الكتابة INSERT و UPDATE و DELETE لأن كل فهرس يجب تحديثه، وتستهلك مساحة تخزين إضافية."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE015-C05",
+                                                      "text":  "الفهرس المركب Composite Index يغطي عدة أعمدة معًا ويخدم الاستعلامات وفق ترتيب أعمدته بدءًا من اليسار."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE015-C06",
+                                                      "text":  "تختار أعمدة الفهرسة عادة من الأعمدة كثيرة الاستخدام في شروط WHERE والربط JOIN والترتيب، مع تجنب الإفراط في عدد الفهارس."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "SE015-C01",
+                                                      "SE015-C04"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "full_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "SE-033",
+                                   "track":  "SE",
+                                   "question":  "ما الفرق بين Array و Linked List؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "SE033-C01",
+                                                      "text":  "المصفوفة Array تخزن عناصرها في مواقع ذاكرة متجاورة، بينما تتوزع عقد القائمة المتصلة Linked List في الذاكرة وتربط بمؤشرات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE033-C02",
+                                                      "text":  "توفر المصفوفة وصولًا عشوائيًا مباشرًا بالفهرس بزمن O(1)، بينما يتطلب الوصول في القائمة المتصلة اجتيازًا تسلسليًا بزمن O(n)."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE033-C03",
+                                                      "text":  "الإدراج والحذف في وسط المصفوفة يتطلب إزاحة العناصر بزمن O(n)، بينما يتمان في القائمة المتصلة بتعديل مؤشرات بعد بلوغ الموضع."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE033-C04",
+                                                      "text":  "حجم المصفوفة الساكنة ثابت مسبقًا وتوسيعها مكلف، بينما تنمو القائمة المتصلة ديناميكيًا عقدة بعد عقدة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE033-C05",
+                                                      "text":  "تستهلك القائمة المتصلة ذاكرة إضافية للمؤشرات وتخسر ميزة التخزين المتجاور الصديق لذاكرة الـ Cache."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE033-C06",
+                                                      "text":  "تفضل المصفوفة عند غلبة القراءة بالفهرس، وتفضل القائمة المتصلة عند كثرة الإدراج والحذف في المقدمة أو المنتصف."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "SE033-C01",
+                                                      "SE033-C02",
+                                                      "SE033-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "partial_correct"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "SE-039",
+                                   "track":  "SE",
+                                   "question":  "ما الفرق بين Process و Thread؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "SE039-C01",
+                                                      "text":  "العملية Process برنامج قيد التنفيذ يملك مساحة ذاكرة مستقلة وموارده الخاصة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE039-C02",
+                                                      "text":  "الخيط Thread وحدة تنفيذ أصغر داخل العملية يشارك بقية خيوط العملية نفس الذاكرة والموارد."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE039-C03",
+                                                      "text":  "عزل الذاكرة يجعل انهيار عملية لا يسقط غيرها، بينما قد يسقط خيط معطوب عمليته كاملة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE039-C04",
+                                                      "text":  "يتطلب التواصل بين العمليات آليات IPC مثل الأنابيب Pipes والرسائل، بينما تتواصل الخيوط مباشرة عبر الذاكرة المشتركة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE039-C05",
+                                                      "text":  "إنشاء الخيوط والتبديل بينها Context Switch أخف كلفة من العمليات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE039-C06",
+                                                      "text":  "مشاركة الذاكرة بين الخيوط تفتح باب مشكلات التزامن مثل Race Conditions وتستلزم أدوات مزامنة مثل الأقفال."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "SE039-C01",
+                                                      "SE039-C02",
+                                                      "SE039-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "contradictory"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "SE-002",
+                                   "track":  "SE",
+                                   "question":  "اشرح مبدأ التغليف Encapsulation مع مثال.",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "SE002-C01",
+                                                      "text":  "التغليف Encapsulation هو تجميع البيانات والدوال التي تعمل عليها داخل وحدة واحدة هي الصنف Class مع تقييد الوصول المباشر للبيانات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE002-C02",
+                                                      "text":  "يطبق التغليف عبر محددات الوصول Access Modifiers مثل private و protected و public."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE002-C03",
+                                                      "text":  "تجعل الخصائص الحساسة private ويتاح التعامل معها فقط عبر دوال وصول عامة تعرف بالـ Getters والـ Setters."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE002-C04",
+                                                      "text":  "يتيح التغليف التحقق من صحة القيم قبل تعديلها، مثل منع تعيين قيمة سالبة لخاصية العمر داخل الـ Setter."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE002-C05",
+                                                      "text":  "من فوائد التغليف حماية سلامة البيانات وتسهيل الصيانة، إذ يمكن تغيير التنفيذ الداخلي دون كسر الكود المستخدم للصنف."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE002-C06",
+                                                      "text":  "مثال شائع للتغليف هو صنف BankAccount الذي يجعل الرصيد Balance خاصية private ولا يتيح تعديلها إلا عبر دوال deposit و withdraw التي تفرض قواعد العمل."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "SE002-C01",
+                                                      "SE002-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "neutral_irrelevant"
+                                                  }
+                               },
+                               {
+                                   "question_id":  "SE-036",
+                                   "track":  "SE",
+                                   "question":  "ما هي شجرة البحث الثنائية Binary Search Tree؟",
+                                   "chunks":  [
+                                                  {
+                                                      "chunk_id":  "SE036-C01",
+                                                      "text":  "شجرة البحث الثنائية BST شجرة لكل عقدة فيها ابنان على الأكثر منظمة وفق قاعدة ترتيب صارمة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE036-C02",
+                                                      "text":  "تقضي القاعدة بأن كل القيم في الشجرة الفرعية اليسرى أصغر من قيمة العقدة وكل القيم في اليمنى أكبر منها."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE036-C03",
+                                                      "text":  "يتيح هذا الترتيب البحث بتقليص مجال البحث للنصف عند كل مستوى بزمن O(log n) في الشجرة المتوازنة."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE036-C04",
+                                                      "text":  "يعطي اجتياز الشجرة بترتيب In-order العناصر مرتبة تصاعديًا."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE036-C05",
+                                                      "text":  "تتدهور الشجرة غير المتوازنة إلى ما يشبه القائمة المتصلة فيصبح البحث O(n) في أسوأ الحالات."
+                                                  },
+                                                  {
+                                                      "chunk_id":  "SE036-C06",
+                                                      "text":  "تعالج أشجار متوازنة ذاتيًا مثل AVL و Red-Black Trees هذا التدهور بالحفاظ على توازن الارتفاع تلقائيًا."
+                                                  }
+                                              ],
+                                   "key_points":  [
+                                                      "SE036-C01",
+                                                      "SE036-C02",
+                                                      "SE036-C03"
+                                                  ],
+                                   "evaluation":  {
+                                                      "decomposition":  null,
+                                                      "retrieval":  null,
+                                                      "evidence_selection":  null,
+                                                      "nli":  null,
+                                                      "technical_scoring":  null,
+                                                      "unsupported_credit":  null,
+                                                      "missed_evidence":  null,
+                                                      "hallucination":  null,
+                                                      "explanation_consistency":  null,
+                                                      "stability":  null,
+                                                      "latency":  null,
+                                                      "primary_failure":  null,
+                                                      "secondary_effects":  null,
+                                                      "notes":  null,
+                                                      "answer_type":  "mixed"
+                                                  }
+                               }
+                           ],
+    "per_section_metrics":  null,
+    "overall_metrics":  null,
+    "architecture_recommendation":  null
+}

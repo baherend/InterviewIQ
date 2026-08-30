@@ -24,7 +24,7 @@ print(result["emotion_scores"])      # {"Low Emotion": 0.08, ...}
 | File | Description |
 |------|-------------|
 | `audio_module.py` | Core inference module with `AudioEmotionPredictor` class |
-| `audio_model.pt` | PyTorch model weights (1.2 GB) |
+| `audio_model.pt` | PyTorch model weights (631,884,518 bytes; intentionally Git-ignored) |
 | `config.json` | Model and audio configuration |
 | `labels.json` | Emotion index-to-label mapping |
 | `requirements.txt` | Python dependencies |

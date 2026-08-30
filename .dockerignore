@@ -1,0 +1,72 @@
+# The backend image only copies these two trees. Whitelisting them prevents
+# root secrets, frontend dependencies/builds, docs, posters, and local media
+# from entering the backend build context at all.
+**
+!backend/
+!backend/**
+!InterviewIQ_AI/
+!InterviewIQ_AI/**
+
+# Source-control state, secrets, machine-local environments, and caches.
+**/.git/
+**/.gitignore
+**/.env
+**/.env.*
+**/.venv/
+**/.venv*/
+**/venv/
+**/venv*/
+**/env/
+**/backend.venv/
+**/node_modules/
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.cache/
+**/.ipynb_checkpoints/
+**/*.egg-info/
+**/dist/
+**/build/
+
+# Runtime state, generated experiment work, and local/private evidence.
+backend/storage/
+backend/interviewiq_test.db
+InterviewIQ_AI/fusion/outputs/
+InterviewIQ_AI/**/trainer_work_v1/
+InterviewIQ_AI/**/checkpoint-*/
+InterviewIQ_AI/**/checkpoints/
+**/wandb/
+**/runs/
+
+# Large model/data archives and media are externally managed. None is needed
+# to import or start the controlled-degradation backend image.
+**/*.pyc
+**/*.pyo
+**/*.log
+**/*.tmp
+**/*.zip
+**/*.7z
+**/*.tar
+**/*.gz
+**/*.safetensors
+**/*.pt
+**/*.pth
+**/*.onnx
+**/*.ckpt
+**/*.bin
+**/*.npy
+**/*.npz
+**/*.pkl
+**/*.pickle
+**/*.joblib
+**/*.wav
+**/*.mp3
+**/*.m4a
+**/*.flac
+**/*.ogg
+**/*.webm
+**/*.mp4
+**/*.mov
+**/*.avi
+**/*.mkv
+**/*.ipynb

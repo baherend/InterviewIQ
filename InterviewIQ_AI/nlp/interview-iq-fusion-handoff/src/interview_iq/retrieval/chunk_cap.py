@@ -17,11 +17,10 @@ never meant to pick winners, only to bound the irrelevant long tail.
 n_chunks <= k behaviour (this is the common case measured against the real
 corpus — decisions.md D42: chunks/doc min=6, max=12, mean=6.06, median=6; the
 current k=10 PRE-CALIBRATION DEFAULT means the cap only binds on documents
-with 11-12 chunks): when a document's chunk count is already <= k, this
-module SHORT-CIRCUITS and returns every chunk, in its original order, WITHOUT
-constructing an embedder or computing a single embedding. Ranking chunks that
-already all fit under the cap would only reorder them for no purpose the cap
-exists to serve, and would burn embedding compute for nothing.
+with 11-12 chunks): every chunk remains in the NLI candidate set and keeps
+its original order, but BGE-M3 still ranks the candidates so the most
+relevant evidence cell can be selected. `k` is therefore only a compute cap;
+it is never used as a relevance gate.
 
 Model loading is lazy and injectable: BgeM3Embedder does not import
 FlagEmbedding or construct the BGE-M3 model until `.encode()` is first
@@ -51,11 +50,9 @@ class BgeM3Embedder:
     """Lazy, real BGE-M3 embedder (production path).
 
     The FlagEmbedding model is NOT constructed in __init__ — only on the
-    first `.encode()` call. Since `select_top_k_chunks` only calls
-    `.encode()` when the cap actually binds (n_chunks > k), this class can be
-    safely default-constructed anywhere (e.g. as `chunk_embedder` in a CLI's
-    argument default) without ever downloading anything unless a document
-    with more than k chunks is actually scored.
+    first `.encode()` call. This class can be safely default-constructed and
+    shared across a claim loop without loading the model until a non-empty
+    claim/document pair is actually ranked.
     """
 
     def __init__(self, model_name: str = "BAAI/bge-m3", device: str = "cpu") -> None:
@@ -95,9 +92,18 @@ def _cosine(a: Sequence[float], b: Sequence[float]) -> float:
 
 
 @dataclass(frozen=True)
+class RankedChunk:
+    chunk_id: str
+    similarity: float
+
+
+@dataclass(frozen=True)
 class ChunkCapResult:
     chunks: tuple[Chunk, ...]
-    capped: bool  # True iff n_chunks > k and ranking/truncation actually ran
+    capped: bool  # True iff n_chunks > k and truncation actually ran
+    ranking: tuple[RankedChunk, ...]
+    relevant_chunk_id: str | None
+    relevant_similarity: float | None
 
 
 def select_top_k_chunks(
@@ -110,21 +116,43 @@ def select_top_k_chunks(
     out of `chunks`. COMPUTE CAP, not a filtering gate — see module
     docstring.
 
-    n_chunks <= k: returns every chunk, in original order, `capped=False`,
-    and never constructs or calls an embedder.
+    n_chunks <= k: returns every chunk in original order, `capped=False`,
+    while still ranking all chunks to identify the relevant evidence cell.
     n_chunks > k: ranks all chunks by cosine similarity to claim_text and
     returns the top k, `capped=True`.
     """
-    if len(chunks) <= k:
-        return ChunkCapResult(chunks=tuple(chunks), capped=False)
+    if k < 1:
+        raise ValueError("k must be at least 1")
+    if not chunks:
+        return ChunkCapResult(
+            chunks=(), capped=False, ranking=(),
+            relevant_chunk_id=None, relevant_similarity=None,
+        )
 
     embedder = embedder or BgeM3Embedder()
     claim_vec = embedder.encode([claim_text])[0]
     chunk_vecs = embedder.encode([c.text for c in chunks])
+    if len(chunk_vecs) != len(chunks):
+        raise ValueError(
+            "Chunk embedder returned a different number of vectors than input chunks."
+        )
     scored = sorted(
-        zip(chunks, chunk_vecs),
-        key=lambda pair: _cosine(claim_vec, pair[1]),
+        ((chunk, _cosine(claim_vec, vector)) for chunk, vector in zip(chunks, chunk_vecs)),
+        key=lambda pair: pair[1],
         reverse=True,
     )
-    top = tuple(chunk for chunk, _ in scored[:k])
-    return ChunkCapResult(chunks=top, capped=True)
+    ranking = tuple(
+        RankedChunk(chunk_id=chunk.chunk_id, similarity=similarity)
+        for chunk, similarity in scored
+    )
+    capped = len(chunks) > k
+    selected_chunks = (
+        tuple(chunk for chunk, _ in scored[:k]) if capped else tuple(chunks)
+    )
+    return ChunkCapResult(
+        chunks=selected_chunks,
+        capped=capped,
+        ranking=ranking,
+        relevant_chunk_id=ranking[0].chunk_id,
+        relevant_similarity=ranking[0].similarity,
+    )

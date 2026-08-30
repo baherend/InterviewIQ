@@ -27,6 +27,71 @@ phases.
 The backend will refuse to start with a clear error if `DATABASE_URL` or
 `JWT_SECRET_KEY` is missing — it no longer falls back to a hardcoded secret.
 
+### Native backend and test dependencies
+
+For a backend-only local environment, create a Python 3.11 virtual
+environment and install the runtime dependencies:
+
+```bash
+cd backend
+python -m venv .venv
+.venv/Scripts/python -m pip install -r requirements.txt
+```
+
+To run the backend test suite, install the separately pinned test tools and
+then run pytest:
+
+```bash
+.venv/Scripts/python -m pip install -r requirements-dev.txt
+.venv/Scripts/python -m pytest -q
+```
+
+On macOS/Linux, replace `.venv/Scripts/python` with `.venv/bin/python`.
+
+### Real AI runtimes and large checkpoints
+
+Git contains the AI source, configs, reference data, adapters, and tests, but
+not the trained PyTorch checkpoints. The two local checkpoints are larger
+than GitHub's normal 100 MB per-file limit and remain intentionally ignored:
+
+| Component | Required path | Bytes | SHA-256 |
+|---|---|---:|---|
+| Audio emotion | `InterviewIQ_AI/audio/audio_emotion_package/audio_model.pt` | 631,884,518 | `9F6101FB1D0C13A49C2B3BAF6046337A34E648A67BC1ADFFCFAED7C1802407F5` |
+| Vision | `InterviewIQ_AI/vision/vsc_ravdess_test73_deployment (1)/vsc_ravdess_lora_r16_test73_24.pt` | 118,788,254 | `9B4B336B7A465B9ECFF2F32640441483ABCAC1B516B81CD649EAB64A169C6CE8` |
+
+Obtain these files from the project's authorized artifact storage (or an
+authorized existing project copy), verify the hashes, and place them at the
+paths above. Do not commit them to ordinary Git. If the project needs remote
+distribution, publish them through access-controlled release storage or Git
+LFS and document that location here.
+
+Create the three isolated AI environments when real local inference is
+needed:
+
+```bash
+python -m venv InterviewIQ_AI/audio/audio_emotion_package/.venv_audio
+InterviewIQ_AI/audio/audio_emotion_package/.venv_audio/Scripts/python -m pip install -r InterviewIQ_AI/audio/audio_emotion_package/requirements.txt
+
+python -m venv InterviewIQ_AI/vision/.venv_vision
+InterviewIQ_AI/vision/.venv_vision/Scripts/python -m pip install -r InterviewIQ_AI/vision/requirements.txt
+
+python -m venv InterviewIQ_AI/nlp/interview-iq-fusion-handoff/.venv_nlp
+InterviewIQ_AI/nlp/interview-iq-fusion-handoff/.venv_nlp/Scripts/python -m pip install -r InterviewIQ_AI/nlp/interview-iq-fusion-handoff/requirements.txt
+```
+
+On macOS/Linux use each environment's `bin/python`. The backend and Fusion
+configuration select `Scripts/python.exe` or `bin/python` automatically.
+The optional `AUDIO_EMOTION_PYTHON`, `AUDIO_EMOTION_CHECKPOINT`, and
+`NLP_PYTHON` variables override backend paths; the standalone Fusion demo
+supports the `INTERVIEWIQ_*` overrides listed in `.env.example`.
+
+The web/API/database stack starts without these local artifacts. Requests
+that need an unavailable model return a typed `model unavailable`/execution
+failure state; they do not crash backend startup and they never substitute a
+fabricated score. The standard Docker image intentionally excludes local
+virtual environments and checkpoints, so it provides this controlled
+degraded behavior unless a separately managed AI runtime is configured.
+
 ## 2. Start Docker Desktop
 
 Docker Desktop must be running before using `docker compose`. Start it from
@@ -41,6 +106,15 @@ docker compose up --build
 
 This builds and starts four services: `db` (PostgreSQL), `backend`
 (FastAPI), `frontend` (Vite dev server), and `nginx` (HTTPS reverse proxy).
+Compose constructs the backend container's `DATABASE_URL` from
+`POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB`, always targeting the
+Docker service hostname `db`. A separate native-development `DATABASE_URL`
+in `.env` therefore cannot accidentally switch the container to SQLite.
+The backend image is built from the repository root so the tracked
+`InterviewIQ_AI` source tree is available at runtime. Before Uvicorn starts,
+the backend container applies the tracked Alembic migrations with
+`alembic upgrade head`; a brand-new PostgreSQL volume therefore needs no
+manual bootstrap command.
 
 ## 4. Check container status
 
@@ -69,8 +143,10 @@ uploaded interview recordings.
   `/var/lib/postgresql/data` inside the `db` container.
 - **Uploaded interview recordings** — named Docker volume `uploads`, mounted
   at the path set by `UPLOAD_DIR` (default `/app/storage/uploads`) inside the
-  `backend` container. This replaced the previous `/tmp/uploads` path, which
-  is not a durable location on all platforms.
+  `backend` container. Compose deliberately fixes this container path even if
+  a native Windows `UPLOAD_DIR` is also present in `.env`. This replaced the
+  previous `/tmp/uploads` path, which is not a durable location on all
+  platforms.
 
 Both volumes survive `docker compose down`. They are only removed by
 `docker compose down -v` or `docker volume rm`, which should not be run
@@ -79,54 +155,53 @@ without a clear reason.
 ## Database migrations (Alembic)
 
 As of this phase, **Alembic is the single authoritative source of the
-database schema.** The application no longer creates tables on startup — a
-database must be migrated with Alembic before the backend will start
-against it. If the backend finds the schema missing (e.g. a brand-new,
-unmigrated database), it fails fast at startup with a clear error telling
-you to run `alembic upgrade head`, instead of silently creating tables.
+database schema.** The application does not create tables itself. In Docker,
+the backend container applies committed migrations before Uvicorn starts.
+For a native backend process, run `alembic upgrade head` yourself first. If
+the application finds a missing schema, it fails fast instead of silently
+creating tables.
 
 All commands below are run **inside the running backend container**, from
-its `/app` working directory (which is what `alembic.ini`'s
+its `/app/backend` working directory (which is what `alembic.ini`'s
 `script_location = alembic` is relative to):
 
 ```
-docker compose exec backend bash -c "cd /app && alembic <command>"
+docker compose exec backend sh -c "cd /app/backend && alembic <command>"
 ```
 
 ### First-time setup / a brand-new database
 
-Before starting the backend against a database that has never been
-migrated, run:
+Docker does this automatically at backend startup. To apply migrations
+explicitly (for example, while the backend service is stopped), run:
 ```
-docker compose exec backend bash -c "cd /app && alembic upgrade head"
+docker compose run --rm backend alembic upgrade head
 ```
-This creates the `users`, `questions`, `interviews`, and `results` tables
-(and the `alembic_version` bookkeeping table). Only after this succeeds
-should the backend be started.
+This creates or upgrades the application tables and the `alembic_version`
+bookkeeping table.
 
 ### Check the current revision
 
 ```
-docker compose exec backend bash -c "cd /app && alembic current"
+docker compose exec backend alembic current
 ```
 
 ### Upgrade an existing database to the latest migration
 
 ```
-docker compose exec backend bash -c "cd /app && alembic upgrade head"
+docker compose exec backend alembic upgrade head
 ```
 Safe to run repeatedly — Alembic no-ops if already at `head`.
 
 ### Create a new migration (future schema changes)
 
 ```
-docker compose exec backend bash -c "cd /app && alembic revision --autogenerate -m 'short description'"
+docker compose exec backend alembic revision --autogenerate -m 'short description'
 ```
 The backend container does **not** bind-mount the source tree, so the
 generated file is written inside the container's filesystem, not the host
 repo. Copy it out before it can be reviewed or committed:
 ```
-docker cp <backend-container-id>:/app/alembic/versions/<generated_file>.py backend/alembic/versions/
+docker cp <backend-container-id>:/app/backend/alembic/versions/<generated_file>.py backend/alembic/versions/
 ```
 (Find the container id with `docker compose ps -q backend`.)
 

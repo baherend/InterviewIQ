@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import List, Optional
 
@@ -5,6 +6,13 @@ from pydantic import ValidationError
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _venv_python(venv_dir: Path) -> Path:
+    """Return the platform-native interpreter path for a virtual environment."""
+    if os.name == "nt":
+        return venv_dir / "Scripts" / "python.exe"
+    return venv_dir / "bin" / "python"
 
 
 class Settings(BaseSettings):
@@ -39,6 +47,9 @@ class Settings(BaseSettings):
     # FUSION_MAX_UPLOAD_BYTES: a segment is one answer to one question,
     # not a whole-interview recording. ---
     ANSWER_SEGMENT_UPLOAD_DIR: Optional[str] = None
+    AUDIO_EMOTION_PYTHON: Optional[str] = None
+    AUDIO_EMOTION_CHECKPOINT: Optional[str] = None
+    NLP_PYTHON: Optional[str] = None
     ANSWER_SEGMENT_MAX_UPLOAD_BYTES: int = 150 * 1024 * 1024
     AUDIO_EXTRACTION_TIMEOUT_SECONDS: int = 120
     AUDIO_MODEL_TIMEOUT_SECONDS: int = 300
@@ -137,10 +148,16 @@ class Settings(BaseSettings):
 
     @property
     def audio_emotion_python(self) -> Path:
-        return self.audio_emotion_package_dir / ".venv_audio" / "Scripts" / "python.exe"
+        if self.AUDIO_EMOTION_PYTHON:
+            path = Path(self.AUDIO_EMOTION_PYTHON).expanduser()
+            return (path if path.is_absolute() else self.project_root / path).resolve()
+        return _venv_python(self.audio_emotion_package_dir / ".venv_audio")
 
     @property
     def audio_emotion_checkpoint(self) -> Path:
+        if self.AUDIO_EMOTION_CHECKPOINT:
+            path = Path(self.AUDIO_EMOTION_CHECKPOINT).expanduser()
+            return (path if path.is_absolute() else self.project_root / path).resolve()
         return self.audio_emotion_package_dir / "audio_model.pt"
 
     @property
@@ -160,7 +177,10 @@ class Settings(BaseSettings):
 
     @property
     def nlp_handoff_python(self) -> Path:
-        return self.nlp_handoff_dir / ".venv_nlp" / "Scripts" / "python.exe"
+        if self.NLP_PYTHON:
+            path = Path(self.NLP_PYTHON).expanduser()
+            return (path if path.is_absolute() else self.project_root / path).resolve()
+        return _venv_python(self.nlp_handoff_dir / ".venv_nlp")
 
     @property
     def asr_runner(self) -> Path:

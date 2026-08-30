@@ -74,10 +74,16 @@ Only current, evidence-backed issues belong here. Historical audit findings are 
 
 ## KI-007 — Deployment path does not package the real AI runtime
 
-- Status: `OPEN_VERIFIED`
+- Status: `PARTIALLY_RESOLVED`
 - Area: infrastructure
-- Current fact: the shown backend Docker build does not include/mount `InterviewIQ_AI`, dedicated modality environments, or checkpoints; Nginx timeout is shorter than the configured Fusion timeout; background jobs are non-durable.
-- Impact: local success does not establish deployability or restart-safe processing.
+- Current fact: the backend Docker image now contains all tracked
+  `InterviewIQ_AI` source, ffmpeg, and automatic migrations, and the complete
+  stack starts from a clean source tree. Dedicated heavy AI environments and
+  the two >100 MB checkpoints remain externally managed; background jobs are
+  still non-durable.
+- Impact: web/API/database deployment is reproducible and missing models fail
+  explicitly, but the standard image does not perform full real-model inference
+  and restart-safe background processing is still absent.
 - Closure criteria: deployment target is confirmed, dependencies/artifacts are packaged securely, timeouts align, durable job/recovery semantics are defined, and deployment smoke/E2E tests pass.
 
 ## KI-008 — Documentation provenance and duplication gaps

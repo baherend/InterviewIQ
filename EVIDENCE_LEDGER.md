@@ -549,3 +549,48 @@ Result: forensic task `PASS`; the defect remains open with status `ROOT_CAUSE_VE
 - Production build: Vite 5.4.21 transformed 2,534 modules successfully; only the existing bundle-size advisory remains.
 - Final SHA-256 values: `frontend/src/pages/Login.jsx` `28526B0778890EDCBE01C063D59B8E561172521589075700ACDC59334FA6336C`; `frontend/src/pages/Register.jsx` `0129E1C59A5574BE51C4485E0F0F697FC1CCF01177655F55D9935B67143AAFB9`.
 - Result: `PASS`; checkpoint `CP-020` is verified.
+
+## EV-037 — CP-021 repository completeness and reproducibility validation
+
+- Date: 2026-08-29
+- Repository comparison: `D:\InterviewIQ-final` and the GitHub clone both
+  began at `3f60c683`; canonical had no unique required source. The defense
+  copy differs only by line endings in apparent source changes. Older-copy
+  unique candidates are generated archives/databases or ignored checkpoints.
+  `D:\Interview project` is a separate Audio SER experiment tree; its deployable
+  package source is already present under `InterviewIQ_AI/audio`.
+- Root cause: backend-only Docker context omitted `InterviewIQ_AI`; `/app` also
+  broke repository-root derivation. Vite was exposed on a port it did not use,
+  and a zero-byte `backend/alembic/__init__.py` shadowed installed Alembic.
+- Regression evidence: backend `71 passed, 1 skipped`; NLP `24 passed`; Fusion
+  `15 passed`; Vision behavioral confidence `12 passed`; Vite production build
+  PASS (2,533 modules, existing bundle advisory only); Python compileall and
+  direct backend/Audio/Vision/Fusion/NLP imports PASS.
+- Real-artifact evidence: the ignored 631,884,518-byte Audio checkpoint produced
+  a valid three-class result for the tracked sample; the ignored 118,788,254-byte
+  Vision checkpoint loaded strictly on CPU with its expected eight classes.
+- Docker evidence: isolated Compose project built all images, PostgreSQL became
+  healthy, backend applied `e7a2c4f19b6d (head)`, seeded 31 questions, logged
+  `Application startup complete`, imported Audio/Fusion in-container, and
+  returned backend health 200, frontend 200, nginx HTTPS 200, and the expected
+  unauthenticated API 401.
+- Safety evidence: only `.env.example` is tracked; private-key/token signature
+  scan returned no files; `.env`, venvs, node_modules, checkpoints, and model
+  weights remain ignored; `git diff --check` passed.
+- Canonical context follow-up (2026-08-30): local ignored AI environments,
+  archives, checkpoints, trainer work, model files, Fusion output WAV/JSON/logs,
+  test videos, caches, databases, storage, and frontend artifacts were present
+  but not deleted. The final Docker whitelist reduced a full context transfer
+  from more than 456 MB to 6.15 MB. Image audit reports `/app/backend` 576 KB,
+  `/app/InterviewIQ_AI` 6.1 MB, required `alembic/env.py` present, and zero
+  forbidden secret/model/media/database/archive/log/environment files.
+- Canonical Compose portability follow-up: native Windows `UPLOAD_DIR` and
+  SQLite `DATABASE_URL` values first demonstrated unsafe inheritance. Compose
+  now fixes `/app/storage/uploads` and constructs PostgreSQL from `POSTGRES_*`.
+  The rebuilt four-service stack used `PostgresqlImpl`, applied all nine
+  migrations to `e7a2c4f19b6d`, seeded 31 questions, logged application startup,
+  returned health/frontend/nginx HTTPS 200, HTTP 301, and protected API 401.
+- Final canonical regression: backend `71 passed, 1 skipped`; NLP `24 passed`;
+  Fusion `15 passed`; Vision behavioral confidence `12 passed`; Vite build
+  PASS with 2,533 modules and only the existing chunk advisory; dedicated
+  Audio, Vision, NLP, and Fusion imports all PASS.

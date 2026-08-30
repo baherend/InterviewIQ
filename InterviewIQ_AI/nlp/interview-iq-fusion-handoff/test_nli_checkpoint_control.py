@@ -18,6 +18,7 @@ from interview_iq.evaluation.checkpoint_control import (
     load_manifest,
     normalize_overlap_text,
     sha256_file,
+    sha256_text_file,
     validate_manifest,
     validate_training_separation,
     write_json,
@@ -37,7 +38,7 @@ def test_frozen_manifest_dataset_and_question_boundary() -> None:
     manifest = load_manifest(MANIFEST)
     dataset, cases, controls = load_and_validate_dataset(ROOT, manifest)
 
-    assert sha256_file(ROOT / manifest["dataset"]["path"]) == "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18"
+    assert sha256_text_file(ROOT / manifest["dataset"]["path"]) == "5AA1278465B99B4D88AAE94871181D2A768A91AB601AD1B4E2141CF0B2A8DC18"
     assert dataset["do_not_train"] is True
     assert len(cases) == 45
     assert controls["unique_case_ids"] == 45
@@ -76,7 +77,7 @@ def test_dataset_duplicate_controls_fail(tmp_path: Path, defect: str) -> None:
     path.write_text(json.dumps(dataset, ensure_ascii=False), encoding="utf-8")
     test_manifest = copy.deepcopy(manifest)
     test_manifest["dataset"]["path"] = path.name
-    test_manifest["dataset"]["sha256"] = sha256_file(path)
+    test_manifest["dataset"]["sha256"] = sha256_text_file(path)
     with pytest.raises(CheckpointControlError, match="Duplicate"):
         load_and_validate_dataset(tmp_path, test_manifest)
 

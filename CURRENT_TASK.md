@@ -1,29 +1,63 @@
 # Current Task
 
-- Task ID: `TASK-AUTH-INPUT-ICON-ALIGNMENT-001`
-- Status: `VERIFIED_COMPLETE_FRONTEND_ONLY`
-- Verified checkpoint: `CP-020 — Authentication input icon alignment fixed`
-- Resumed from: `CP-019`
-- Product file authorization: `frontend/src/pages/Login.jsx` and `frontend/src/pages/Register.jsx` only
-- Authentication logic/backend/API/routes authorization: **NOT AUTHORIZED AND NOT USED**
+- Task ID: `TASK-REPOSITORY-COMPLETENESS-001`
+- Status: `CANONICAL_VALIDATED_PUSH_PENDING`
+- Checkpoint: `CP-021 — repository completeness repair validated in canonical tree`
+- Authorized repositories: investigation work in `D:\InterviewIQ-github-test`, then intentional sync/commit/push from `D:\InterviewIQ-final`
+- Read-only evidence repositories: `D:\InterviewIQ-final-1`, `D:\InterviewIQ-defense-test`, and `D:\Interview project`
 
-## Outcome
+## Objective
 
-- All icon-bearing Sign In and Create Account inputs now use authoritative 44px left padding, preventing the shared `.input-field` shorthand from overriding their component spacing.
-- Text and placeholders begin 14px after the unchanged 16px icons instead of overlapping them by 14px.
-- Existing icon size, color, horizontal position, vertical-centering classes, dark-theme input styling, form behavior, API calls, and routes remain unchanged.
+Audit every supplied local copy against GitHub, restore all required source,
+repair reproducibility/import/Docker defects, validate the complete stack,
+sync only the proven changes to the canonical repository, push `main`, and
+prove the pushed state with a brand-new GitHub clone.
+
+## Verified outcome so far
+
+- Canonical and the original GitHub test clone started at the same pushed
+  commit, `3f60c683cba4061b2b41f74f6e765bd3d7c22735`.
+- No required source/config/test from the three read-only copies is newer or
+  missing from GitHub. Their unique files are generated databases, archives,
+  experimental material, or ignored model artifacts.
+- The Docker backend failure was caused by a backend-only build context that
+  omitted `InterviewIQ_AI`, compounded by an image layout incompatible with
+  `PROJECT_ROOT`. The repaired image uses the repository root context and
+  preserves `/app/backend` plus `/app/InterviewIQ_AI`.
+- Fresh-database startup now applies Alembic migrations automatically; the
+  empty `backend/alembic/__init__.py` that shadowed the installed Alembic
+  package was removed.
+- The missing BGE relevance/same-cell NLI behavior documented by existing
+  tests, CLI code, memory, and ADR-20260823-005 was restored.
+- Windows-only AI interpreter defaults were replaced by platform-native paths
+  with explicit overrides.
+- Large ignored checkpoints are documented by exact path, byte size, and
+  SHA-256. They are not authorized for ordinary Git.
 
 ## Verification
 
-- Baseline diagnosis: PASS. Browser measurement proved the shared input rule reduced computed left padding to 16px, causing a 14px icon/text overlap.
-- Focused source audit: PASS. The complete product diff is exactly six `pl-10` to `!pl-11` class-token changes: two in Sign In and four in Create Account.
-- Rendered placeholder and entered-value geometry: PASS. Every affected input computes to 44px left padding, 14px clear post-icon spacing, unchanged 16×16 icons, and less than 0.01px vertical-center delta.
-- Frontend production build: PASS (`vite build`, 2,534 modules transformed). Only the existing large-chunk advisory remains.
-- Browser console audit: PASS with zero errors on `/login` and `/register`.
-- Scope audit: only the two authorized authentication form components changed; authentication logic, backend, API, and routes are unchanged.
+- Backend: `71 passed, 1 skipped` (the skip is the opt-in real-model smoke).
+- NLP: `24 passed`.
+- Fusion: `15 passed`.
+- Vision behavioral confidence: `12 passed`.
+- Frontend production build: PASS, 2,533 modules; existing chunk-size advisory only.
+- Direct source imports: backend, Audio, Vision, Fusion, and NLP PASS.
+- Real artifact checks: audio sample inference PASS; Vision checkpoint strict load PASS.
+- Full isolated Docker Compose: db/backend/frontend/nginx running; PostgreSQL
+  healthy; Alembic `e7a2c4f19b6d (head)`; 31 questions; backend health 200;
+  frontend 200; nginx HTTPS 200; protected nginx API 401 as expected.
+- Secret signature scan, tracked-env audit, ignore-rule audit, Python
+  compileall, and `git diff --check`: PASS.
+- Canonical-only context audit: full backend context is 6.15 MB; the built
+  image contains 576 KB backend plus 6.1 MB AI source and none of the forbidden
+  secret/model/media/database/archive/cache/environment categories.
+- Canonical Compose also passed with a native Windows `UPLOAD_DIR` and native
+  SQLite `DATABASE_URL` present locally: container storage stayed at
+  `/app/storage/uploads`, the backend used PostgreSQL, all nine migrations
+  reached head, and 31 questions were seeded.
 
 ## Exact next action
 
-Await human review or the next explicit task. Do not repeat CP-020 build/browser validation unless `Login.jsx`, `Register.jsx`, shared input styling, or a rendering dependency changes.
-
-If work returns to KI-001, resume the independently preserved CP-010 state; the CP-009 adapter remains rejected/evaluation-only and Phase 2E design still requires explicit authorization.
+Review and stage only the enumerated task files, commit and push `origin/main`
+without force, then clone GitHub into a new empty validation directory and
+repeat critical clean-clone installation/build/Docker checks.

@@ -14,6 +14,35 @@ This file stores durable, high-signal knowledge. Exact execution position lives 
 
 ## Verified milestones
 
+### CP-021 — Repository completeness repair validated (PASS before canonical sync)
+
+- GitHub/canonical began at the same `3f60c683` tree. Cross-copy inventories
+  found no newer required implementation in the read-only copies; unique
+  candidates were generated databases, archives, experiments, or large ignored
+  artifacts.
+- Docker now builds the backend from the repository root, preserving
+  `/app/backend` and `/app/InterviewIQ_AI`, installs ffmpeg, runs migrations
+  before Uvicorn, and no longer suffers the local `alembic` package shadow.
+- Existing tests/CLI/memory proved that BGE relevance ranking and same-cell NLI
+  evidence behavior were missing from tracked source; the behavior is restored
+  without changing scoring thresholds or model selection.
+- Verification passed: backend 71/1 skipped, NLP 24, Fusion 15, Vision 12,
+  frontend build, direct imports, real Audio inference, real Vision checkpoint
+  load, compileall, secret/ignore audits, and the complete four-service Docker
+  stack at Alembic head with healthy API/frontend/nginx routes.
+- The 631,884,518-byte Audio and 118,788,254-byte Vision checkpoints remain
+  ignored and are documented with hashes and controlled-unavailable behavior.
+  Ordinary Git/GitHub is not an appropriate transport for either file.
+- Canonical-local artifacts initially inflated Docker context beyond 456 MB.
+  The final backend-context whitelist is 6.15 MB and the image audit finds no
+  env files, virtual environments, databases, archives, model/checkpoint files,
+  recordings, logs, caches, or experiment work. Required `alembic/env.py` is
+  explicitly proven present.
+- Docker storage/database settings are isolated from native `.env` paths: the
+  container always mounts `/app/storage/uploads` and constructs its PostgreSQL
+  URL from `POSTGRES_*`. Canonical Compose reached PostgreSQL migration head,
+  seeded 31 questions, and passed backend/frontend/nginx route checks.
+
 ### CP-020 — Authentication input icon alignment fixed (PASS; frontend only)
 
 - Browser diagnosis proved `.input-field { padding: 12px 16px; }` overrode the existing component `pl-10`, leaving only 16px computed left padding and causing a measured 14px overlap with each 16px icon.

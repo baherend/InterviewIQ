@@ -64,11 +64,38 @@ def now_cairo() -> str:
 
 
 def sha256_file(path: Path) -> str:
+    """Return the SHA-256 of the file's exact bytes."""
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest().upper()
+
+
+def sha256_text_file(path: Path) -> str:
+    """Hash text bytes after canonicalizing only line endings to LF.
+
+    The frozen CP-005 dataset digest was declared from an LF checkout. This
+    explicit helper keeps that text contract portable while ``sha256_file``
+    continues to protect model snapshots and generated artifacts byte-for-byte.
+    """
+    payload = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(payload).hexdigest().upper()
+
+
+def _matches_historical_text_hash(path: Path, expected_sha: str) -> bool:
+    """Accept a historical text digest under LF or CRLF checkout semantics.
+
+    CP-005 recorded two repository JSON digests on different operating systems.
+    Integrity remains strict: the only accepted byte transformation is newline
+    normalization; all other bytes must be identical.
+    """
+    payload = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    variants = {
+        hashlib.sha256(payload).hexdigest().upper(),
+        hashlib.sha256(payload.replace(b"\n", b"\r\n")).hexdigest().upper(),
+    }
+    return expected_sha in variants
 
 
 def sha256_json(value: Any) -> str:
@@ -240,7 +267,7 @@ def load_and_validate_dataset(project_root: Path, manifest: Mapping[str, Any]) -
     dataset_spec = manifest["dataset"]
     dataset_path = (project_root / dataset_spec["path"]).resolve()
     _require(dataset_path.is_file(), f"Frozen dataset is missing: {dataset_path}")
-    actual_sha = sha256_file(dataset_path)
+    actual_sha = sha256_text_file(dataset_path)
     _require(actual_sha == dataset_spec["sha256"], f"Frozen dataset SHA mismatch: expected {dataset_spec['sha256']}, got {actual_sha}")
 
     raw = read_json(dataset_path)
@@ -651,7 +678,10 @@ def evaluate_checkpoint(
     dataset_raw, cases, dataset_controls = load_and_validate_dataset(project_root, manifest)
     dataset_path = (project_root / manifest["dataset"]["path"]).resolve()
     contract_path = (project_root / manifest["metrics_contract"]["path"]).resolve()
-    _require(sha256_file(contract_path) == manifest["metrics_contract"]["sha256"], "Metrics-contract SHA mismatch")
+    _require(
+        _matches_historical_text_hash(contract_path, manifest["metrics_contract"]["sha256"]),
+        "Metrics-contract SHA mismatch",
+    )
     contract = read_json(contract_path)
     training_manifests = [(path, read_json(path)) for path in training_manifest_paths]
     separation = validate_training_separation(
@@ -876,7 +906,10 @@ def compare_checkpoint_results(
         )
 
     stored_path = (project_root / manifest["baseline_reference_result"]["path"]).resolve()
-    _require(sha256_file(stored_path) == manifest["baseline_reference_result"]["sha256"], "Stored CP-005 baseline hash mismatch")
+    _require(
+        _matches_historical_text_hash(stored_path, manifest["baseline_reference_result"]["sha256"]),
+        "Stored CP-005 baseline hash mismatch",
+    )
     stored = read_json(stored_path)
     stored_rows = stored["predictions"]
     _require([row["case_id"] for row in stored_rows] == baseline_ids, "Stored CP-005 IDs/order differ")

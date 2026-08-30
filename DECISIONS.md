@@ -60,3 +60,23 @@ Use new IDs in the form `ADR-YYYYMMDD-NNN`. Historical source/comments refer to 
 - Rejected: promotion based on perfect internal dev; a second unapproved training run; CP-005-guided hyperparameter tuning; threshold changes that conceal false polarity.
 - Reason: the held-out evidence fails the conjunctive acceptance contract and shows a generalization/data-authoring-template gap. Internal-dev performance is not sufficient production evidence.
 - Consequence: production remains on the unchanged base. Any next phase begins with separately authorized analysis/design of corpus coverage and template shortcuts, not another automatic training run.
+
+## ADR-20260829-009 — Build the backend from the repository root
+
+- Status: active
+- Decision: keep backend and AI source in their existing repository locations;
+  use the repository root as Docker build context and copy them into
+  `/app/backend` and `/app/InterviewIQ_AI` respectively.
+- Rejected: duplicating `audio`/`fusion` under backend; retaining a backend-only
+  context; copying local virtual environments or checkpoints into the image.
+- Reason: backend configuration derives the repository root from
+  `backend/app/config.py`, and multiple services import tracked AI packages.
+  Preserving that layout is the smallest cross-machine architecture.
+- Consequence: source imports and startup work in a clean image. Large model
+  artifacts remain externally managed and missing models yield typed
+  unavailable states instead of import-time crashes.
+- Build-context boundary: the root context whitelists only `backend` and
+  `InterviewIQ_AI`, then removes machine-local environments, secrets, caches,
+  outputs, training/checkpoint work, archives, datasets in binary formats, and
+  media. Compose container storage and PostgreSQL URLs are fixed to container
+  semantics rather than inheriting native Windows/SQLite path values.

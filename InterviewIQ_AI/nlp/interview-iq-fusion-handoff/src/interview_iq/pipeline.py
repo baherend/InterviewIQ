@@ -71,7 +71,7 @@ from interview_iq.decomposition_llm.transliteration import apply_glossary
 from interview_iq.evaluation.gold_eval import build_pretrained_model_and_tokenizer, load_adapter
 from interview_iq.nli.engine import build_claims_chunks_matrix, build_coverage_matrix
 from interview_iq.refdocs.loader import Chunk, ReferenceDocument
-from interview_iq.retrieval.chunk_cap import ChunkEmbedder, select_top_k_chunks
+from interview_iq.retrieval.chunk_cap import BgeM3Embedder, ChunkEmbedder, select_top_k_chunks
 from interview_iq.scoring.metrics import compute_scoring_result, resolve_key_point_chunks
 
 
@@ -87,6 +87,7 @@ def _empty_result(question: str, question_id: str | None, models_used: dict[str,
         "transliteration_audit": None,
         "decomposition_error": None,
         "models_used": models_used,
+        "retrieval": None,
         "key_point_chunk_ids": None,
         "max_e_per_keypoint": None,
         "precision": None,
@@ -222,14 +223,51 @@ def evaluate_answer(
         max_e_per_claim: list[float] = []
         max_c_per_claim: list[float] = []
         best_chunk_per_claim: list[str | None] = []
-        for claim_text in claims:
-            capped = select_top_k_chunks(claim_text, document.chunks, k=cfg.k, embedder=chunk_embedder).chunks
-            row_matrix = build_claims_chunks_matrix(
-                nli_model, nli_tokenizer, claims=[claim_text], chunks=capped, batch_size=batch_size, max_length=max_length
+        selected_evidence_per_claim: list[dict[str, float]] = []
+        retrieval_records: list[dict[str, Any]] = []
+        if claims and chunk_embedder is None:
+            chunk_embedder = BgeM3Embedder(
+                model_name=cfg.embedding_model,
+                device=str(cfg.retrieval["model"].get("device", "cpu")),
             )
-            max_e_per_claim.append(row_matrix.max_entailment(0))
-            max_c_per_claim.append(row_matrix.max_contradiction(0))
-            best_chunk_per_claim.append(row_matrix.best_chunk_id(0))
+        for claim_index, claim_text in enumerate(claims):
+            retrieval = select_top_k_chunks(
+                claim_text, document.chunks, k=cfg.k, embedder=chunk_embedder
+            )
+            row_matrix = build_claims_chunks_matrix(
+                nli_model, nli_tokenizer, claims=[claim_text], chunks=retrieval.chunks,
+                batch_size=batch_size, max_length=max_length,
+            )
+            selected_chunk_id = retrieval.relevant_chunk_id
+            if selected_chunk_id is None:
+                selected_chunk_id = row_matrix.best_chunk_id(0)
+            if selected_chunk_id is None:
+                selected = {"entailment": 0.0, "neutral": 0.0, "contradiction": 0.0}
+            else:
+                evidence = row_matrix.evidence_for_chunk(0, selected_chunk_id)
+                selected = {
+                    "entailment": evidence.entailment,
+                    "neutral": evidence.neutral,
+                    "contradiction": evidence.contradiction,
+                }
+            max_e_per_claim.append(selected["entailment"])
+            max_c_per_claim.append(selected["contradiction"])
+            best_chunk_per_claim.append(selected_chunk_id)
+            selected_evidence_per_claim.append(selected)
+            retrieval_records.append(
+                {
+                    "claim_index": claim_index,
+                    "claim_text": claim_text,
+                    "selected_chunk_id": selected_chunk_id,
+                    "selected_similarity": retrieval.relevant_similarity,
+                    "capped": retrieval.capped,
+                    "candidate_chunk_ids": [chunk.chunk_id for chunk in retrieval.chunks],
+                    "ranking": [
+                        {"chunk_id": item.chunk_id, "similarity": item.similarity}
+                        for item in retrieval.ranking
+                    ],
+                }
+            )
 
         key_point_chunks = resolve_key_point_chunks(document)
         coverage_matrix = build_coverage_matrix(
@@ -246,6 +284,7 @@ def evaluate_answer(
 
     result["key_point_chunk_ids"] = [c.chunk_id for c in key_point_chunks]
     result["max_e_per_keypoint"] = max_e_per_keypoint
+    result["retrieval"] = retrieval_records
 
     # ── Stage 5: Dual-Channel Scoring ────────────────────────────────────
     combination_cfg = cfg.scoring["combination"]
@@ -273,6 +312,9 @@ def evaluate_answer(
             "best_chunk_id": cs.best_chunk_id,
             "max_e": cs.max_e,
             "max_c": cs.max_c,
+            "nli_entailment": selected_evidence_per_claim[cs.claim_index]["entailment"],
+            "nli_neutral": selected_evidence_per_claim[cs.claim_index]["neutral"],
+            "nli_contradiction": selected_evidence_per_claim[cs.claim_index]["contradiction"],
             "verdict": cs.verdict.verdict.value,
             "claim_score": cs.verdict.score,
         }

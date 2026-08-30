@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
 
@@ -47,13 +48,28 @@ class FusionSmokeTests(unittest.TestCase):
         nlp.return_value = ({"status": "SUCCESS", "score": 12.0, "asr": {"normalized_transcript": "unrelated"}},
                             {"status": "completed"})
         with tempfile.TemporaryDirectory() as td:
-            output = Path(td) / "result.json"
-            result = run_fusion(Settings().reference_json.parent / "not-video.mp4", "SE-028", output)
+            temp_dir = Path(td)
+            output = temp_dir / "result.json"
+            placeholder_checkpoint = temp_dir / "placeholder.pt"
+            placeholder_checkpoint.write_bytes(b"test-only-placeholder")
+            nlp_env = temp_dir / ".env"
+            nlp_env.write_text("GROQ_API_KEY=test-only-placeholder\n", encoding="utf-8")
+            settings = replace(
+                Settings(),
+                vision_python=Path(sys.executable),
+                audio_python=Path(sys.executable),
+                nlp_python=Path(sys.executable),
+                vision_checkpoint=placeholder_checkpoint,
+                audio_checkpoint=placeholder_checkpoint,
+                nlp_env_file=nlp_env,
+            )
+
+            result = run_fusion(temp_dir / "not-video.mp4", "SE-028", output, settings)
             # Replace the input-video preflight for a genuine temporary file.
             self.assertEqual(result["status"], "failed")
-            video = Path(td) / "video.mp4"
+            video = temp_dir / "video.mp4"
             video.write_bytes(b"x")
-            result = run_fusion(video, "SE-028", output)
+            result = run_fusion(video, "SE-028", output, settings)
             self.assertEqual(result["status"], "partial")
             self.assertTrue(output.is_file())
             self.assertEqual(json.loads(output.read_text(encoding="utf-8"))["status"], "partial")

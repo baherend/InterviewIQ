@@ -94,6 +94,14 @@ def run_nli_matrix(
 
 
 @dataclass(frozen=True)
+class ClaimChunkEvidence:
+    chunk_id: str
+    entailment: float
+    neutral: float
+    contradiction: float
+
+
+@dataclass(frozen=True)
 class ClaimsChunksMatrix:
     """Precision-channel matrix (D21/D26 convention): premise = chunk text,
     hypothesis = claim text. `matrix[claim_idx][chunk_idx]` = probs dict."""
@@ -110,14 +118,38 @@ class ClaimsChunksMatrix:
         row = self.matrix[claim_idx]
         return max((cell["contradiction"] for cell in row), default=0.0)
 
+    def evidence_for_chunk(self, claim_idx: int, chunk_id: str) -> ClaimChunkEvidence:
+        """Return all three probabilities from one claim/chunk cell.
+
+        Keeping the distribution together prevents entailment selected from
+        one chunk from being combined with contradiction selected from a
+        different chunk.
+        """
+        try:
+            chunk_idx = self.chunk_ids.index(chunk_id)
+        except ValueError as exc:
+            raise KeyError(f"Unknown chunk_id {chunk_id!r}") from exc
+        cell = self.matrix[claim_idx][chunk_idx]
+        return ClaimChunkEvidence(
+            chunk_id=chunk_id,
+            entailment=cell["entailment"],
+            neutral=cell["neutral"],
+            contradiction=cell["contradiction"],
+        )
+
+    def best_evidence(self, claim_idx: int) -> tuple[str | None, float, float]:
+        """Legacy max-entailment selector, retained as an empty-ranking fallback."""
+        row = self.matrix[claim_idx]
+        if not row:
+            return None, 0.0, 0.0
+        best_idx = max(range(len(row)), key=lambda index: row[index]["entailment"])
+        cell = row[best_idx]
+        return self.chunk_ids[best_idx], cell["entailment"], cell["contradiction"]
+
     def best_chunk_id(self, claim_idx: int) -> str | None:
         """chunk_id with the highest P(entailment) for this claim — used for
         the per-claim decision log (cli/run_scoring.py)."""
-        row = self.matrix[claim_idx]
-        if not row:
-            return None
-        best_j = max(range(len(row)), key=lambda j: row[j]["entailment"])
-        return self.chunk_ids[best_j]
+        return self.best_evidence(claim_idx)[0]
 
 
 def build_claims_chunks_matrix(

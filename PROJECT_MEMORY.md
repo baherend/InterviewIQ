@@ -14,6 +14,35 @@ This file stores durable, high-signal knowledge. Exact execution position lives 
 
 ## Verified milestones
 
+### CP-022 — GitHub push and clean-clone validation complete (PASS)
+
+- The reviewed implementation was committed as
+  `06738744e51625f1c756cc07d652e209999fd807`, pushed normally to
+  `origin/main`, fetched back, and matched exactly.
+- A new `D:\InterviewIQ-github-validation` clone was created directly from
+  GitHub. It was configured only from tracked documentation and `.env.example`
+  using generated process-only credentials; no source was copied into it.
+- Fresh-clone verification passed: backend `71 passed, 1 skipped`; NLP `24
+  passed`; Fusion `15 passed`; Vision behavioral confidence `12 passed`; Vite
+  production build (2,533 modules); isolated Audio/Vision imports; Fusion/NLP
+  imports; and authenticated API flow.
+- Fresh Compose built backend from a 6.13 MB context and frontend from a
+  457.23 kB context after local venv/node/build artifacts existed. PostgreSQL
+  was healthy, all nine migrations reached `e7a2c4f19b6d (head)`, 31 questions
+  were seeded, backend startup completed, and backend/frontend/nginx/protected
+  proxy checks returned the expected 200/301/401 statuses.
+- The backend image contains 572 KB backend plus 6.0 MB AI runtime source and
+  no env, checkpoint/model, media, database, archive, notebook, or log files.
+- Whole-tree safety review found no credential signatures, tracked model/
+  checkpoint/database/archive files, or tracked blobs at least 10 MB. Seven
+  legacy recordings from the baseline were removed from Git tracking only;
+  canonical local evidence remains and repository-wide media ignores prevent
+  recurrence.
+- Remaining non-blocking limitations: the standard Docker image intentionally
+  requires external heavyweight AI environments/checkpoints for real model
+  execution; Vite retains its large-chunk advisory; `npm audit` reports three
+  moderate and two high dependency advisories; KI-001 remains open.
+
 ### CP-021 — Repository completeness repair validated (PASS before canonical sync)
 
 - GitHub/canonical began at the same `3f60c683` tree. Cross-copy inventories

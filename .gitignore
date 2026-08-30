@@ -35,10 +35,18 @@ frontend/.vite/
 # Docker
 .docker/
 
-# Uploads
+# Uploads and local media/recordings
 uploads/
 *.webm
 *.mp4
+*.wav
+*.mp3
+*.m4a
+*.flac
+*.ogg
+*.avi
+*.mov
+*.mkv
 
 # Certificates (locally generated, dev-only)
 nginx/ssl/

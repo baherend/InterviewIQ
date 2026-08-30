@@ -28,7 +28,7 @@ print(result["emotion_scores"])      # {"Low Emotion": 0.08, ...}
 | `config.json` | Model and audio configuration |
 | `labels.json` | Emotion index-to-label mapping |
 | `requirements.txt` | Python dependencies |
-| `test_sample.wav` | Sample audio file for testing |
+| `test_sample.wav` | Optional local test recording (intentionally Git-ignored) |
 | `expected_output.json` | Reference output format |
 
 ---
@@ -154,8 +154,8 @@ python audio_module.py path/to/your/audio.wav
 ```python
 from audio_module import predict_emotion
 
-# Test with included sample
-result = predict_emotion("test_sample.wav")
+# Test with a local recording that you supplied (media is Git-ignored)
+result = predict_emotion("path/to/local_test_sample.wav")
 assert "dominant_emotion" in result
 assert "emotion_scores" in result
 assert "confidence_score" in result

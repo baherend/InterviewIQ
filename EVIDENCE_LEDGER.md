@@ -594,3 +594,40 @@ Result: forensic task `PASS`; the defect remains open with status `ROOT_CAUSE_VE
   Fusion `15 passed`; Vision behavioral confidence `12 passed`; Vite build
   PASS with 2,533 modules and only the existing chunk advisory; dedicated
   Audio, Vision, NLP, and Fusion imports all PASS.
+
+## EV-038 — CP-022 normal push, media cleanup, and fresh-clone proof
+
+- Date: 2026-08-30.
+- Push evidence: reviewed commit
+  `06738744e51625f1c756cc07d652e209999fd807` advanced `origin/main` normally
+  from `3f60c683`; fetch/readback showed exact local/remote equality. No force
+  operation was used.
+- Clone evidence: `D:\InterviewIQ-github-validation` was absent, then cloned
+  directly from GitHub. Initial HEAD and `origin/main` both equaled
+  `06738744e51625f1c756cc07d652e209999fd807`; tracked status was clean.
+- Fresh native verification: backend `71 passed, 1 skipped` in a newly created
+  venv; NLP `24 passed` with two dependency deprecation warnings; Fusion `15
+  passed`; Vision behavioral confidence `12 passed`; Audio and Vision imports
+  passed in newly created documented dedicated environments; Fusion/NLP
+  imports passed; Vite built 2,533 modules. `npm audit` reported 3 moderate and
+  2 high dependency advisories and the existing >500 kB chunk advisory remains.
+- Fresh Docker build: generated local venvs, `node_modules`, and `dist` did not
+  inflate contexts—backend transferred 6.13 MB and frontend 457.23 kB. Image
+  audit measured `/app/backend` 572 KB and `/app/InterviewIQ_AI` 6.0 MB, with
+  zero env/model/checkpoint/media/database/archive/notebook/log matches.
+- Fresh Docker runtime: all four services started; PostgreSQL reported healthy;
+  Alembic applied nine upgrades to `e7a2c4f19b6d (head)`; seed count was 31;
+  backend logged `Application startup complete`; ffmpeg 7.1.5 was present.
+  Backend health/docs/frontend/nginx HTTPS returned 200, nginx HTTP returned
+  301, and unauthenticated protected access returned 401 at proxy and backend.
+  Fresh register, login, and authenticated `/api/auth/me` each returned 200;
+  the registered role was enforced as `student`.
+- Standard-image boundary: backend Audio service, Vision lightweight behavior,
+  and Fusion imports pass. Direct heavyweight Audio/NLP model-module imports
+  require the intentionally external PyTorch/Transformers environments and
+  checkpoints; fresh dedicated native runtimes proved those imports instead.
+- Whole-tree safety scan found no credential/key/JWT signatures, tracked model/
+  checkpoint/database/archive files, or tracked files at least 10 MB. Seven
+  legacy audio files from baseline commit `2d59b...` were discovered; all are
+  removed from Git tracking without deleting canonical local copies, and
+  repository-wide recording/media ignore rules cover them going forward.

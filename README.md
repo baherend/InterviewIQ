@@ -4,6 +4,16 @@
 
 # 🎯 InterviewIQ — Multimodal AI Interview Intelligence Platform
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=black" />
+  <img src="https://img.shields.io/badge/PyTorch-AI-EE4C2C?logo=pytorch&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/Multimodal-AI-8A2BE2" />
+</p>
+
 **InterviewIQ** is a full-stack AI platform for interview practice and assessment.
 
 It combines **Audio Analysis, Speech Recognition, NLP, Computer Vision, and Multimodal Fusion** to generate structured, evidence-backed interview feedback.
@@ -162,6 +172,28 @@ NLP Evidence    ─┘
 ```
 
 Each modality is analyzed independently before evidence is combined. Missing or insufficient evidence is explicitly preserved instead of being replaced with fabricated values.
+
+---
+
+## My Contribution
+
+My primary contributions to **InterviewIQ** focused on **Multimodal Fusion** and **Backend Integration**, connecting the AI subsystems with the application workflow.
+
+### Multimodal Fusion
+
+- Integrated outputs from the **Vision, Audio, and NLP** pipelines
+- Worked on the **Late Fusion** workflow for combining modality-level evidence
+- Connected confidence and evidence signals across AI components
+- Preserved missing or insufficient evidence instead of forcing artificial predictions
+- Worked on the Fusion testing and integration pipeline
+
+### Backend Integration
+
+- Connected AI analysis components with the **FastAPI backend**
+- Integrated model outputs into the interview-processing workflow
+- Worked on transferring structured AI results between backend services
+- Supported integration between interview analysis, reports, and application interfaces
+- Helped bridge the AI modules with the full-stack InterviewIQ platform
 
 ---
 

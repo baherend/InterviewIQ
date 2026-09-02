@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/interviewiq-banner.png" alt="InterviewIQ Banner" width="100%" />
+</p>
+
 # 🎯 InterviewIQ — Multimodal AI Interview Intelligence Platform
 
 **InterviewIQ** is a full-stack AI platform for interview practice and assessment.

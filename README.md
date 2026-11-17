@@ -144,7 +144,7 @@ Audio analysis includes:
 - Pause control
 - Speech continuity
 - Volume stability
-- Acoustic emotion analysis
+- Acoustic emotion analysis: BAVED-trained Wav2Vec2-XLSR-53 + BiLSTM classifier (Low / Neutral / High vocal emotion intensity)
 - Evidence sufficiency checks
 
 ---
@@ -177,10 +177,10 @@ Each modality is analyzed independently before evidence is combined. Missing or 
 
 ## My Contribution
 
-I trained the Audio model: an Arabic Speech Emotion Recognition classifier
-(Wav2Vec2-XLSR-53 + BiLSTM) on the BAVED dataset, predicting vocal emotion
-intensity (Low / Neutral / High). I focused on improving the Neutral class
-(precision 0.79 → 0.86).
+I trained the Audio emotion model: an Arabic Speech Emotion Recognition
+classifier (Wav2Vec2-XLSR-53 + BiLSTM) on the BAVED dataset, predicting
+vocal emotion intensity (Low / Neutral / High). I focused on improving the
+Neutral class (precision 0.79 → 0.86 vs. the baseline model).
 
 ---
 

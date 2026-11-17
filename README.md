@@ -177,23 +177,10 @@ Each modality is analyzed independently before evidence is combined. Missing or 
 
 ## My Contribution
 
-My primary contributions to **InterviewIQ** focused on **Multimodal Fusion** and **Backend Integration**, connecting the AI subsystems with the application workflow.
-
-### Multimodal Fusion
-
-- Integrated outputs from the **Vision, Audio, and NLP** pipelines
-- Worked on the **Late Fusion** workflow for combining modality-level evidence
-- Connected confidence and evidence signals across AI components
-- Preserved missing or insufficient evidence instead of forcing artificial predictions
-- Worked on the Fusion testing and integration pipeline
-
-### Backend Integration
-
-- Connected AI analysis components with the **FastAPI backend**
-- Integrated model outputs into the interview-processing workflow
-- Worked on transferring structured AI results between backend services
-- Supported integration between interview analysis, reports, and application interfaces
-- Helped bridge the AI modules with the full-stack InterviewIQ platform
+I trained the Audio model: an Arabic Speech Emotion Recognition classifier
+(Wav2Vec2-XLSR-53 + BiLSTM) on the BAVED dataset, predicting vocal emotion
+intensity (Low / Neutral / High). I focused on improving the Neutral class
+(precision 0.79 → 0.86).
 
 ---
 
